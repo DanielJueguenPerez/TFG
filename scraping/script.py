@@ -13,11 +13,8 @@ headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KH
 res = requests.get(url, headers=headers)
 res.raise_for_status()  
 
-# Asignamos el html a una variable
-html_content = res.text
-
 # Creamos la soup para comenzar el scraping
-soup = BeautifulSoup(html_content, "html.parser")
+soup = BeautifulSoup(res.text, "html.parser")
 
 # Lista donde se almacenarán los enlaces de los grados
 grados_list = []
@@ -85,7 +82,7 @@ for grado in grados_list:
             if not div_year:
                 continue
 
-            año_data = {
+            year_data = {
                 "año": year,
                 "cursos": []
             }
@@ -99,7 +96,7 @@ for grado in grados_list:
                 if not re.match(r'^\d+º Curso$', degree_name):
                     continue
 
-                curso_data = {
+                course_data = {
                     "nombre_curso": degree_name,
                     "asignaturas": []
                 }
@@ -127,21 +124,21 @@ for grado in grados_list:
                     matriculados_totales = aprobados + suspensos + no_presentados
 
                     # Crear diccionario con la información de la asignatura
-                    asignatura_data = {
+                    subject_data = {
                         "nombre_asignatura": subject_name,
-                        "superados": aprobados,
-                        "no_superados": suspensos,
-                        "no_presentados": no_presentados,
-                        "matriculados_totales": matriculados_totales
+                        "aprobados": aprobados,
+                        "suspensos": suspensos,
+                        "no presentados": no_presentados,
+                        "matriculados totales": matriculados_totales
                     }
 
-                    curso_data["asignaturas"].append(asignatura_data)
+                    course_data["asignaturas"].append(subject_data)
 
-                año_data["cursos"].append(curso_data)
+                year_data["cursos"].append(course_data)
 
             # Solo guardar años que tengan al menos un curso válido
-            if año_data["cursos"]:
-                degree_info["results"].append(año_data)
+            if year_data["cursos"]:
+                degree_info["results"].append(year_data)
 
         # Solo guardar grados que tengan resultados válidos
         if degree_info["results"]:
@@ -150,6 +147,6 @@ for grado in grados_list:
     except requests.exceptions.RequestException as e:
         print(f"Error al acceder a {link}: {e}")
 
-# Guardar los resultados en un archivo JSON
+# Se guardan los resultados en un Json
 with open('resultados_grados.json', 'w', encoding='utf-8') as json_file:
     json.dump(final_results, json_file, ensure_ascii=False, indent=4)
