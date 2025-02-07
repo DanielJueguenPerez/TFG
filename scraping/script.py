@@ -64,7 +64,7 @@ for grado in grados_list:
         degree_info = {
             "nombre_grado": degree_name,
             "url": link,
-            "results": []
+            "resultados": []
         }
 
         # Buscar todas las pestañas de años disponibles
@@ -97,7 +97,7 @@ for grado in grados_list:
                     continue
 
                 course_data = {
-                    "nombre_curso": degree_name,
+                    "curso": degree_name,
                     "asignaturas": []
                 }
 
@@ -125,7 +125,7 @@ for grado in grados_list:
 
                     # Crear diccionario con la información de la asignatura
                     subject_data = {
-                        "nombre_asignatura": subject_name,
+                        "asignatura": subject_name,
                         "aprobados": aprobados,
                         "suspensos": suspensos,
                         "no presentados": no_presentados,
@@ -138,10 +138,10 @@ for grado in grados_list:
 
             # Solo guardar años que tengan al menos un curso válido
             if year_data["cursos"]:
-                degree_info["results"].append(year_data)
+                degree_info["resultados"].append(year_data)
 
         # Solo guardar grados que tengan resultados válidos
-        if degree_info["results"]:
+        if degree_info["resultados"]:
             final_results.append(degree_info)
 
     except requests.exceptions.RequestException as e:
