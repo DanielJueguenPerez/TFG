@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Grado(models.Model):
@@ -36,14 +37,16 @@ class EstadisticasAsignatura(models.Model):
     def __str__(self):
         return f"{self.id_asignatura.nombre} ({self.anioAcademico})"
 
-class Usuario(models.Model):
+class Usuario(AbstractUser):
     id_usuario = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
     DNI = models.CharField(max_length=9, unique=True)
-    nombre_usuario = models.CharField(max_length=100, unique=True)
+
+    REQUIRED_FIELDS = ['nombre', 'apellidos', 'email', 'DNI']
+    USERNAME_FIELD = 'username'
 
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
