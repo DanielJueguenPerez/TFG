@@ -48,6 +48,9 @@ class Usuario(AbstractUser):
     REQUIRED_FIELDS = ['nombre', 'apellidos', 'email', 'DNI']
     USERNAME_FIELD = 'username'
 
+    class Meta:
+        db_table = 'Usuario'
+
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
     
