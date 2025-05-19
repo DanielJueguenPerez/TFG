@@ -45,7 +45,7 @@ class Usuario(AbstractUser):
     password = models.CharField(max_length=100)
     DNI = models.CharField(max_length=9, unique=True)
 
-    REQUIRED_FIELDS = ['nombre', 'apellidos', 'email', 'DNI']
+    REQUIRED_FIELDS = ['nombre', 'apellidos', 'email', 'DNI','password']
     USERNAME_FIELD = 'username'
 
     class Meta:
@@ -68,7 +68,6 @@ class Favorito(models.Model):
     id_favorito = models.AutoField(primary_key=True)
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     id_asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
 
     class Meta:
         constraints = [
