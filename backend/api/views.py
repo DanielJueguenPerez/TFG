@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from .serializer import RegistroSerializer, LoginSerializer
 
 class RegistroAPIView(APIView):
@@ -40,3 +41,12 @@ class LoginAPIView(APIView):
                 }
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class LogoutAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    # Eliminamos el token del usuario de la base de datos
+    def post (self, request):
+        user = request.user
+        user.auth_token.delete()
+        return Response({"Deslogueado con exito"}, status=status.HTTP_200_OK)
