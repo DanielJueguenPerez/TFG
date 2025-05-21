@@ -49,3 +49,8 @@ class LoginSerializer(serializers.Serializer):
         data['user'] = user
         return data
     
+class VerPerfilSerializer(serializers.ModelSerializer):
+    # Campos a mostrar
+    class Meta:
+        model = User
+        fields = ['username','nombre','apellidos','email','DNI']
