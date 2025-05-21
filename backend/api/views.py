@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from .serializer import RegistroSerializer, LoginSerializer
+from .serializer import RegistroSerializer, LoginSerializer, VerPerfilSerializer
 
 class RegistroAPIView(APIView):
     # Cualquier usuario puede registrarse, sin necesidad de token
@@ -50,3 +50,10 @@ class LogoutAPIView(APIView):
         user = request.user
         user.auth_token.delete()
         return Response({"Deslogueado con exito"}, status=status.HTTP_200_OK)
+
+class VerPerfilAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get (self, request):
+        serializer = VerPerfilSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
