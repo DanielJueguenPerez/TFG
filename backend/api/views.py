@@ -45,7 +45,8 @@ class LoginAPIView(APIView):
 class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
     
+    # Eliminamos el token del usuario de la base de datos
     def post (self, request):
-        user = request.isupper()
+        user = request.user
         user.auth_token.delete()
-        return Response({"detail": "Deslogueado con exito"}, status=status.HTTP_200_OK)
+        return Response({"Deslogueado con exito"}, status=status.HTTP_200_OK)
