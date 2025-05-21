@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 # Usamos el modelo de usuario especificado en settings.py
 User = get_user_model()
@@ -31,3 +32,20 @@ class RegistroSerializer(serializers.ModelSerializer):
             DNI=validated_data['DNI'],
         )
         return user
+
+class LoginSerializer(serializers.Serializer):
+    # Variables para realizar el login
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+    #Validacion de los datos
+    def validate(self, data):
+        # Se comprueba si el usuario y contraseña son correctos
+        user = authenticate(username=data['username'], password=data['password'])
+        # Si no lo son, se lanza una excepción
+        if user is None:
+            raise serializers.ValidationError("Usuario o contraseña incorrectos")
+        # Si son correctos se devuelve el usuario
+        data['user'] = user
+        return data
+    
