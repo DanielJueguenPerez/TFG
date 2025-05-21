@@ -5,5 +5,5 @@ from .views import RegistroAPIView
 router = routers.DefaultRouter()
 
 urlpatterns = [
-    path('api/register/', RegistroAPIView.as_view(), name='api-registro'),
+    path('api/registro/', RegistroAPIView.as_view(), name='api-registro'),
 ]
