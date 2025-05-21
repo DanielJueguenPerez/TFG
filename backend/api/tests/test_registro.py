@@ -32,7 +32,7 @@ class RegistroUsuarioTests(APITestCase):
         token = Token.objects.get(user=user)
         self.assertEqual(response.data['token'], token.key)
         
-    def test_no_username(self):
+    def test_registro_no_username(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se elimina el campo username
@@ -43,7 +43,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo username
         self.assertIn('username', response.data)
         
-    def test_no_nombre(self):
+    def test_registro_no_nombre(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se elimina el campo nombre
@@ -54,7 +54,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo nombre
         self.assertIn('nombre', response.data)
         
-    def test_no_apellidos(self):
+    def test_registro_no_apellidos(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se elimina el campo apellidos
@@ -65,7 +65,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo apellidos
         self.assertIn('apellidos', response.data)
         
-    def test_no_email(self):
+    def test_registro_no_email(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se elimina el campo email
@@ -76,7 +76,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo email
         self.assertIn('email', response.data)
         
-    def test_no_DNI(self):
+    def test_registro_no_DNI(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se elimina el campo DNI
@@ -87,7 +87,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo DNI
         self.assertIn('DNI', response.data)
         
-    def test_no_password(self):
+    def test_registro_no_password(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se elimina el campo password
@@ -98,7 +98,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo password
         self.assertIn('password', response.data)
         
-    def test_email_invalido(self):
+    def test_registro_email_invalido(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se modifica el campo email
@@ -109,7 +109,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo email
         self.assertIn('email', response.data)
         
-    def test_password_debil(self):
+    def test_registro_password_debil(self):
         # Copia de los datos para no modificar los originales
         datos = self.datos_validos.copy()
         # Se modifica el campo password y password2
@@ -121,7 +121,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo password
         self.assertIn('password', response.data)
         
-    def test_username_ya_existe(self):
+    def test_registro_username_ya_existe(self):
         # Se crea un usuario con un username ya existente
         User.objects.create_user(
             username='pepito',
@@ -137,7 +137,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo username
         self.assertIn('username', response.data)
     
-    def test_email_ya_existe(self):
+    def test_registro_email_ya_existe(self):
         # Se crea un usuario con un email ya existente
         User.objects.create_user(
             username='pepito1',
@@ -153,7 +153,7 @@ class RegistroUsuarioTests(APITestCase):
         # Se comprueba que la respuesta de error esta relacionada con el campo email
         self.assertIn('email', response.data)
 
-    def test_DNI_ya_existe(self):
+    def test_registro_DNI_ya_existe(self):
         # Se crea un usuario con un DNI ya existente
         User.objects.create_user(
             username='pepito1',

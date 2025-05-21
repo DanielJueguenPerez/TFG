@@ -30,6 +30,7 @@ class LoginAPIView(APIView):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data['user']
+            # Se recupera el token para devolverlo en la respuesta
             token, _ = Token.objects.get_or_create(user=user)
             return Response({
                 "token" : token.key,
