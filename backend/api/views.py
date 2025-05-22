@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from .serializer import RegistroSerializer, LoginSerializer, VerPerfilSerializer
+from .serializer import *
 
 class RegistroAPIView(APIView):
     # Cualquier usuario puede registrarse, sin necesidad de token
@@ -57,3 +57,23 @@ class VerPerfilAPIView(APIView):
     def get (self, request):
         serializer = VerPerfilSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class EditarPerfilAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def patch (self, request):
+        # Si el usuario no ha introducido ningun campo, se devuelve un error
+        if not request.data:
+            return Response(
+                {"Debes introducir al menos un campo para actualizar."}, 
+                status=status.HTTP_400_BAD_REQUEST)
+        
+        # Parametros:
+        # request.user - El usuario que ha iniciado sesión
+        # request.data - Los datos que se van a modificar
+        # partial=True - Se permite modificar solo algunos campos (o todos)
+        serializer = EditarPerfilSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"Perfil editado con exito"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
