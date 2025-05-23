@@ -1,4 +1,4 @@
-from rest_framework import status, generics
+from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -87,3 +87,16 @@ class VerGradosListAPIView(generics.ListAPIView):
     queryset = Grado.objects.all().order_by('nombre')
     # Se utiliza el serializer para mostrar los datos
     serializer_class = VerGradosSerializer
+    
+class BuscarAsignaturasListAPIView(generics.ListAPIView):
+    # Se permite el acceso a cualquier usuario, sin necesidad de token
+    permission_classes = []
+    authentication_classes = []
+    
+    # Se prepara el queryset para buscar asignaturas por nombre
+    queryset = Asignatura.objects.all().order_by('nombre')
+    # Se utiliza el serializer para mostrar los datos
+    serializer_class = BuscarAsignaturasSerializer
+    # Se crea el filtro para buscar por el criterio que ha introducido el usuario
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['nombre']
