@@ -6,6 +6,7 @@ from .models import *
 # Usamos el modelo de usuario especificado en settings.py
 User = get_user_model()
 
+# Serializer para la funcionalidad de registro
 class RegistroSerializer(serializers.ModelSerializer):
     # Variables para realizar la confirmación de la contraseña
     password = serializers.CharField(write_only=True, min_length=8)
@@ -34,6 +35,7 @@ class RegistroSerializer(serializers.ModelSerializer):
         )
         return user
 
+# Serializer para la funcionalidad de login
 class LoginSerializer(serializers.Serializer):
     # Variables para realizar el login
     username = serializers.CharField()
@@ -50,12 +52,14 @@ class LoginSerializer(serializers.Serializer):
         data['user'] = user
         return data
     
+# Serializer para la funcionalidad de ver el perfil
 class VerPerfilSerializer(serializers.ModelSerializer):
     # Campos a mostrar
     class Meta:
         model = User
         fields = ['username','nombre','apellidos','email','DNI']
-        
+
+# Serializer para la funcionalidad de editar el perfil
 class EditarPerfilSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False, allow_blank=True)
     
@@ -94,15 +98,55 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
             
         instance.save()
         return instance
-    
+
+# Serializer para la funcionalidad de ver grados
 class VerGradosSerializer(serializers.ModelSerializer):
     # Campos a mostrar
     class Meta:
         model = Grado
         fields = ['id_grado','nombre','url']
-        
+
+# Serializer para la funcionalidad de busqueda de asignaturas
 class BuscarAsignaturasSerializer(serializers.ModelSerializer):
     # Campos a mostrar
     class Meta:
         model = Asignatura
         fields = ['id_asignatura','nombre','curso','id_grado']
+
+# Serializer para la funcionalidad de ver detalles de un grado
+class AsignaturasGradoSerializer(serializers.ModelSerializer):
+    # Campos a mostrar
+    class Meta:
+        model = Asignatura
+        fields = ['id_asignatura','nombre']
+
+class DestallesGradoSerializer(serializers.ModelSerializer):
+    # Variable definida para mostrar las asignaturas de cada curso. Al 
+    # invocar a get_asignaturas_cursos, se asigna automaticamente el valor
+    # de la funcion a la variable, debido a que es un SerializerMethodField
+    asignaturas_cursos = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Grado
+        fields = ['id_grado','nombre','url','asignaturas_cursos']
+        
+    def get_asignaturas_cursos(self, grado):
+        # Se filtran las asignaturas por el grado que se ha pasado como
+        # parametro y se ordenan por curso y nombre
+        asignaturas = Asignatura.objects.filter(id_grado=grado).order_by('curso','nombre')
+        
+        # Se crea un diccionario para almacenar las asignaturas por curso
+        ordenadas = {}
+        
+        # Por cada asignatura en asignaturas, se mira el curso. Si no existe se añade en ordenadas
+        # y se devuelve una lista vacia a la cual se hace append de los datos de la asignatura.
+        # De esta forma se van añadiendo las asignaturas a la lista de su curso correspondiente
+        for asignatura in asignaturas:
+            ordenadas.setdefault(asignatura.curso, []).append(AsignaturasGradoSerializer(asignatura).data)
+        
+        # Se recorre ordenadas y se crea un diccionario que contiene el curso y la
+        # lista de asignaturas asociada a ese curso
+        return[
+            {'curso': curso, 'asignaturas': asignaturas}
+            for curso, asignaturas in ordenadas.items()
+        ]
