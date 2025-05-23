@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/logout/', LogoutAPIView.as_view(), name='api-logout'),
     path('api/ver-perfil/', VerPerfilAPIView.as_view(), name='api-ver-perfil'),
     path ('api/editar-perfil/', EditarPerfilAPIView.as_view(), name='api-editar-perfil'),
+    path('api/grados/', VerGradosListAPIView.as_view(), name='api-ver-grados'),
 ]
