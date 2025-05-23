@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -77,3 +77,13 @@ class EditarPerfilAPIView(APIView):
             serializer.save()
             return Response({"Perfil editado con exito"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class VerGradosListAPIView(generics.ListAPIView):
+    # Se permite el acceso a cualquier usuario, sin necesidad de token
+    permission_classes = []
+    authentication_classes = []
+    
+    # Se recuperan todos los grados por orden alfabético
+    queryset = Grado.objects.all().order_by('nombre')
+    # Se utiliza el serializer para mostrar los datos
+    serializer_class = VerGradosSerializer
