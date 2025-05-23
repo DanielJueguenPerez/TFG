@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
+from .models import *
 
 # Usamos el modelo de usuario especificado en settings.py
 User = get_user_model()
@@ -93,3 +94,9 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
             
         instance.save()
         return instance
+    
+class VerGradosSerializer(serializers.ModelSerializer):
+    # Campos a mostrar
+    class Meta:
+        model = Grado
+        fields = ['id_grado','nombre','url']
