@@ -100,3 +100,15 @@ class BuscarAsignaturasListAPIView(generics.ListAPIView):
     # Se crea el filtro para buscar por el criterio que ha introducido el usuario
     filter_backends = [filters.SearchFilter]
     search_fields = ['nombre']
+    
+class DestallesGradoAPIView(generics.RetrieveAPIView):
+    # Se permite el acceso a cualquier usuario, sin necesidad de token
+    permission_classes = []
+    authentication_classes = []
+    
+    # Se prepara el queryset para buscar asignaturas por nombre
+    queryset = Grado.objects.all().order_by('nombre')
+    # Se utiliza el serializer para mostrar los datos
+    serializer_class = DestallesGradoSerializer
+    # Se establece el campo por el que se va a buscar el grado en la base de datos
+    lookup_field = 'id_grado'
