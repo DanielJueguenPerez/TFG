@@ -100,3 +100,9 @@ class VerGradosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Grado
         fields = ['id_grado','nombre','url']
+        
+class BuscarAsignaturasSerializer(serializers.ModelSerializer):
+    # Campos a mostrar
+    class Meta:
+        model = Asignatura
+        fields = ['id_asignatura','nombre','curso','id_grado']
