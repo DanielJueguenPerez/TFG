@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/editar-perfil/', EditarPerfilAPIView.as_view(), name='api-editar-perfil'),
     path('api/grados/', VerGradosListAPIView.as_view(), name='api-ver-grados'),
     path('api/asignaturas/', BuscarAsignaturasListAPIView.as_view(), name='api-buscar-asignaturas'),
+    path('api/grados/<int:id_grado>/', DestallesGradoAPIView.as_view(), name='api-detalles-grado'),
 ]

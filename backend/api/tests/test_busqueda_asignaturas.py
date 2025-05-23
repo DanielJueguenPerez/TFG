@@ -86,4 +86,3 @@ class BuscarAsignaturasTests(APITestCase):
     def test_buscarasignaturas_solicitud_incorrecta(self):
         resp = self.client.post(self.url, {}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED) 
-        
