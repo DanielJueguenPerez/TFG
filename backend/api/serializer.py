@@ -150,3 +150,43 @@ class DestallesGradoSerializer(serializers.ModelSerializer):
             {'curso': curso, 'asignaturas': asignaturas}
             for curso, asignaturas in ordenadas.items()
         ]
+        
+        
+# Serializer para ver los detalles de una asignatura
+class EstadisticasAsignaturaSerializer(serializers.ModelSerializer):
+    # Campos a mostrar
+    class Meta:
+        model = EstadisticasAsignatura
+        fields = ['id_estadisticasAsignatura','num_matriculados','aprobados','suspensos','no_presentados']
+
+class DestallesAsignaturaSerializer(serializers.ModelSerializer):
+    # Variable definida para mostrar las estadisticas de cada año academico para
+    # cada asignatura. Al invocar a get_estadisticas_anios, se asigna automaticamente el valor
+    # de la funcion a la variable, debido a que es un SerializerMethodField
+    estadisticas_anios = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Asignatura
+        fields = ['id_asignatura','nombre','curso','estadisticas_anios']
+        
+    def get_estadisticas_anios(self, asignatura):
+        # Se filtran las asignaturas por el grado que se ha pasado como
+        # parametro y se ordenan por curso y nombre
+        estadisticas = EstadisticasAsignatura.objects.filter(id_asignatura=asignatura).order_by('anioAcademico')
+        
+        # Se crea un diccionario para almacenar las asignaturas por curso
+        estadisticas_por_anio = {}
+        
+        # Por cada asignatura en asignaturas, se mira el curso. Si no existe se añade en ordenadas
+        # y se devuelve una lista vacia a la cual se hace append de los datos de la asignatura.
+        # De esta forma se van añadiendo las asignaturas a la lista de su curso correspondiente
+        for estadistica in estadisticas:
+            estadisticas_por_anio.setdefault(estadistica.anioAcademico, []).append(
+                EstadisticasAsignaturaSerializer(estadistica).data)
+        
+        # Se recorre ordenadas y se crea un diccionario que contiene el curso y la
+        # lista de asignaturas asociada a ese curso
+        return[
+            {'Año Academico': anioAcademico, 'estadisticas': estadisticas}
+            for anioAcademico, estadisticas in estadisticas_por_anio.items()
+        ]
