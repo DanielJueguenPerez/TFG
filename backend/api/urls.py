@@ -12,4 +12,5 @@ urlpatterns = [
     path('api/grados/<int:id_grado>/', DestallesGradoRetrieveAPIView.as_view(), name='api-detalles-grado'),
     path('api/asignaturas/<int:id_asignatura>/', DestallesAsignaturaRetrieveAPIView.as_view(), name='api-detalles-asignatura'),
     path('api/comentarios/nuevo/<int:id_asignatura>/', CrearComentarioCreateAPIView.as_view(), name='api-crear-comentario'),
+    path('api/comentarios/editar/<int:id_comentario>/', EditarComentarioUpdateAPIView.as_view(), name='api-editar-comentario'),
 ]
