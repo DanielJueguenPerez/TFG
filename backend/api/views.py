@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from .serializer import *
+from rest_framework.generics import get_object_or_404
+from .serializers import *
 
 class RegistroAPIView(APIView):
     # Cualquier usuario puede registrarse, sin necesidad de token
@@ -124,3 +125,14 @@ class DestallesAsignaturaRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = DestallesAsignaturaSerializer
     # Se establece el campo por el que se va a buscar el grado en la base de datos
     lookup_field = 'id_asignatura'
+    
+class CrearComentarioCreateAPIView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ComentarioSerializer
+    
+    # Sobreescribimos el metodo perform_create para especificar el id de
+    # la asignatura en la cual se hace el comentario, y el usuario que lo hace
+    def perform_create(self, serializer):
+        asignatura = get_object_or_404(Asignatura, id_asignatura=self.kwargs['id_asignatura'])
+        serializer.save(id_usuario=self.request.user, id_asignatura=asignatura)
+    
