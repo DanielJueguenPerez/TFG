@@ -12,7 +12,7 @@ class DetallesAsignaturaTests(APITestCase):
         self.grado = Grado.objects.create(nombre='Grado en Física', url='http://ejemplo.com/fisica')
         self.asignatura = Asignatura.objects.create(nombre='Relatividad General', curso=4, id_grado=self.grado)
         # Se define la URL
-        self.url = f'/api/comentarios/nuevo/{self.asignatura.id_asignatura}/'
+        self.url = f'/api/comentarios/{self.asignatura.id_asignatura}/nuevo/'
         # Se crea un usuario
         self.usuario = User.objects.create_user(
             username='pepito',
