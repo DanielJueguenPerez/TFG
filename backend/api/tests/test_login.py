@@ -18,16 +18,20 @@ class LoginTests(APITestCase):
         )
         
     def test_login_correcto(self):
+        # Se hace login con las credenciales correctas
         resp = self.client.post(self.url, {
             'username': 'pepito',
             'password': 'pepe1234'
-        }, format='json')
+        }, format='json')\
+        # Se comprueba que la respuesta es correcta
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertIn('token',resp.data)
         token = Token.objects.get(user=self.usuario)
+        # Se comprueba que el token devuelto es el correcto
         self.assertEqual(resp.data['token'], token.key)
         
     def test_login_correcto_datos_devueltos(self):
+        # Se hace login y se comprueba que los datos del usuario son correctos
         resp = self.client.post(self.url, {
             'username': 'pepito',
             'password': 'pepe1234'
@@ -38,28 +42,35 @@ class LoginTests(APITestCase):
         self.assertEqual(resp.data['user']['email'], self.usuario.email)
         
     def test_login_campos_vacios(self):
+        # Se intenta hacer login sin enviar los campos username y password
         resp = self.client.post(self.url,{}, format='json')
+        # Se comprueba que la respuesta es un error 400 (bad request)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('username', resp.data)
         self.assertIn('password', resp.data)
     
     def test_login_username_incorrecto(self):
+        # Se intenta hacer login con un username que no existe
         resp = self.client.post(self.url, {
             'username': 'Jaimito',
             'password': 'pepe1234'
         }, format='json')
+        # Se comprueba que la respuesta es un error 400 (bad request)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('non_field_errors', resp.data)
 
     def test_login_password_incorrecto(self):
+        # Se intenta hacer login con un password incorrecto
         resp = self.client.post(self.url, {
             'username': 'pepito',
             'password': 'jaimito1234'
         }, format='json')
+        # Se comprueba que la respuesta es un error 400 (bad request)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('non_field_errors', resp.data)
         
     def test_login_token_no_duplicado(self):
+        # Se hace login dos veces con el mismo usuario
         resp1 = self.client.post(self.url, {
             'username': 'pepito',
             'password': 'pepe1234'

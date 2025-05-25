@@ -20,6 +20,7 @@ class VerPerfilTests(APITestCase):
         
     def test_editarperfil_completo_correcto(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        # Se edita el perfil con todos los campos
         resp = self.client.patch(self.url,
             {
                 'username': 'periquito',
@@ -30,6 +31,7 @@ class VerPerfilTests(APITestCase):
                 'password': 'perico1234'
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Recuperamos el usuario de la base de datos y comprobamos que se han actualizado los campos
         self.usuario.refresh_from_db()
         self.assertEqual(self.usuario.username, 'periquito')
         self.assertEqual(self.usuario.nombre, 'Perico')
@@ -39,6 +41,7 @@ class VerPerfilTests(APITestCase):
         self.assertTrue(self.usuario.check_password('perico1234'))
         
     def test_editarperfil_sin_token(self):
+        # Se intenta editar el perfil sin token
         resp = self.client.patch(self.url,
             {
                 'username': 'pepito'
@@ -46,6 +49,7 @@ class VerPerfilTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
         
     def test_editarperfil_token_incorrecto(self):
+        # Se intenta editar el perfil con un token incorrecto
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + 'EsteTokenNoEsValido')
         resp = self.client.patch(self.url,
             {
@@ -55,22 +59,26 @@ class VerPerfilTests(APITestCase):
         self.assertEqual(resp.data, {"detail": "Invalid token."})
             
     def test_editarperfil_sin_campos(self):
+        # Se intenta editar el perfil sin introducir ningun campo
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         resp = self.client.patch(self.url,
             {
                 
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+        # Comprobamos que el mensaje de error es el esperado
         self.assertIn('Debes introducir al menos un campo', str(resp.data))
         
     
     def test_editarperfil_un_campo(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        # Se edita el perfil con un solo campo para comprobar que se actualiza correctamente
         resp = self.client.patch(self.url,
             {
                 'nombre': 'Perico'
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Recuperamos el usuario de la base de datos y comprobamos que se ha actualizado el campo
         self.usuario.refresh_from_db()
         self.assertEqual(self.usuario.username, 'pepito')
         self.assertEqual(self.usuario.nombre, 'Perico')
@@ -81,12 +89,14 @@ class VerPerfilTests(APITestCase):
         
     def test_editarperfil_solo_password(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        # Se edita el perfil solo con el campo password
         resp = self.client.patch(self.url,
             {
                 'password': 'perico1234'
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.usuario.refresh_from_db()
+        # Comprobamos que se ha actualizado el password y los demas campos no han cambiado
         self.assertEqual(self.usuario.username, 'pepito')
         self.assertEqual(self.usuario.nombre, 'Pepe')
         self.assertEqual(self.usuario.apellidos, 'Pérez')
@@ -96,35 +106,42 @@ class VerPerfilTests(APITestCase):
         
     def test_editarperfil_password_en_blanco_no_cambia(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        # Se edita el perfil con el campo password en blanco, no deberia cambiar el password
         resp = self.client.patch(self.url,
             {
                 'password': ''
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que el password no ha cambiado
         self.usuario.refresh_from_db()
         self.assertTrue(self.usuario.check_password('pepe1234'))
         
     def test_editarperfil_campo_desconocido(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        # Se intenta editar el perfil con un campo desconocido
         resp = self.client.patch(self.url,
             {
                 'random': 'random'
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+        # Comprobamos que el mensaje incluye el campo desconocido y que no es válido
         self.assertIn('random', resp.data)
         self.assertIn('no es válido.', str(resp.data))
         
     def test_editarperfil_email_invalido(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        # Se intenta editar el perfil con un email invalido
         resp = self.client.patch(self.url,
             {
                 'email': 'asdasdasd',
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+        # Comprobamos que el mensaje incluye el campo email y que no es un email válido
         self.assertIn('email', resp.data)
         self.assertIn('valid email', str(resp.data))
         
     def test_editperfil_solicitud_incorrecta(self):
+        # Se intenta hacer una solicitud POST a la URL de editar perfil
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         resp = self.client.post(self.url, {}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED) 
