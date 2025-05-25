@@ -62,7 +62,7 @@ class Comentario(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Comentario de {self.id_usuario.nombre_usuario} en {self.id_asignatura.nombre}"
+        return f"Comentario de {self.id_usuario.username} en {self.id_asignatura.nombre}"
 
 class Favorito(models.Model):
     id_favorito = models.AutoField(primary_key=True)
@@ -75,4 +75,4 @@ class Favorito(models.Model):
         ]
 
     def __str__(self):
-        return f"Favorito de {self.id_usuario.nombre_usuario} en {self.id_asignatura.nombre}"
+        return f"Favorito de {self.id_usuario.nombre} en {self.id_asignatura.nombre}"

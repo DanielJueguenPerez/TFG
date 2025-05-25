@@ -190,3 +190,9 @@ class DestallesAsignaturaSerializer(serializers.ModelSerializer):
             {'Año Academico': anioAcademico, 'estadisticas': estadisticas}
             for anioAcademico, estadisticas in estadisticas_por_anio.items()
         ]
+        
+class ComentarioSerializer(serializers.ModelSerializer):
+    # Campos necesarios
+    class Meta:
+        model = Comentario
+        fields = ['id_comentario', 'texto', 'fecha']
