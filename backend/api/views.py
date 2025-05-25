@@ -145,3 +145,13 @@ class EditarComentarioUpdateAPIView(generics.UpdateAPIView):
     # creado el comentario pueda editarlo
     def get_queryset(self):
         return Comentario.objects.filter(id_usuario=self.request.user)
+    
+class EliminarComentarioDestroyAPIView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ComentarioSerializer
+    lookup_field = 'id_comentario'
+    
+    # Sobreescribimos el metodo get_queryset para que solo el usuario que ha
+    # creado el comentario pueda eliminarlo
+    def get_queryset(self):
+        return Comentario.objects.filter(id_usuario=self.request.user)
