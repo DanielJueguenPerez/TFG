@@ -40,19 +40,24 @@ class DetallesAsignaturaTests(APITestCase):
     def test_detallesgrado_campos_correctos(self):
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que los campos devueltos son los correctos
         self.assertCountEqual(
             resp.data.keys(), ['id_asignatura','nombre','curso','estadisticas_anios']
         )
     
     def test_detallesasignatura_id_no_existe(self):
+        # Se intenta acceder a una asignatura que no existe
         resp = self.client.get('/api/asignaturas/100000000/')
+        # Se espera un error 404 con el mensaje de que no existe la asignatura
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(resp.data['detail'], 'No Asignatura matches the given query.')
         
     def test_detallesasignatura_id_no_numerico(self):
+        # Se intenta acceder a una asignatura con un id no numerico
         resp = self.client.get('/api/asignaturas/id_incorrecto/')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_buscarasignaturas_solicitud_incorrecta(self):
+        # Se intenta hacer una solicitud POST a la URL de detalles de asignatura
         resp = self.client.post(self.url, {}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED) 

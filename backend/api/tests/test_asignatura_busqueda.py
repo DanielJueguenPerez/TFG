@@ -34,6 +34,7 @@ class BuscarAsignaturasTests(APITestCase):
     def test_buscarasignaturas_campos_correctos(self):
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta contiene los campos esperados
         self.assertCountEqual(
             resp.data['results'][0].keys(), ['id_asignatura', 'nombre', 'curso', 'id_grado']
         )
@@ -41,31 +42,39 @@ class BuscarAsignaturasTests(APITestCase):
     def test_buscarasignaturas_paginacion_pagina_1(self):
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta contiene 10 resultados
         self.assertEqual(len(resp.data['results']), 10)
+        # Comprobamos que hay un campo 'next' y que no hay 'previous'
         self.assertIsNotNone(resp.data.get('next'))
         self.assertIsNone(resp.data.get('previous'))
         
     def test_buscarasignaturas_paginacion_pagina_2(self):
         resp = self.client.get(self.url+'?page=2')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta contiene 10 resultados
         self.assertEqual(len(resp.data['results']), 10)
+
         self.assertIsNotNone(resp.data.get('next'))
         self.assertIsNotNone(resp.data.get('previous'))
         
     def test_buscarasignaturas_paginacion_pagina_3(self):
         resp = self.client.get(self.url+'?page=3')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta contiene 4 resultados
         self.assertEqual(len(resp.data['results']), 4)
+        # Comprobamos que no hay un campo 'next' y que hay 'previous'
         self.assertIsNone(resp.data.get('next'))
         self.assertIsNotNone(resp.data.get('previous'))
 
     def test_buscarasignaturas_paginacion_pagina_invalida(self):
         resp = self.client.get(self.url+'?page=paginainvalida')
+        # Comprobamos que la respuesta es un error 404
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
         
     def test_buscarasignaturas_busqueda_keyword(self):
         resp = self.client.get(self.url+'?search=bioq')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta contiene asignaturas que coinciden con la búsqueda
         self.assertIn('Bioquímica', [asignatura['nombre'] for asignatura in resp.data['results']])
         resp = self.client.get(self.url+'?search=Relatividad General')
         self.assertIn('Relatividad General', [asignatura['nombre'] for asignatura in resp.data['results']])
@@ -73,11 +82,13 @@ class BuscarAsignaturasTests(APITestCase):
     def test_buscarasignaturas_busqueda_keyword_paginacion(self):
         resp = self.client.get(self.url+'?page=2&search=gnatura')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta contiene asignaturas que coinciden con la búsqueda
         self.assertIn('Asignatura 21', [asignatura['nombre'] for asignatura in resp.data['results']])
         
     def test_buscarasignaturas_sin_resultados(self):
         resp = self.client.get(self.url+'?search=Educación plástica')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Comprobamos que la respuesta no contiene resultados
         self.assertIsNone(resp.data.get('next'))
         self.assertIsNone(resp.data.get('previous'))
         self.assertEqual(resp.data['results'], [])
@@ -85,4 +96,5 @@ class BuscarAsignaturasTests(APITestCase):
         
     def test_buscarasignaturas_solicitud_incorrecta(self):
         resp = self.client.post(self.url, {}, format='json')
+        # Comprobamos que la respuesta es un error 405 (Método no permitido)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED) 

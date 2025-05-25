@@ -17,13 +17,15 @@ class RegistroSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username','nombre','apellidos','email','DNI','password','password2']
         
-    # Validación de las contraseñas    
+    # Sobreescribimos el metodo validate para comprobar que las contraseñas coinciden 
     def validate(self,data):
+        # Comprobamos que los passwords coinciden y quitamos el campo password2
+        # de los datos validados. Si no coinciden, se lanza una excepción
         if data['password'] != data.pop('password2'):
             raise serializers.ValidationError("Las contraseñas no coinciden")
         return data
         
-    # Creación del usuario    
+    # Soperescribimos el metodo create para crear un nuevo usuario   
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
@@ -67,8 +69,8 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username','nombre','apellidos','email','DNI','password')
         
-    # Metodo para validar que, por cualquier circunstancia, no lleguen campos
-    # desconocidos al serializer    
+    # Sobreescribimos el metodo to_internal_value para validar que, por cualquier
+    # circunstancia, no lleguen camposdesconocidos al serializer    
     def to_internal_value(self,data):
         # Comparamos los datos recibidos con los campos del serializer
         campos_desconocidos = set(data.keys()) - set(self.fields.keys())
@@ -80,6 +82,7 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
         # Se llama al validador original para que valide los campos
         return super().to_internal_value(data)
     
+    # Sobreescribimos el metodo update para actualizar los datos del usuario
     # Parametros: 
     # Instance - referencia al objeto del model que se va a actualizar
     # validated_data - datos validados que se van a actualizar 
@@ -92,7 +95,9 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
         # para actualizarlos
         for variable, valor in validated_data.items():
             setattr(instance, variable, valor)
-            
+        
+        # El password lo actualizamos con set_password, que hashea el password
+        # y lo asignamos su correspondiente campo
         if password:
             instance.set_password(password)
             
@@ -113,13 +118,14 @@ class BuscarAsignaturasSerializer(serializers.ModelSerializer):
         model = Asignatura
         fields = ['id_asignatura','nombre','curso','id_grado']
 
-# Serializer para la funcionalidad de ver detalles de un grado
+# Serializer usado para la funcionalidad de ver detalles de un grado
 class AsignaturasGradoSerializer(serializers.ModelSerializer):
     # Campos a mostrar
     class Meta:
         model = Asignatura
         fields = ['id_asignatura','nombre']
 
+# Serializer para la funcionalidad de ver detalles de un grado
 class DestallesGradoSerializer(serializers.ModelSerializer):
     # Variable definida para mostrar las asignaturas de cada curso. Al 
     # invocar a get_asignaturas_cursos, se asigna automaticamente el valor
@@ -152,13 +158,14 @@ class DestallesGradoSerializer(serializers.ModelSerializer):
         ]
         
         
-# Serializer para ver los detalles de una asignatura
+# Serializer usado para ver los detalles de una asignatura
 class EstadisticasAsignaturaSerializer(serializers.ModelSerializer):
     # Campos a mostrar
     class Meta:
         model = EstadisticasAsignatura
         fields = ['id_estadisticasAsignatura','num_matriculados','aprobados','suspensos','no_presentados']
 
+# Serializer para ver los detalles de una asignatura
 class DestallesAsignaturaSerializer(serializers.ModelSerializer):
     # Variable definida para mostrar las estadisticas de cada año academico para
     # cada asignatura. Al invocar a get_estadisticas_anios, se asigna automaticamente el valor
@@ -170,27 +177,29 @@ class DestallesAsignaturaSerializer(serializers.ModelSerializer):
         fields = ['id_asignatura','nombre','curso','estadisticas_anios']
         
     def get_estadisticas_anios(self, asignatura):
-        # Se filtran las asignaturas por el grado que se ha pasado como
-        # parametro y se ordenan por curso y nombre
+        # Se filtran las estadisticas por la asignatura que se ha pasado como
+        # parametro y se ordenan por año academico
         estadisticas = EstadisticasAsignatura.objects.filter(id_asignatura=asignatura).order_by('anioAcademico')
         
-        # Se crea un diccionario para almacenar las asignaturas por curso
+        # Se crea un diccionario para almacenar las estadisticas por año academico
         estadisticas_por_anio = {}
         
-        # Por cada asignatura en asignaturas, se mira el curso. Si no existe se añade en ordenadas
-        # y se devuelve una lista vacia a la cual se hace append de los datos de la asignatura.
-        # De esta forma se van añadiendo las asignaturas a la lista de su curso correspondiente
+        # Por cada estadistica en estadisticas, se mira el año academico. Si no existe se añade en
+        # estadisticas_por_anio y se devuelve una lista vacia a la cual se hace append de las estadisticas
+        # de ese año. De esta forma se van añadiendo las estadisticas a la lista de su 
+        # año academico correspondiente
         for estadistica in estadisticas:
             estadisticas_por_anio.setdefault(estadistica.anioAcademico, []).append(
                 EstadisticasAsignaturaSerializer(estadistica).data)
         
-        # Se recorre ordenadas y se crea un diccionario que contiene el curso y la
-        # lista de asignaturas asociada a ese curso
+        # Se recorre estadisticas_por_anio y se crea un diccionario que contiene el 
+        # año academico y la lista de estadisticas asociada a ese año academico
         return[
             {'Año Academico': anioAcademico, 'estadisticas': estadisticas}
             for anioAcademico, estadisticas in estadisticas_por_anio.items()
         ]
-        
+
+# Serializer para la funcionalidad de crear, editar y eliminar
 class ComentarioSerializer(serializers.ModelSerializer):
     # Campos necesarios
     class Meta:
