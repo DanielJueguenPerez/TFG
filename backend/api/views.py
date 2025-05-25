@@ -136,3 +136,12 @@ class CrearComentarioCreateAPIView(generics.CreateAPIView):
         asignatura = get_object_or_404(Asignatura, id_asignatura=self.kwargs['id_asignatura'])
         serializer.save(id_usuario=self.request.user, id_asignatura=asignatura)
     
+class EditarComentarioUpdateAPIView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ComentarioSerializer
+    lookup_field = 'id_comentario'
+    
+    # Sobreescribimos el metodo get_queryset para que solo el usuario que ha
+    # creado el comentario pueda editarlo
+    def get_queryset(self):
+        return Comentario.objects.filter(id_usuario=self.request.user)
