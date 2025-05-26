@@ -205,3 +205,11 @@ class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
         fields = ['id_comentario', 'texto', 'fecha']
+        
+# Serializer para la funcionalidad de ver los comentarios de una asignatura
+class VerComentariosAsignaturaSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='id_usuario.username', read_only=True)
+    
+    class Meta:
+        model = Comentario
+        fields = ['id_comentario', 'username', 'texto', 'fecha']
