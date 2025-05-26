@@ -19,7 +19,7 @@ class DetallesAsignaturaTests(APITestCase):
             id_asignatura=self.asignatura, anioAcademico=2025, num_matriculados=345, aprobados=218, suspensos=98, no_presentados=29)
 
         
-    def test_detallesgrado_get_sin_autenticación_correcto(self):
+    def test_detallesasignatura_get_sin_autenticación_correcto(self):
         resp = self.client.get(self.url)
         # Guardamos en aniosAcademicos los bloques de estadisticas por año academico (deberia de haber 4)
         aniosAcademicos = resp.data['estadisticas_anios']
@@ -37,7 +37,7 @@ class DetallesAsignaturaTests(APITestCase):
         self.assertEqual(aniosAcademicos[3]['estadisticas'][0]['no_presentados'], 29)
 
     
-    def test_detallesgrado_campos_correctos(self):
+    def test_detallesasignatura_campos_correctos(self):
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Comprobamos que los campos devueltos son los correctos
@@ -57,7 +57,7 @@ class DetallesAsignaturaTests(APITestCase):
         resp = self.client.get('/api/asignaturas/id_incorrecto/')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_buscarasignaturas_solicitud_incorrecta(self):
+    def test_detallesignatura_solicitud_incorrecta(self):
         # Se intenta hacer una solicitud POST a la URL de detalles de asignatura
         resp = self.client.post(self.url, {}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED) 

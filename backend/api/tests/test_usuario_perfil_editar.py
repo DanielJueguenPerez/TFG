@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class VerPerfilTests(APITestCase):
+class EditarPerfilTests(APITestCase):
     def setUp(self):
         self.url = '/api/usuario/editar-perfil/'
         self.usuario = User.objects.create_user(
@@ -140,7 +140,7 @@ class VerPerfilTests(APITestCase):
         self.assertIn('email', resp.data)
         self.assertIn('valid email', str(resp.data))
         
-    def test_editperfil_solicitud_incorrecta(self):
+    def test_editarperfil_solicitud_incorrecta(self):
         # Se intenta hacer una solicitud POST a la URL de editar perfil
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         resp = self.client.post(self.url, {}, format='json')
