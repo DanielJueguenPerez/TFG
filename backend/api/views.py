@@ -180,3 +180,20 @@ class EliminarComentarioDestroyAPIView(generics.DestroyAPIView):
     # creado el comentario pueda eliminarlo
     def get_queryset(self):
         return Comentario.objects.filter(id_usuario=self.request.user)
+    
+# View para ver los comentarios de una asignatura. Se usa una vista generica de tipo ListAPIView
+class VerComentariosAsignaturaListAPIView(generics.ListAPIView):
+    # Se permite el acceso a cualquier usuario, sin necesidad de token
+    permission_classes = []
+    authentication_classes = []
+    
+    # Se prepara el queryset para buscar comentarios por id de asignatura
+    queryset = Comentario.objects.all().order_by('fecha')
+    # Se utiliza el serializer para mostrar los datos
+    serializer_class = VerComentariosAsignaturaSerializer
+    
+    # Se establece el filtro por id de asignatura
+    def get_queryset(self):
+        id_asignatura = self.kwargs['id_asignatura']
+        get_object_or_404(Asignatura, id_asignatura=id_asignatura) 
+        return Comentario.objects.filter(id_asignatura=id_asignatura).order_by('fecha')
