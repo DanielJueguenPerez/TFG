@@ -25,7 +25,7 @@ class RegistroSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Las contraseñas no coinciden")
         return data
         
-    # Soperescribimos el metodo create para crear un nuevo usuario   
+    # Sobreescribimos el metodo create para crear un nuevo usuario   
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
@@ -126,7 +126,7 @@ class AsignaturasGradoSerializer(serializers.ModelSerializer):
         fields = ['id_asignatura','nombre']
 
 # Serializer para la funcionalidad de ver detalles de un grado
-class DestallesGradoSerializer(serializers.ModelSerializer):
+class DetallesGradoSerializer(serializers.ModelSerializer):
     # Variable definida para mostrar las asignaturas de cada curso. Al 
     # invocar a get_asignaturas_cursos, se asigna automaticamente el valor
     # de la funcion a la variable, debido a que es un SerializerMethodField
@@ -166,7 +166,7 @@ class EstadisticasAsignaturaSerializer(serializers.ModelSerializer):
         fields = ['id_estadisticasAsignatura','num_matriculados','aprobados','suspensos','no_presentados']
 
 # Serializer para ver los detalles de una asignatura
-class DestallesAsignaturaSerializer(serializers.ModelSerializer):
+class DetallesAsignaturaSerializer(serializers.ModelSerializer):
     # Variable definida para mostrar las estadisticas de cada año academico para
     # cada asignatura. Al invocar a get_estadisticas_anios, se asigna automaticamente el valor
     # de la funcion a la variable, debido a que es un SerializerMethodField
