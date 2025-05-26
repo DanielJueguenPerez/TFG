@@ -38,7 +38,7 @@ class DetallesAsignaturaTests(APITestCase):
         self.assertEqual(comentarios[0].texto, "Esto es un comentario")
         self.assertEqual(comentarios[1].texto, "Esto es un comentario 2")
         self.assertEqual(comentarios[0].id_usuario, self.usuario)   
-        self.assertEqual(comentarios[0].id_asignatura, self.asignatura)
+        self.assertEqual(comentarios[1].id_asignatura, self.asignatura)
 
     def test_crearcomentario_no_token(self):
         resp = self.client.post(self.url, {"texto": "Esto es un comentario"}, format='json')

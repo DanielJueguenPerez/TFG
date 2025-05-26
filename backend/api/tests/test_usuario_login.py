@@ -7,7 +7,7 @@ User = get_user_model()
 
 class LoginTests(APITestCase):
     def setUp(self):
-        self.url = '/api/login/'
+        self.url = '/api/usuario/login/'
         self.usuario = User.objects.create_user(
             username='pepito',
             nombre='Pepe',

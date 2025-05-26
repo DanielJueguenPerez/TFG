@@ -7,7 +7,7 @@ User = get_user_model()
 
 class VerPerfilTests(APITestCase):
     def setUp(self):
-        self.url = '/api/ver-perfil/'
+        self.url = '/api/usuario/ver-perfil/'
         self.usuario = User.objects.create_user(
             username='pepito',
             nombre='Pepe',
