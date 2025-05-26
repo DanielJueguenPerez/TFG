@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import get_object_or_404
 from django.db import IntegrityError
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
 from .serializers import *
 
 # View para el registro de usuario
@@ -119,7 +119,7 @@ class BuscarAsignaturasListAPIView(generics.ListAPIView):
     search_fields = ['nombre']
 
 # View para ver los detalles de un grado. Se usa una vista generica de tipo RetrieveAPIView
-class DestallesGradoRetrieveAPIView(generics.RetrieveAPIView):
+class DetallesGradoRetrieveAPIView(generics.RetrieveAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
@@ -188,9 +188,6 @@ class VerComentariosAsignaturaListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
-    
-    # Se prepara el queryset para buscar comentarios por id de asignatura
-    queryset = Comentario.objects.all().order_by('fecha')
     # Se utiliza el serializer para mostrar los datos
     serializer_class = VerComentariosAsignaturaSerializer
     
@@ -221,6 +218,7 @@ class AgregarFavoritoCreateAPIView(generics.CreateAPIView):
             raise ValidationError(
                 "No puedes agregar la misma asignatura a favoritos dos veces")
             
+# View para eliminar un favorito. Se usa una vista generica de tipo DestroyAPIView
 class EliminarFavoritoDestroyAPIView(generics.DestroyAPIView):
     # Solo los usuarios autenticados pueden eliminar comentarios
     permission_classes = [IsAuthenticated]
@@ -231,3 +229,18 @@ class EliminarFavoritoDestroyAPIView(generics.DestroyAPIView):
     # creado el favorito pueda eliminarlo
     def get_queryset(self):
         return Favorito.objects.filter(id_usuario=self.request.user)
+    
+# View para ver los favoritos de un usuario. Se usa una vista generica de tipo ListAPIView
+class VerFavoritosListAPIView(generics.ListAPIView):
+    # Solo los usuarios autenticados pueden ver sus favoritos
+    permission_classes = [IsAuthenticated]
+    serializer_class = FavoritoSerializer
+    
+    # Se establece el filtro por id de usuario
+    def get_queryset(self):
+        id_usuario = self.kwargs['id_usuario']
+        if self.request.user.id_usuario != id_usuario:
+            # Si el usuario que hace la petición no es el mismo que el id_usuario,
+            # se devuelve un error 403 (prohibido)
+            raise PermissionDenied ("No tienes permiso para ver los favoritos de otro usuario.")
+        return Favorito.objects.filter(id_usuario=self.request.user).order_by('id_favorito')
