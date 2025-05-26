@@ -30,7 +30,7 @@ class RegistroAPIView(APIView):
         
 # View para el login de usuario
 class LoginAPIView(APIView):
-    # Cualquier usuario intentar hacer login, sin necesidad de token
+    # Cualquier usuario puede intentar hacer login, sin necesidad de token
     permission_classes = []
     authentication_classes = []
     
@@ -93,7 +93,7 @@ class EditarPerfilAPIView(APIView):
             return Response({"Perfil editado con exito"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# View para ver los grados. Se usa una vista generica de tipo ListAPIView
+# View para ver los grados.
 class VerGradosListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
@@ -104,7 +104,7 @@ class VerGradosListAPIView(generics.ListAPIView):
     # Se utiliza el serializer para mostrar los datos
     serializer_class = VerGradosSerializer
 
-# View para ver los grados de un usuario. Se usa una vista generica de tipo ListAPIView
+# View para buscar asignaturas por nombre.
 class BuscarAsignaturasListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
@@ -118,33 +118,33 @@ class BuscarAsignaturasListAPIView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['nombre']
 
-# View para ver los detalles de un grado. Se usa una vista generica de tipo RetrieveAPIView
+# View para ver los detalles de un grado.
 class DetallesGradoRetrieveAPIView(generics.RetrieveAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
     
-    # Se prepara el queryset para buscar un grado por nombre
+    # Se prepara el queryset para obtener un grado por su id
     queryset = Grado.objects.all().order_by('nombre')
     # Se utiliza el serializer para mostrar los datos
-    serializer_class = DestallesGradoSerializer
+    serializer_class = DetallesGradoSerializer
     # Se establece el campo por el que se va a buscar el grado en la base de datos
     lookup_field = 'id_grado'
 
-# View para ver los detalles de una asignatura. Se usa una vista generica de tipo RetrieveAPIView
-class DestallesAsignaturaRetrieveAPIView(generics.RetrieveAPIView):
+# View para ver los detalles de una asignatura.
+class DetallesAsignaturaRetrieveAPIView(generics.RetrieveAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
     
-    # Se prepara el queryset para buscar asignaturas por nombre
+    # Se prepara el queryset para obtener una asignatura por su id
     queryset = Asignatura.objects.all().order_by('nombre')
     # Se utiliza el serializer para mostrar los datos
-    serializer_class = DestallesAsignaturaSerializer
-    # Se establece el campo por el que se va a buscar el grado en la base de datos
+    serializer_class = DetallesAsignaturaSerializer
+    # Se establece el campo por el que se va a buscar la asignatura en la base de datos
     lookup_field = 'id_asignatura'
 
-# View para crear un comentario en una asignatura. Se usa una vista generica de tipo CreateAPIView
+# View para crear un comentario en una asignatura.
 class CrearComentarioCreateAPIView(generics.CreateAPIView):
     # Solo los usuarios autenticados pueden crear comentarios
     permission_classes = [IsAuthenticated]
@@ -159,7 +159,7 @@ class CrearComentarioCreateAPIView(generics.CreateAPIView):
         asignatura = get_object_or_404(Asignatura, id_asignatura=self.kwargs['id_asignatura'])
         serializer.save(id_usuario=self.request.user, id_asignatura=asignatura)
 
-# View para editar comentarios de una asignatura. Se usa una vista generica de tipo UpdateAPIView
+# View para editar comentarios de una asignatura.
 class EditarComentarioUpdateAPIView(generics.UpdateAPIView):
     # Solo los usuarios autenticados pueden editar comentarios
     permission_classes = [IsAuthenticated]
@@ -171,7 +171,7 @@ class EditarComentarioUpdateAPIView(generics.UpdateAPIView):
     def get_queryset(self):
         return Comentario.objects.filter(id_usuario=self.request.user)
 
-# View para eliminar un comentario de una asignatura. Se usa una vista generica de tipo DestroyAPIView
+# View para eliminar un comentario de una asignatura.
 class EliminarComentarioDestroyAPIView(generics.DestroyAPIView):
     # Solo los usuarios autenticados pueden eliminar comentarios
     permission_classes = [IsAuthenticated]
@@ -183,7 +183,7 @@ class EliminarComentarioDestroyAPIView(generics.DestroyAPIView):
     def get_queryset(self):
         return Comentario.objects.filter(id_usuario=self.request.user)
     
-# View para ver los comentarios de una asignatura. Se usa una vista generica de tipo ListAPIView
+# View para ver los comentarios de una asignatura.
 class VerComentariosAsignaturaListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
@@ -193,11 +193,12 @@ class VerComentariosAsignaturaListAPIView(generics.ListAPIView):
     
     # Se establece el filtro por id de asignatura
     def get_queryset(self):
-        id_asignatura = self.kwargs['id_asignatura']
-        get_object_or_404(Asignatura, id_asignatura=id_asignatura) 
-        return Comentario.objects.filter(id_asignatura=id_asignatura).order_by('fecha')
+        id_asignatura_url = self.kwargs['id_asignatura']
+        # Se valida que la asignatura exista, si no, se devuelve un error 404
+        get_object_or_404(Asignatura, id_asignatura=id_asignatura_url) 
+        return Comentario.objects.filter(id_asignatura=id_asignatura_url).order_by('fecha')
     
-# View para agregar una asignatura a favoritos. Se usa una vista generica de tipo CreateAPIView
+# View para agregar una asignatura a favoritos.
 class AgregarFavoritoCreateAPIView(generics.CreateAPIView):
     # Solo los usuarios autenticados pueden agregar favoritos
     permission_classes = [IsAuthenticated]
@@ -218,9 +219,9 @@ class AgregarFavoritoCreateAPIView(generics.CreateAPIView):
             raise ValidationError(
                 "No puedes agregar la misma asignatura a favoritos dos veces")
             
-# View para eliminar un favorito. Se usa una vista generica de tipo DestroyAPIView
+# View para eliminar un favorito.
 class EliminarFavoritoDestroyAPIView(generics.DestroyAPIView):
-    # Solo los usuarios autenticados pueden eliminar comentarios
+    # Solo los usuarios autenticados pueden eliminar favoritos
     permission_classes = [IsAuthenticated]
     serializer_class = FavoritoSerializer
     lookup_field = 'id_favorito'
@@ -230,17 +231,18 @@ class EliminarFavoritoDestroyAPIView(generics.DestroyAPIView):
     def get_queryset(self):
         return Favorito.objects.filter(id_usuario=self.request.user)
     
-# View para ver los favoritos de un usuario. Se usa una vista generica de tipo ListAPIView
+# View para ver los favoritos de un usuario.
 class VerFavoritosListAPIView(generics.ListAPIView):
     # Solo los usuarios autenticados pueden ver sus favoritos
     permission_classes = [IsAuthenticated]
     serializer_class = FavoritoSerializer
     
-    # Se establece el filtro por id de usuario
+    # Se valida que el usuario autenticado coincida con el id_usuario recibido en la URL
     def get_queryset(self):
+        # Se extrae el id_usuario de los parametros de la URL
         id_usuario = self.kwargs['id_usuario']
         if self.request.user.id_usuario != id_usuario:
-            # Si el usuario que hace la petición no es el mismo que el id_usuario,
-            # se devuelve un error 403 (prohibido)
+            # Si el usuario que hace la petición (que está autenticado con token)
+            # no es el mismo que el id_usuario, se lanza una excepción de permiso denegado
             raise PermissionDenied ("No tienes permiso para ver los favoritos de otro usuario.")
         return Favorito.objects.filter(id_usuario=self.request.user).order_by('id_favorito')
