@@ -7,7 +7,7 @@ User = get_user_model()
 
 class LogoutTests(APITestCase):
     def setUp(self):
-        self.url = '/api/logout/'
+        self.url = '/api/usuario/logout/'
         self.usuario = User.objects.create_user(
             username='pepito',
             nombre='Pepe',

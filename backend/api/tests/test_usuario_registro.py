@@ -8,7 +8,7 @@ User = get_user_model()
 
 class RegistroUsuarioTests(APITestCase):
     def setUp(self):
-        self.url = '/api/registro/'
+        self.url = '/api/usuario/registro/'
         self.datos_validos = {
             'username':'pepito',
             'nombre':'Pepe',
