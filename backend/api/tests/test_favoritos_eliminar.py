@@ -30,7 +30,7 @@ class EliminarFavoritoTests(APITestCase):
             password='manolo1234'
         )
         self.token2 = Token.objects.create(user=self.usuario2)
-        # Se crean dos comentarios, uno de cada usuario
+        # Se crean dos favoritos, uno de cada usuario
         self.favoritopepe = Favorito.objects.create(
             id_usuario=self.usuario1, id_asignatura=self.asignatura)
         self.favoritomanolo = Favorito.objects.create(

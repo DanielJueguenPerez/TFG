@@ -9,7 +9,7 @@ User = get_user_model()
 
 class VerComentariosAsignaturaTests(APITestCase):
     def setUp(self):
-        # Se crea una asignatura y un grado
+        # Se crean asignaturas un grados
         self.grado = Grado.objects.create(nombre='Grado en Física', url='http://ejemplo.com/fisica')
         self.asignatura = Asignatura.objects.create(nombre='Relatividad General', curso=4, id_grado=self.grado)
         self.asignatura1 = Asignatura.objects.create(nombre='Cálculo', curso=1, id_grado=self.grado)
@@ -34,17 +34,17 @@ class VerComentariosAsignaturaTests(APITestCase):
         )
         self.token2 = Token.objects.create(user=self.usuario2)
         # Se crean algunos comentarios de ambos usuarios
-        self.comentariopepe = Comentario.objects.create(
+        self.comentariopepe1= Comentario.objects.create(
             texto="Comentario de Pepe en Relatividad", id_usuario=self.usuario1, id_asignatura=self.asignatura)
-        self.comentariopepe = Comentario.objects.create(
+        self.comentariopepe2 = Comentario.objects.create(
             texto="Comentario de Pepe en Relatividad 2", id_usuario=self.usuario1, id_asignatura=self.asignatura)
-        self.comentariopepe = Comentario.objects.create(
+        self.comentariopepe3 = Comentario.objects.create(
             texto="Comentario de Pepe en Álgebra", id_usuario=self.usuario1, id_asignatura=self.asignatura2)
-        self.comentariomanolo = Comentario.objects.create(
+        self.comentariomanolo1 = Comentario.objects.create(
             texto="Comentario de Manolo en Relatividad", id_usuario=self.usuario2, id_asignatura=self.asignatura)
-        self.comentariomanolo = Comentario.objects.create(
+        self.comentariomanolo2 = Comentario.objects.create(
             texto="Comentario de Manolo en Relatividad 2", id_usuario=self.usuario2, id_asignatura=self.asignatura)
-        self.comentariomanolo = Comentario.objects.create(
+        self.comentariomanolo3 = Comentario.objects.create(
             texto="Comentario de Manolo en Relatividad 3", id_usuario=self.usuario2, id_asignatura=self.asignatura)
         # Se define la URL
         self.url = f'/api/comentarios/{self.asignatura.id_asignatura}/'
