@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import get_object_or_404
+from django.db import IntegrityError
+from rest_framework.exceptions import ValidationError
 from .serializers import *
 
 # View para el registro de usuario
@@ -142,7 +144,7 @@ class DestallesAsignaturaRetrieveAPIView(generics.RetrieveAPIView):
     # Se establece el campo por el que se va a buscar el grado en la base de datos
     lookup_field = 'id_asignatura'
 
-# View para ver las estadisticas de una asignatura. Se usa una vista generica de tipo CreateAPIView
+# View para crear un comentario en una asignatura. Se usa una vista generica de tipo CreateAPIView
 class CrearComentarioCreateAPIView(generics.CreateAPIView):
     # Solo los usuarios autenticados pueden crear comentarios
     permission_classes = [IsAuthenticated]
@@ -157,7 +159,7 @@ class CrearComentarioCreateAPIView(generics.CreateAPIView):
         asignatura = get_object_or_404(Asignatura, id_asignatura=self.kwargs['id_asignatura'])
         serializer.save(id_usuario=self.request.user, id_asignatura=asignatura)
 
-# View para ver los comentarios de una asignatura. Se usa una vista generica de tipo UpdateAPIView
+# View para editar comentarios de una asignatura. Se usa una vista generica de tipo UpdateAPIView
 class EditarComentarioUpdateAPIView(generics.UpdateAPIView):
     # Solo los usuarios autenticados pueden editar comentarios
     permission_classes = [IsAuthenticated]
@@ -197,3 +199,24 @@ class VerComentariosAsignaturaListAPIView(generics.ListAPIView):
         id_asignatura = self.kwargs['id_asignatura']
         get_object_or_404(Asignatura, id_asignatura=id_asignatura) 
         return Comentario.objects.filter(id_asignatura=id_asignatura).order_by('fecha')
+    
+# View para agregar una asignatura a favoritos. Se usa una vista generica de tipo CreateAPIView
+class AgregarFavoritoCreateAPIView(generics.CreateAPIView):
+    # Solo los usuarios autenticados pueden agregar favoritos
+    permission_classes = [IsAuthenticated]
+    serializer_class = FavoritoSerializer
+    
+    # Sobreescribimos el metodo perform_create para especificar el id de
+    # la asignatura en la cual se hace el favorito, y el usuario que lo hace
+    def perform_create(self, serializer):
+        # Obtenemos el id de la asignatura de los parametros de la URL y
+        # buscamos la asignatura correspondiente en la base de datos. Si no
+        # se encuentra, se devuelve un error 404
+        asignatura = get_object_or_404(Asignatura, id_asignatura=self.kwargs['id_asignatura'])
+        try:
+            serializer.save(id_usuario=self.request.user, id_asignatura=asignatura)
+        except IntegrityError:
+            # Si se produce un error de integridad (por ejemplo, si el favorito ya existe),
+            # se devuelve un error 400
+            raise ValidationError(
+                "No puedes agregar la misma asignatura a favoritos dos veces")
