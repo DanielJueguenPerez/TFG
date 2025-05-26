@@ -16,4 +16,5 @@ urlpatterns = [
     path('api/comentarios/editar/<int:id_comentario>/', EditarComentarioUpdateAPIView.as_view(), name='api-editar-comentario'),
     path('api/comentarios/eliminar/<int:id_comentario>/', EliminarComentarioDestroyAPIView.as_view(), name='api-eliminar-comentario'),
     path('api/favoritos/agregar/<int:id_asignatura>/', AgregarFavoritoCreateAPIView.as_view(), name='api-agregar-favorito'),
+    path('api/favoritos/eliminar/<int:id_favorito>/', EliminarFavoritoDestroyAPIView.as_view(), name='api-eliminar-favorito'),
 ]
