@@ -6,7 +6,7 @@ from ..models import *
 
 User = get_user_model()
 
-class DetallesAsignaturaTests(APITestCase):
+class CrearComentarioTests(APITestCase):
     def setUp(self):
         # Se crea una asignatura y un grado
         self.grado = Grado.objects.create(nombre='Grado en Física', url='http://ejemplo.com/fisica')

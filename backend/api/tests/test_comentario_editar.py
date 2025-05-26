@@ -85,7 +85,7 @@ class EditarComentarioTests(APITestCase):
         # Comprobamos que el mensaje de error es el esperado
         self.assertIn('This field may not be blank.', str(resp.data)) 
         
-    def test_crearcomentario_solicitud_incorrecta(self):
+    def test_editarcomentario_solicitud_incorrecta(self):
         # Se intenta hacer una solicitud GET a la URL de editar comentario
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token1.key)
         resp = self.client.get(self.url)

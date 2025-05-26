@@ -220,3 +220,14 @@ class AgregarFavoritoCreateAPIView(generics.CreateAPIView):
             # se devuelve un error 400
             raise ValidationError(
                 "No puedes agregar la misma asignatura a favoritos dos veces")
+            
+class EliminarFavoritoDestroyAPIView(generics.DestroyAPIView):
+    # Solo los usuarios autenticados pueden eliminar comentarios
+    permission_classes = [IsAuthenticated]
+    serializer_class = FavoritoSerializer
+    lookup_field = 'id_favorito'
+    
+    # Sobreescribimos el metodo get_queryset para que solo el usuario que ha
+    # creado el favorito pueda eliminarlo
+    def get_queryset(self):
+        return Favorito.objects.filter(id_usuario=self.request.user)
