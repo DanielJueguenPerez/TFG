@@ -6,22 +6,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class TestComentarioSerializerTest(TestCase):
-    '''
-    def setUp(self):
-        self.usuario = User.objects.create_user(
-            username='pepito',
-            nombre='Pepe',
-            apellidos='Pérez',
-            email='pepe@pepe.es',
-            DNI='12345678A',
-            password='pepe1234',
-        )
-        self.assertIsInstance(self.usuario, User)
-
-    def test_comentario_serializer_detectado(self):
-        self.assertTrue(True)
-        self.assertIsInstance(self.usuario, User)
-    '''
     def setUp(self):
         self.usuario= User.objects.create_user(
             username= 'pepito',
