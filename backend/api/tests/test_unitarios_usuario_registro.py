@@ -5,7 +5,7 @@ from ..serializers import *
 
 User = get_user_model()
 
-class RegistroUsuarioSerializerTests(TestCase):
+class RegistroSerializerTests(TestCase):
     def setUp(self):
         self.datos_validos= {
             'username': 'pepito',
