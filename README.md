@@ -24,7 +24,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 #### Configuración del entorno
 
-1. Acceder a la carpeta raíz del proyecto y ejecutar el siguiente comando
+1. Acceder a la carpeta raíz del proyecto y ejecutar el siguiente comando para activar el entorno virtual
 
         source env/bin/activate
 
@@ -40,17 +40,17 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 #### Configuración del entorno
 
-1. Acceder a la carpeta frontend
+1. Acceder a la carpeta /frontend
 
 2. Instalar las dependencias del proyecto
 
         npm install
 
-## Instrucciones para la ejecución del scripts, test e inicialización de la base de datos
+## Instrucciones para la ejecución del scripts, test e inicialización de la base de datos (todos los comandos de esta sección deben ejecutarse con el entorno virtual activo)
 
 ### 🕷️ Script de scraping
 
-1. Acceder a la carpeta scraping
+1. Acceder a la carpeta /scraping
 
 2. Ejecutar el siguiente comando
 
@@ -58,25 +58,27 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 ### 🛢️ Inicializar de cero la base de datos
 
-1. Acceder a la carpeta backend y eliminar el archivo db.sqlite3
+1. Acceder a la carpeta /backend (donde está el archivo manage.py) y eliminar el archivo db.sqlite3
 
-2. Ejecutar los siguientes comandos:
+2. Ejecutar los siguientes comandos (en la carpeta /backend):
 
         python manage.py makemigrations
         python manage.py migrate
 
-3. Ejecutar el siguiente comando para poblar la base de datos con los datos iniciales (tarda un poco):
+3. Ejecutar el siguiente comando (en la carpeta /backend) para poblar la base de datos con los datos iniciales (tarda un poco):
 
         python manage.py shell < api/poblar_bd.py
 
-4. (Opcional) Crear un superusuario, al que se accede mediante la dirección http://127.0.0.1:8000/admin
+4. (Opcional) Crear un superusuario (en la carpeta /backend), al que se accede mediante la dirección http://127.0.0.1:8000/admin
 
 
         python manage.py createsuperuser
 
 ### 🛢️ Ejecución de los test
 
-1. Ejecutar el siguiente comando:
+1. Acceder a la carpeta /backend
+
+2. Ejecutar el siguiente comando:
 
         python manage.py test
 
@@ -84,7 +86,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 ### 📦Backend
 
-1. Acceder a la carpeta backend
+1. Acceder a la carpeta /backend
 
 2. Ejecutar el siguiente comando:
 
@@ -92,7 +94,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 ### 🎨Frontend
 
-1. Acceder a la carpeta frontend
+1. Acceder a la carpeta /frontend
 
 2. Ejecutar el siguiente comando:
 
