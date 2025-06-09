@@ -24,11 +24,19 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 #### Configuración del entorno
 
-1. Acceder a la carpeta raíz del proyecto y ejecutar el siguiente comando para activar el entorno virtual
+1. Instalar paquetes necesarios para pyton y entorno virtual
+
+        sudo apt install python3 python3-pip python3-venv -y
+   
+2. En la raiz del proyecto, crear el entorno virtual
+
+        python3 -m venv env
+
+3. Acceder a la carpeta raíz del proyecto y ejecutar el siguiente comando para activar el entorno virtual
 
         source env/bin/activate
 
-2. Instalar las dependencias del proyecto
+4. Instalar las dependencias del proyecto
 
         pip install -r requirements.txt
 
