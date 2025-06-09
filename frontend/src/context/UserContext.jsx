@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.remoteItem('token');
+        localStorage.removeItem('token');
         localStorage.removeItem('nombreUsuario');
         setToken(null);
         setNombreUsuario(null);
@@ -27,3 +27,4 @@ export const UserProvider = ({ children }) => {
     );
 };
 
+export const useUser = () => useContext(UserContext);
