@@ -48,9 +48,15 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 #### Configuración del entorno
 
-1. Acceder a la carpeta /frontend
+1. Ejecutar los siguientes comandos
 
-2. Instalar las dependencias del proyecto
+        sudo apt install curl -y
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt install -y nodejs
+
+2. Acceder a la carpeta /frontend
+
+3. Instalar las dependencias del proyecto
 
         npm install
 
