@@ -24,7 +24,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 #### Configuración del entorno
 
-1. Instalar paquetes necesarios para pyton y entorno virtual
+1. Instalar paquetes necesarios para python y entorno virtual
 
         sudo apt install python3 python3-pip python3-venv -y
    
@@ -32,7 +32,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
         python3 -m venv env
 
-3. Acceder a la carpeta raíz del proyecto y ejecutar el siguiente comando para activar el entorno virtual
+3. Ejecutar el siguiente comando para activar el entorno virtual
 
         source env/bin/activate
 
@@ -48,7 +48,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 #### Configuración del entorno
 
-1. Ejecutar los siguientes comandos
+1. En otra terminal distinta sin el entorno virtual activado, ejecutar los siguientes comandos 
 
         sudo apt install curl -y
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
@@ -72,18 +72,18 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 ### 🛢️ Inicializar de cero la base de datos
 
-1. Acceder a la carpeta /backend (donde está el archivo manage.py) y eliminar el archivo db.sqlite3
+1. Acceder a la carpeta /backend (donde está el archivo manage.py) y eliminar el archivo db.sqlite3 (si existiese)
 
-2. Ejecutar los siguientes comandos (en la carpeta /backend):
+2. Ejecutar los siguientes comandos (en la carpeta /backend, con el entorno virtual activado):
 
         python manage.py makemigrations
         python manage.py migrate
 
-3. Ejecutar el siguiente comando (en la carpeta /backend) para poblar la base de datos con los datos iniciales (tarda un poco):
+3. Ejecutar el siguiente comando (en la carpeta /backend, entorno virtual activado) para poblar la base de datos con los datos iniciales (tarda un poco):
 
         python manage.py shell < api/poblar_bd.py
 
-4. (Opcional) Crear un superusuario (en la carpeta /backend), al que se accede mediante la dirección http://127.0.0.1:8000/admin
+4. (Opcional) Crear un superusuario (en la carpeta /backend, entorno virtual activado), al que se accede mediante la dirección http://127.0.0.1:8000/admin
 
 
         python manage.py createsuperuser
@@ -92,7 +92,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 1. Acceder a la carpeta /backend
 
-2. Ejecutar el siguiente comando:
+2. Ejecutar el siguiente comando (entorno virtual activado):
 
         python manage.py test
 
@@ -102,7 +102,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 1. Acceder a la carpeta /backend
 
-2. Ejecutar el siguiente comando:
+2. Ejecutar el siguiente comando (entorno virtual activado):
 
         python manage.py runserver
 
