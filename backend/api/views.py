@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import get_object_or_404
 from django.db import IntegrityError
 from rest_framework.exceptions import ValidationError, PermissionDenied
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from .serializers import *
 
 # View para el registro de usuario
@@ -16,6 +18,7 @@ class RegistroAPIView(APIView):
     
     # Sobreescribimos el metodo post para crear un nuevo usuario
     # y generar un token para el mismo
+    @swagger_auto_schema(request_body=RegistroSerializer)
     def post (self, request):
         serializer = RegistroSerializer(data=request.data)
         if serializer.is_valid():
@@ -35,6 +38,7 @@ class LoginAPIView(APIView):
     authentication_classes = []
     
     # Sobreescribimos el metodo post para autenticar al usuario
+    @swagger_auto_schema(request_body=LoginSerializer)
     def post (self,request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -76,6 +80,7 @@ class EditarPerfilAPIView(APIView):
     permission_classes = [IsAuthenticated]
     
     # Sobreescribimos el metodo patch para editar los datos del usuario
+    @swagger_auto_schema(request_body=EditarPerfilSerializer)
     def patch (self, request):
         # Si el usuario no ha introducido ningun campo, se devuelve un error
         if not request.data:

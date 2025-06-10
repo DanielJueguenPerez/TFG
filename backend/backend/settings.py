@@ -150,3 +150,17 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
+
+# Swagger settings
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False, 
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization',
+            'description': 'Formato: Token <tu_token>',
+        }
+    },
+}
