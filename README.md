@@ -106,6 +106,11 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
         python manage.py runserver
 
+3. Para acceder a la documentación una vez se ha arrancado el backend, acceder a las siguientes direcciones en un navegador
+
+        http://localhost:8000/docs/
+        http://localhost:8000/redocs/
+
 ### 🎨Frontend
 
 1. Acceder a la carpeta /frontend
