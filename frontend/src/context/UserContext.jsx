@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState} from 'react';
+import { logoutUsuario } from '../api/auth';
 
 const UserContext = createContext();
 
@@ -13,7 +14,12 @@ export const UserProvider = ({ children }) => {
         setNombreUsuario(nombre);
     };
 
-    const logout = () => {
+    const logout = async () => {
+        try {
+            await logoutUsuario();
+        } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+        }
         localStorage.removeItem('token');
         localStorage.removeItem('nombreUsuario');
         setToken(null);
