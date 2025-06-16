@@ -9,3 +9,7 @@ export const loginUsuario = async(datos) => {
     const response = await axiosInstance.post('/usuario/login/', datos);
     return response.data;
 }
+
+export const logoutUsuario = async () => {
+    await axiosInstance.post('/usuario/logout/');
+}
