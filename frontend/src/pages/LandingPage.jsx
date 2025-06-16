@@ -26,33 +26,31 @@ export default function LandingPage () {
     }, []);
 
     return(
-        <Layout>
+        <section 
+            className="w-full h-full min-h-[calc(100vh-64px)] bg-cover bg-center bg-no-repeat flex items-center justify-center"
+            style={{ backgroundImage: `url(${biblioteca})`}}
+        >
             {/* Imagen de de fondo de la Landing Page */}
-            <section 
-                className="w-full h-full min-h-[calc(100vh-64px)] bg-cover bg-center bg-no-repeat flex items-center justify-center"
-                style={{ backgroundImage: `url(${biblioteca})`}}
-            >
-                {/* Contenedor blanco donde se muestran las frases que se van sucediendo una despues de otra */}
-                <div className="bg-white bg-opacity-70 px-6 py-8 rounded-xl w-full max-w-2xl min-h-40 h-40 
-                    flex flex-col justify-center items-center overflow-hidden transition-all duration-500">
-                    <h1 className="text-2xl font-extrabold mb-8">Bienvenid@ a MatricUDC</h1>
-                    {/* Animador que da efecto de transicion y muestra las frases */}
-                    <div className="relative h-[80px] w-full flex items-center justify-center">
-                        <AnimatePresence mode="wait">
-                            <motion.p 
-                                key={indice}
-                                initial={{opacity: 0}}
-                                animate={{opacity: 1}}
-                                exit={{opacity: 0}}
-                                transition={{duration:1}}
-                                className="absolute w-full px-4 text-center text-lg text-gray-800"
-                            >
-                                {frases[indice]}
-                            </motion.p>
-                        </AnimatePresence>
-                    </div>
+            {/* Contenedor blanco donde se muestran las frases que se van sucediendo una despues de otra */}
+            <div className="bg-white bg-opacity-70 px-6 py-8 rounded-xl w-full max-w-2xl min-h-40 h-40 
+                flex flex-col justify-center items-center overflow-hidden transition-all duration-500">
+                <h1 className="text-2xl font-extrabold mb-8">Bienvenid@ a MatricUDC</h1>
+                {/* Animador que da efecto de transicion y muestra las frases */}
+                <div className="relative h-[80px] w-full flex items-center justify-center">
+                    <AnimatePresence mode="wait">
+                        <motion.p 
+                            key={indice}
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            exit={{opacity: 0}}
+                            transition={{duration:1}}
+                            className="absolute w-full px-4 text-center text-lg text-gray-800"
+                        >
+                            {frases[indice]}
+                        </motion.p>
+                    </AnimatePresence>
                 </div>
-            </section>
-        </Layout>
+            </div>
+        </section>
     );
 }

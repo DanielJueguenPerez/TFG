@@ -29,7 +29,7 @@ export default function Header() {
         {!nombreUsuario && (
           <div className="hidden sm:flex gap-2">
             <Link
-              to="/api/usuario/registro/"
+              to="/registro"
               className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded-full"
             >
               Registrarse
@@ -48,12 +48,6 @@ export default function Header() {
         {nombreUsuario && (
           <>
             <span>Hola, {nombreUsuario}</span>
-            <button
-              onClick={logout}
-              className="ml-2 text-red-500 hover:underline"
-            >
-              Salir
-            </button>
           </>
         )}
 
@@ -91,7 +85,7 @@ export default function Header() {
               {!nombreUsuario && (
                 <div className="flex flex-row sm:hidden border-t border-gray-200 mt-2 pt-2 justify-center gap-2">
                   <Link
-                    to="/usuario/registro/"
+                    to="/registro"
                     className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-xs font-medium py-1 px-2 
                         border border-blue-500 hover:border-transparent rounded-full text-center transition"
                     onClick={() => setMenuOpen(false)}
@@ -109,15 +103,17 @@ export default function Header() {
               )}
     {/* Nombre de usuario y botón de salir*/}
               {nombreUsuario && (
-                <button
-                  onClick={() => {
-                    logout();
-                    setMenuOpen(false);
-                  }}
-                  className="text-red-500 hover:underline text-sm text-left mt-2"
-                >
-                  Cerrar sesión
-                </button>
+                <div className="mt-4 pt-2 border-t border-gray-200 flex justify-center">
+                  <button
+                    onClick={() => {
+                      logout();
+                      setMenuOpen(false);
+                    }}
+                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 text-sm rounded-full text-center transition"
+                  >
+                    Cerrar sesión
+                  </button>
+                </div>
               )}
             </div>
           </div>
