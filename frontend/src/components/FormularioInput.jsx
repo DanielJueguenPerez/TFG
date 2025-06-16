@@ -22,27 +22,29 @@ export default function FormularioInput({
         const errors = {};
 
         campos.forEach(campo => {
+            const valor = valores[campo.nombre];
             if (!valores[campo.nombre] || valores[campo.nombre].trim()=== ''){
                 errors[campo.nombre] = 'Este campo es obligatorio';
             }
-        })
 
-        if (!valores.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valores.email)) {
-            errors.email = 'Correo electrónico no válido';
-        }
+            if (campo.nombre === 'email' && valor && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
+                errors[campo.nombre] = 'Correo electrónico no válido';
+            }
 
-        if (valores.password && valores.password.length < 8){
-            errors.password = 'La contraseña debe tener al menos 8 caracteres'
-        }
+            if (campo.nombre === 'password' && valor && valor.length < 8){
+                errors[campo.nombre] = 'La contraseña debe tener al menos 8 caracteres'
+            }
 
-        if (valores.password && valores.password2 && valores.password !== valores.password2){
-            errors.password2 = 'Las contraseñas no coinciden'
-        }
+            if (campo.nombre === 'password' && valor !==valores.password){
+                errors[campo.nombre] = 'Las contraseñas no coinciden'
+            }
 
-        if (Object.keys(errors).length > 0){
-            setErrores(errors);
-            return;
-        }
+            if (Object.keys(errors).length > 0){
+                setErrores(errors);
+                return;
+            }
+
+        });
 
         setErrores({});
         onSubmit(valores);
