@@ -35,7 +35,7 @@ export default function Header() {
               Registrarse
             </Link>
             <Link
-              to="/api/usuario/login/"
+              to="/login"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full
                         "
             >
@@ -93,7 +93,7 @@ export default function Header() {
                     Registrarse
                   </Link>
                   <Link
-                    to="/usuario/login/"
+                    to="/login/"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 text-xs rounded-full text-center transition"
                     onClick={() => setMenuOpen(false)}
                   >
