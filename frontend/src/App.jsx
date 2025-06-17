@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import RegistroPage from './pages/RegistroPage';
 import LoginPage from './pages/LoginPage';
 import VerPerfilPage from './pages/VerPerfilPage';
+import EditarPerfilPage from './pages/EditarPerfilPage';
 
 function App() {
   return(
@@ -13,6 +14,7 @@ function App() {
         <Route path='/usuario/registro' element={<Layout><RegistroPage /></Layout>} />
         <Route path='/usuario/login' element={<Layout><LoginPage /></Layout>} />
         <Route path='/usuario/ver-perfil' element={<Layout><VerPerfilPage /></Layout>} />
+        <Route path='usuario/editar-perfil' element={<Layout><EditarPerfilPage /></Layout>} />
       </Routes>
     </Router>
   );

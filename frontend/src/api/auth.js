@@ -18,3 +18,8 @@ export const verPerfilUsuario = async () => {
     const response = await axiosInstance.get('/usuario/ver-perfil/');
     return response.data;
 }
+
+export const editarPerfilUsuario = async (datos) => {
+    const response = await axiosInstance.patch('/usuario/editar-perfil/', datos);
+    return response.data;
+}
