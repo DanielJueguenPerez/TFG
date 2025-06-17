@@ -13,3 +13,8 @@ export const loginUsuario = async(datos) => {
 export const logoutUsuario = async () => {
     await axiosInstance.post('/usuario/logout/');
 }
+
+export const verPerfilUsuario = async () => {
+    const response = await axiosInstance.get('/usuario/ver-perfil/');
+    return response.data;
+}

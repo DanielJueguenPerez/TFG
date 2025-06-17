@@ -11,13 +11,13 @@ export default function Header() {
 
   // Opciones para el menú hamburguesa
   const opciones = [
-    { to: "grados/", label: "Ver grados" },
-    { to: "asignaturas/", label: "Buscar asignaturas" },
-    { to: "favoritos/", label: "Lista de favoritos" },
+    { to: "/grados", label: "Ver grados" },
+    { to: "/asignaturas", label: "Buscar asignaturas" },
+    { to: "/favoritos", label: "Lista de favoritos" },
   ];
 
   return (
-    <header className="w-full h-16 flex justify-between items-center p-4">
+    <header className="w-full h-16 flex justify-between items-center p-4 border-b border-gray-300 shadow-sm">
     {/* Logo de la Web, que es un link a la Landing Page */}
       <Link to="/" className="flex items-center">
         <img src={logo} alt="Logo" className="h-16 w-auto" />
@@ -29,13 +29,13 @@ export default function Header() {
         {!nombreUsuario && (
           <div className="hidden sm:flex gap-2">
             <Link
-              to="/registro"
+              to="/usuario/registro"
               className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-3 border border-blue-500 hover:border-transparent rounded-full"
             >
               Registrarse
             </Link>
             <Link
-              to="/login"
+              to="/usuario/login"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full
                         "
             >
@@ -47,7 +47,12 @@ export default function Header() {
     {/* Se muestra el nombre de usuario y un boton para salir, solo visible si el usuario está logueado */}
         {nombreUsuario && (
           <>
-            <span>Hola, {nombreUsuario}</span>
+            <span>Hola, {" "}
+              <Link 
+                to="/usuario/ver-perfil"
+                className="text-blue-400 hover:underline"
+              > {nombreUsuario}</Link>
+            </span>
           </>
         )}
 
@@ -85,7 +90,7 @@ export default function Header() {
               {!nombreUsuario && (
                 <div className="flex flex-row sm:hidden border-t border-gray-200 mt-2 pt-2 justify-center gap-2">
                   <Link
-                    to="/registro"
+                    to="/usuario/registro"
                     className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-xs font-medium py-1 px-2 
                         border border-blue-500 hover:border-transparent rounded-full text-center transition"
                     onClick={() => setMenuOpen(false)}
@@ -93,7 +98,7 @@ export default function Header() {
                     Registrarse
                   </Link>
                   <Link
-                    to="/login/"
+                    to="/usuario/login"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 text-xs rounded-full text-center transition"
                     onClick={() => setMenuOpen(false)}
                   >
