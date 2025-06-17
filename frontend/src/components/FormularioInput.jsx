@@ -4,7 +4,9 @@ export default function FormularioInput({
     campos,
     textoBoton,
     valoresIniciales = {},
-    onSubmit
+    onSubmit,
+    validarTodos = true,
+    onCancel
 }) {
         const [valores, setValores] = useState(valoresIniciales);
         const [errores, setErrores] = useState({});
@@ -23,7 +25,7 @@ export default function FormularioInput({
 
         campos.forEach(campo => {
             const valor = valores[campo.nombre];
-            if (!valores[campo.nombre] || valores[campo.nombre].trim()=== ''){
+            if (validarTodos && (!valor || valor.trim()=== '')){
                 errors[campo.nombre] = 'Este campo es obligatorio';
             }
 
@@ -35,17 +37,16 @@ export default function FormularioInput({
                 errors[campo.nombre] = 'La contraseña debe tener al menos 8 caracteres'
             }
 
-            if (campo.nombre === 'password' && valor !==valores.password){
+            if (campo.nombre === 'password2' && valor !==valores.password2){
                 errors[campo.nombre] = 'Las contraseñas no coinciden'
             }
 
-            if (Object.keys(errors).length > 0){
-                setErrores(errors);
-                return;
-            }
-
         });
-
+            
+        if (Object.keys(errors).length > 0){
+            setErrores(errors);
+            return;
+        }
         setErrores({});
         onSubmit(valores);
     };
@@ -64,17 +65,24 @@ export default function FormularioInput({
                         value={valores[campo.nombre] || ''}
                         onChange={handleChange}
                         className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required={campo.requerido ?? true}
+                        required={validarTodos && (campo.requerido ?? true)}
                     />
                     {errores[campo.nombre] && (
                         <p className='text-red-500 text-sm'>{errores[campo.nombre]}</p>
                     )}
                 </div>
             )}
-            <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-            >
-                {textoBoton}
-            </button>
+            <div className='flex flex-row gap-4 w-full mt-4'>
+                <button type="submit" className="w-1/2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                >
+                    {textoBoton}
+                </button>
+                {onCancel &&(
+                    <button type="button" onClick={onCancel} className="w-1/2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
+                        Cancelar
+                    </button>
+                )}
+            </div>
         </form>
     );
 }
