@@ -36,7 +36,7 @@ class BuscarAsignaturasTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Comprobamos que la respuesta contiene los campos esperados
         self.assertCountEqual(
-            resp.data['results'][0].keys(), ['id_asignatura', 'nombre', 'curso', 'id_grado']
+            resp.data['results'][0].keys(), ['id_asignatura', 'nombre', 'curso', 'id_grado', 'nombre_grado']
         )
 
     def test_buscarasignaturas_paginacion_pagina_1(self):

@@ -29,4 +29,4 @@ class BuscarAsignaturasSerializerTests(TestCase):
         serializer = BuscarAsignaturasSerializer(self.asignatura)
         datos = serializer.data
         
-        self.assertEqual(set(datos.keys()), {'id_asignatura','nombre','curso', 'id_grado'})
+        self.assertEqual(set(datos.keys()), {'id_asignatura','nombre','curso', 'id_grado', 'nombre_grado'})
