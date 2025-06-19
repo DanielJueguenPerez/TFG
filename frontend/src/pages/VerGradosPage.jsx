@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 export default function VerGradosPage() {
     const renderGrado = (grado) => (
-        <li key={grado.id} className="p-4 border-b">
-            <Link to={`/grados/${grado.id}`} className="text-blue-600 hover:underline">
+        <li key={grado.id_grado} className="p-4 border-b">
+            <Link to={`/grados/${grado.id_grado}`} className="text-blue-600 hover:underline">
                 {grado.nombre}
             </Link>
         </li>

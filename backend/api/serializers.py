@@ -113,10 +113,11 @@ class VerGradosSerializer(serializers.ModelSerializer):
 
 # Serializer para la funcionalidad de busqueda de asignaturas
 class BuscarAsignaturasSerializer(serializers.ModelSerializer):
+    nombre_grado = serializers.CharField(source='id_grado.nombre', read_only=True)
     # Campos a mostrar
     class Meta:
         model = Asignatura
-        fields = ['id_asignatura','nombre','curso','id_grado']
+        fields = ['id_asignatura','nombre','curso','id_grado', 'nombre_grado']
 
 # Serializer usado para la funcionalidad de ver detalles de un grado
 class AsignaturasGradoSerializer(serializers.ModelSerializer):
