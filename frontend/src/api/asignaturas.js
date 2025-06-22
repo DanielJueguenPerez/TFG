@@ -5,4 +5,9 @@ export const buscarAsignaturas = async (pagina = 1, clave = '') => {
         params: {page: pagina, search: clave},
     });
     return response.data
-};
+}
+
+export const verDetallesAsignatura = async (id) => {
+    const response = await axiosPublic.get(`/asignaturas/${id}`);
+    return response.data;
+}
