@@ -42,7 +42,7 @@ class DetallesAsignaturaTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Comprobamos que los campos devueltos son los correctos
         self.assertCountEqual(
-            resp.data.keys(), ['id_asignatura','nombre','curso','estadisticas_anios']
+            resp.data.keys(), ['id_asignatura','nombre','curso', 'id_grado', 'nombre_grado', 'estadisticas_anios']
         )
     
     def test_detallesasignatura_id_no_existe(self):
