@@ -172,10 +172,11 @@ class DetallesAsignaturaSerializer(serializers.ModelSerializer):
     # cada asignatura. Al invocar a get_estadisticas_anios, se asigna automaticamente el valor
     # de la funcion a la variable, debido a que es un SerializerMethodField
     estadisticas_anios = serializers.SerializerMethodField()
+    nombre_grado = serializers.CharField(source='id_grado.nombre', read_only=True)
     
     class Meta:
         model = Asignatura
-        fields = ['id_asignatura','nombre','curso','estadisticas_anios']
+        fields = ['id_asignatura','nombre','curso','id_grado','nombre_grado','estadisticas_anios']
         
     def get_estadisticas_anios(self, asignatura):
         # Se filtran las estadisticas por la asignatura que se ha pasado como
