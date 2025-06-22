@@ -12,7 +12,7 @@ export default function BuscarAsignaturasPage() {
   };
 
   const handlePulsarEnter = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       setClave(valorInput.trim());
     }
@@ -35,6 +35,12 @@ export default function BuscarAsignaturasPage() {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 px-4">
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 text-sm text-blue-600"
+      >
+        ← Volver atrás
+      </button>
       <h2 className="text-2xl font-bold text-center mb-6">
         Buscar asignaturas
       </h2>
