@@ -8,6 +8,7 @@ import EditarPerfilPage from "./pages/EditarPerfilPage";
 import VerGradosPage from "./pages/VerGradosPage";
 import BuscarAsignaturasPage from "./pages/BuscarAsignaturasPage";
 import VerDetallesGradoPage from "./pages/VerDetallesGradoPage";
+import VerDetallesAsignaturaPage from "./pages/VerDetallesAsignaturaPage";
 
 function App() {
   return (
@@ -74,6 +75,14 @@ function App() {
           element={
             <Layout>
               <VerDetallesGradoPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/asignaturas/:id"
+          element={
+            <Layout>
+              <VerDetallesAsignaturaPage />
             </Layout>
           }
         />
