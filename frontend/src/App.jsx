@@ -9,6 +9,7 @@ import VerGradosPage from "./pages/VerGradosPage";
 import BuscarAsignaturasPage from "./pages/BuscarAsignaturasPage";
 import VerDetallesGradoPage from "./pages/VerDetallesGradoPage";
 import VerDetallesAsignaturaPage from "./pages/VerDetallesAsignaturaPage";
+import VerListaFavoritosPage from "./pages/VerListaFavoritosPage";
 
 function App() {
   return (
@@ -83,6 +84,14 @@ function App() {
           element={
             <Layout>
               <VerDetallesAsignaturaPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/favoritos/lista"
+          element={
+            <Layout>
+              <VerListaFavoritosPage />
             </Layout>
           }
         />
