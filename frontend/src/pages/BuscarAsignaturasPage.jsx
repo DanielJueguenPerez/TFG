@@ -2,10 +2,15 @@ import { useState } from "react";
 import ListaPaginada from "../components/ListaPaginada";
 import { buscarAsignaturas } from "../api/asignaturas";
 import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
+import { useFavoritos } from "../context/FavoritosContext";
+import { useUser } from "../context/UserContext";
 
 export default function BuscarAsignaturasPage() {
   const [valorInput, setValorInput] = useState("");
   const [clave, setClave] = useState("");
+  const { esFavorita, toggleFavorito } = useFavoritos();
+  const { estaLogueado } = useUser();
 
   const handleInputChange = (e) => {
     setValorInput(e.target.value);
@@ -22,12 +27,27 @@ export default function BuscarAsignaturasPage() {
   const renderAsignatura = (asignatura) => {
     return (
       <li key={asignatura.id_asignatura} className="p-4 border-b">
-        <Link
-          to={`/asignaturas/${asignatura.id_asignatura}`}
-          className="text-blue-600 hover:underline"
-        >
-          {asignatura.nombre}
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link
+            to={`/asignaturas/${asignatura.id_asignatura}`}
+            className="text-blue-600 hover:underline"
+          >
+            {asignatura.nombre}
+          </Link>
+
+          {estaLogueado && (
+            <button
+              onClick={() => toggleFavorito(asignatura.id_asignatura)}
+                className="ml-4"
+            >
+              <Star
+                fill={esFavorita(asignatura.id_asignatura) ? "gold" : "none"}
+                stroke="gold"
+                className="w-7 h-7 transition-all duration-200"
+              />
+            </button>
+          )}
+        </div>
         <p className="text-sm text-gray-500">{asignatura.nombre_grado}</p>
       </li>
     );
