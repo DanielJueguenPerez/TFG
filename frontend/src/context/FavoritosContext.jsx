@@ -13,14 +13,25 @@ export const FavoritosProvider = ({ children }) => {
   const { estaLogueado } = useUser();
 
   useEffect(() => {
-    const cargarFavoritos = async () => {
-      if (!estaLogueado) return;
+    if (!estaLogueado) {
+      setFavoritos([]);
+      return;
+    }
 
+    const cargarFavoritos = async () => {
       try {
-        const data = await verFavoritos();
-        setFavoritos(data);
+        let pagina = 1;
+        let todos = [];
+
+        while (true) {
+          const data = await verFavoritos(pagina);
+          todos = todos.concat(data.results);
+          if(!data.next) break;
+          pagina++;
+        }
+        setFavoritos(todos);
       } catch (error) {
-        console.error("Error al cargar los favoritos", error);
+        console.error("Error al cargar favoritos:", error);
       }
     };
 
@@ -28,8 +39,9 @@ export const FavoritosProvider = ({ children }) => {
   }, [estaLogueado]);
 
   const esFavorita = (id_asignatura) =>
+    Array.isArray(favoritos) &&
     favoritos.some(
-      (favorito) => favorito?.id_asignatura === id_asignatura
+      (favorito) => favorito.id_asignatura === id_asignatura
     );
 
   const toggleFavorito = async (id_asignatura) => {
@@ -47,8 +59,6 @@ export const FavoritosProvider = ({ children }) => {
         const nuevoFavorito = await agregarFavorito(id_asignatura);
         if (nuevoFavorito?.id_asignatura) {
           setFavoritos((prev) => [...prev, nuevoFavorito]);
-        } else {
-          console.error("Favorito inválido al agregar", nuevoFavorito);
         }
       }
     } catch (error) {
