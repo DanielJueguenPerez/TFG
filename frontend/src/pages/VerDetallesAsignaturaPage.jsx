@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { verDetallesAsignatura } from "../api/asignaturas";
 import EstadisticasGrafica from "../components/EstadisticasGrafica";
+import { Star } from "lucide-react";
+import { useFavoritos } from "../context/FavoritosContext";
+import { useUser } from "../context/UserContext";
 
 export default function VerDetallesAsignaturaPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [asignatura, setAsignatura] = useState(null);
+  const { esFavorita, toggleFavorito } = useFavoritos();
+  const { estaLogueado } = useUser();
 
   useEffect(() => {
     const recuperarAsignatura = async () => {
@@ -31,9 +36,25 @@ export default function VerDetallesAsignaturaPage() {
       >
         ← Volver atrás
       </button>
+
       <h2 className="text-3xl font-bold text-center mb-2">
         {asignatura.nombre}
+
+        {estaLogueado && (
+          <button
+            onClick={() => {
+              toggleFavorito(asignatura.id_asignatura);
+            }}
+          >
+            <Star
+              fill={esFavorita(asignatura.id_asignatura) ? "gold" : "none"}
+              stroke="gold"
+              className="w-7 h-7 transition-all duration-200"
+            />
+          </button>
+        )}
       </h2>
+
       <p className="text-center text-gray-600 mb-6">
         {asignatura.nombre_grado}
       </p>
