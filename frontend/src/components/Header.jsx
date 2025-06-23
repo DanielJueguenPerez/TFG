@@ -13,8 +13,10 @@ export default function Header() {
   const opciones = [
     { to: "/grados", label: "Ver grados" },
     { to: "/asignaturas", label: "Buscar asignaturas" },
-    { to: "/favoritos", label: "Lista de favoritos" },
+    { to: "/favoritos/lista", label: "Lista de favoritos" },
   ];
+
+
 
   return (
     <header className="w-full h-16 flex justify-between items-center p-4 border-b border-gray-300 shadow-sm">
@@ -75,7 +77,9 @@ export default function Header() {
               {opciones.map((opt) => (
                 <Link
                   key={opt.to}
-                  to={opt.to}
+                  to={
+                    opt.to === "/favoritos/lista" && !nombreUsuario
+                    ? "/usuario/login" : opt.to }
                   className="px-4 py-2 hover:bg-gray-100 transition text-sm"
                   onClick={() => setMenuOpen(false)}
                 >
