@@ -1,8 +1,8 @@
 import axiosAuthenticate from '../utils/axiosAuthenticate';
 
-export const verFavoritos = async () => {
-    const response = await axiosAuthenticate.get("/favoritos/lista/");
-    return response.data.results;
+export const verFavoritos = async (pagina = 1) => {
+    const response = await axiosAuthenticate.get(`/favoritos/lista/?page=${pagina}`);
+    return response.data;
 }
 
 export const agregarFavorito = async (id_asignatura) => {
