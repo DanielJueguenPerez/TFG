@@ -242,12 +242,6 @@ class VerFavoritosListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = FavoritoSerializer
     
-    # Se valida que el usuario autenticado coincida con el id_usuario recibido en la URL
+    # Se establece el filtro por id de usuario
     def get_queryset(self):
-        # Se extrae el id_usuario de los parametros de la URL
-        id_usuario = self.kwargs['id_usuario']
-        if self.request.user.id_usuario != id_usuario:
-            # Si el usuario que hace la petición (que está autenticado con token)
-            # no es el mismo que el id_usuario, se lanza una excepción de permiso denegado
-            raise PermissionDenied ("No tienes permiso para ver los favoritos de otro usuario.")
         return Favorito.objects.filter(id_usuario=self.request.user).order_by('id_favorito')
