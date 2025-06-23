@@ -20,7 +20,8 @@ export default function ListaPaginada({
       try {
         const data = await recuperarDatos(pagina);
         setItems(data.results);
-        setTotalPaginas(Math.ceil(data.count / 10));
+        const total = Math.ceil(data.count / 10);
+        setTotalPaginas(total > 0 ? total : 1);
       } catch (error) {
         console.error("Error al cargar datos:", error);
       } finally {

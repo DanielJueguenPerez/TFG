@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState} from 'react';
+import { createContext, useContext, useState} from 'react';
 import { logoutUsuario } from '../api/auth';
 
 const UserContext = createContext();
@@ -6,6 +6,8 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [nombreUsuario, setNombreUsuario] = useState(localStorage.getItem('nombreUsuario') || null);
+
+    const estaLogueado = !!token;
 
     const login = (newToken, nombre) => {
         localStorage.setItem('token', newToken);
@@ -27,7 +29,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return(
-        <UserContext.Provider value={{token, nombreUsuario, login, logout}}>
+        <UserContext.Provider value={{token, nombreUsuario, login, logout, estaLogueado}}>
             {children}
         </UserContext.Provider>
     );
