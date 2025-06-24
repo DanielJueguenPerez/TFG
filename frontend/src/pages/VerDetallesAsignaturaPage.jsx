@@ -58,6 +58,15 @@ export default function VerDetallesAsignaturaPage() {
       <p className="text-center text-gray-600 mb-6">
         {asignatura.nombre_grado}
       </p>
+
+      <div className="flex justify-center gap-4 mb-8">
+        <button
+          onClick={() => navigate(`/comentarios/${asignatura.id_asignatura}`)}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        >
+          Ver comentarios
+        </button>
+      </div>
       <div className="flex flex-col md:flex-row md:flex-wrap justify-center gap-6">
         {asignatura.estadisticas_anios.map((anio) => (
           <EstadisticasGrafica
