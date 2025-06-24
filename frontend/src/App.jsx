@@ -10,6 +10,9 @@ import BuscarAsignaturasPage from "./pages/BuscarAsignaturasPage";
 import VerDetallesGradoPage from "./pages/VerDetallesGradoPage";
 import VerDetallesAsignaturaPage from "./pages/VerDetallesAsignaturaPage";
 import VerListaFavoritosPage from "./pages/VerListaFavoritosPage";
+import CrearComentarioPage from "./pages/CrearComentarioPage";
+import VerComentariosPage from "./pages/VerComentariosPage";
+import EditarComentarioPage from "./pages/EditarComentarioPage";
 
 function App() {
   return (
@@ -92,6 +95,30 @@ function App() {
           element={
             <Layout>
               <VerListaFavoritosPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/comentarios/nuevo/:id"
+          element={
+            <Layout>
+              <CrearComentarioPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/comentarios/:id"
+          element={
+            <Layout>
+              <VerComentariosPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/comentarios/editar/:id"
+          element={
+            <Layout>
+              <EditarComentarioPage />
             </Layout>
           }
         />

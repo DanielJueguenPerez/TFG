@@ -214,7 +214,7 @@ class VerComentariosAsignaturaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Comentario
-        fields = ['id_comentario', 'username', 'texto', 'fecha']
+        fields = ['id_comentario', 'id_usuario', 'username', 'texto', 'fecha']
         
 # Serializer para la funcionalidad de agregar, borrar y ver favoritos
 class FavoritoSerializer(serializers.ModelSerializer):

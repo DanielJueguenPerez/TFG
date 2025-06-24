@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/asignaturas/<int:id_asignatura>/', DetallesAsignaturaRetrieveAPIView.as_view(), name='api-detalles-asignatura'),
     path('api/comentarios/<int:id_asignatura>/', VerComentariosAsignaturaListAPIView.as_view(), name='api-listar-comentarios'),
     path('api/comentarios/<int:id_asignatura>/nuevo/', CrearComentarioCreateAPIView.as_view(), name='api-crear-comentario'),
+    path('api/comentarios/ver/<int:id_comentario>/', VerComentarioRetrieveAPIView.as_view(), name='api-ver-comentario'),
     path('api/comentarios/editar/<int:id_comentario>/', EditarComentarioUpdateAPIView.as_view(), name='api-editar-comentario'),
     path('api/comentarios/eliminar/<int:id_comentario>/', EliminarComentarioDestroyAPIView.as_view(), name='api-eliminar-comentario'),
     path('api/favoritos/agregar/<int:id_asignatura>/', AgregarFavoritoCreateAPIView.as_view(), name='api-agregar-favorito'),

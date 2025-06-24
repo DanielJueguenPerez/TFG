@@ -49,7 +49,8 @@ class LoginAPIView(APIView):
                 "token" : token.key,
                 "user":{
                     "username": user.username,
-                    "email": user.email
+                    "email": user.email,
+                    "id": user.id_usuario
                 }
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -163,6 +164,12 @@ class CrearComentarioCreateAPIView(generics.CreateAPIView):
         # se encuentra, se devuelve un error 404
         asignatura = get_object_or_404(Asignatura, id_asignatura=self.kwargs['id_asignatura'])
         serializer.save(id_usuario=self.request.user, id_asignatura=asignatura)
+        
+# View para recuperar un comentario
+class VerComentarioRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = VerComentariosAsignaturaSerializer
+    lookup_field = 'id_comentario'
 
 # View para editar comentarios de una asignatura.
 class EditarComentarioUpdateAPIView(generics.UpdateAPIView):

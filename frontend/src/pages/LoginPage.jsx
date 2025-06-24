@@ -16,8 +16,7 @@ export default function LoginPage() {
         console.log('Enviando datos de login:', datos);
         try {
             const data = await loginUsuario(datos);
-            localStorage.setItem('token', data.token);
-            login(data.token, data.user.username);
+            login(data.token, data.user);
             alert('Inicio de sesión exitoso');
             navigate ('/');
         } catch (error){
