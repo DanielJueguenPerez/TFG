@@ -119,6 +119,8 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
         npm run dev
 
+3. En un navegador, acceder a la dirección localhost:5173
+
 
 ## Autor
 
