@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
@@ -24,6 +25,21 @@ class RegistroSerializer(serializers.ModelSerializer):
         if data['password'] != data.pop('password2'):
             raise serializers.ValidationError("Las contraseñas no coinciden")
         return data
+        
+    # Método para validar el formato del DNI, se deja comentado por comodidad
+    #def validate_DNI(self, value):
+    #    dni_formato = r'^\d{8}[A-Z]$'
+    #    if not re.match(dni_formato, value):
+    #        raise serializers.ValidationError("Formato del DNI incorrecto (8 números y una letra mayuscula).")
+    #    
+    #    letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+    #    numero = int(value[:8])
+    #    letra_correcta = letras[numero%23]
+    #    
+    #    if value [-1] != letra_correcta:
+    #        raise serializers.ValidationError("Letra del DNI incorrecta.")
+    #    return value
+
         
     # Sobreescribimos el metodo create para crear un nuevo usuario   
     def create(self, validated_data):
@@ -81,6 +97,20 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
             )
         # Se llama al validador original para que valide los campos
         return super().to_internal_value(data)
+    
+    # Método para validar el formato del DNI, se deja comentado por comodidad
+    #def validate_DNI(self, value):
+    #   dni_formato = r'^\d{8}[A-Z]$'
+    #    if not re.match(dni_formato, value):
+    #        raise serializers.ValidationError("Formato del DNI incorrecto (8 números y una letra mayuscula).")
+    #    
+    #    letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+    #    numero = int(value[:8])
+    #    letra_correcta = letras[numero%23]
+    #    
+    #    if value [-1] != letra_correcta:
+    #        raise serializers.ValidationError("Letra del DNI incorrecta.")
+    #    return value
     
     # Sobreescribimos el metodo update para actualizar los datos del usuario
     # Parametros: 
