@@ -35,7 +35,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         Frontend- http://localhost:4173 
 
 
-Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
+## Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
 
 ## Instrucciones necesarias para la configuración e instalación de las dependencias (Ubuntu)
 
