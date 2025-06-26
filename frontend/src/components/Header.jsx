@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logopeque.png";
@@ -9,6 +9,7 @@ export default function Header() {
   const navigate = useNavigate();
   const { nombreUsuario, logout } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   // Opciones para el menú hamburguesa
   const opciones = [
@@ -17,6 +18,10 @@ export default function Header() {
     { to: "/usuario/comentarios", label: "💬 Mis comentarios" },
     { to: "/favoritos/lista", label: "⭐ Lista de favoritos" },
   ];
+
+  useEffect (() => {
+    setMenuOpen(false);
+  }, [location]);
 
   return (
     <header className="w-full h-16 flex justify-between items-center p-4 border-b border-gray-300 shadow-sm">
