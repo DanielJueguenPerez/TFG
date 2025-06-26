@@ -13,7 +13,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 - Añadir y eliminar una asignatura de su lista de favoritos.
 - Ver su lista de favoritos.
 
-## Instrucciones necesarias para la configuración y arranque con Docker
+# Instrucciones necesarias para la configuración y arranque con Docker
 
 Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue con Docker y Docker-compose. Las instrucciones necesarias para ejecutar la aplicación web de esta forma, en un sistema operativo Ubuntu/Linux, se detallan a continuación:
 
@@ -35,7 +35,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         Frontend- http://localhost:4173 
 
 
-## Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
+# Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
 
 ## Instrucciones necesarias para la configuración e instalación de las dependencias (Ubuntu)
 
