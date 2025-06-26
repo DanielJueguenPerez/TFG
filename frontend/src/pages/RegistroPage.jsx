@@ -21,7 +21,7 @@ export default function RegistroPage() {
         try {
             const data = await registroUsuario(datos);
             localStorage.setItem('token', data.token);
-            login(data.token, data.user.username);
+            login(data.token, data.user);
             alert('Registro exitoso');
             navigate ('/');
         } catch (error){
