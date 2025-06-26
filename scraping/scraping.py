@@ -165,5 +165,5 @@ for grado in grados_list:
         print(f"Error al acceder a {link}: {e}")
 
 # Se guardan los resultados en un Json
-with open('resultados_grados.json', 'w', encoding='utf-8') as json_file:
+with open('../backend/api/resultados_grados.json', 'w', encoding='utf-8') as json_file:
     json.dump(final_results, json_file, ensure_ascii=False, indent=4)

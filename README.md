@@ -27,7 +27,12 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         docker compose build --no-cache
         docker compose up
 
-3. Desde un navegador, acceder a las direcciones del backend o el frontend.
+3. Cuando se quiera parar la ejecutición de Docker, se ejecutarán los siguientes comandos:
+
+        ctrl+c
+        docker compose down
+
+4. Desde un navegador, acceder a las direcciones del backend o el frontend.
 
         Backend-  http://localhost:8000/docs 
                   http://localhost:8000/redocs 
@@ -61,7 +66,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 4. Instalar las dependencias del proyecto
 
-        pip install -r requirements.txt
+        pip install -r /backend/requirements.txt
 
 ### 🎨 Frontend (React + TailwindCSS)
 
@@ -104,7 +109,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 3. Ejecutar el siguiente comando (en la carpeta /backend, entorno virtual activado) para poblar la base de datos con los datos iniciales (tarda un poco):
 
-        python manage.py shell < api/poblar_bd.py
+        python manage.py poblar_bd
 
 4. (Opcional) Crear un superusuario (en la carpeta /backend, entorno virtual activado), al que se accede mediante la dirección http://127.0.0.1:8000/admin
 

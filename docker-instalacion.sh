@@ -2,9 +2,6 @@
 
 # Script para instalar docker y docker-compose
 
-sudo apt update
-sudo apt upgrade -y
-
 sudo apt install -y ca-certificates curl gnupg lsb-release
 
 sudo mkdir -p /etc/apt/keyrings
