@@ -210,6 +210,16 @@ class VerComentariosAsignaturaListAPIView(generics.ListAPIView):
         get_object_or_404(Asignatura, id_asignatura=id_asignatura_url) 
         return Comentario.objects.filter(id_asignatura=id_asignatura_url).order_by('fecha')
     
+# View para ver los comentarios propios de un usuario.
+class VerComentariosPropiosListAPIView(generics.ListAPIView):
+    # Solo los usuarios autenticados pueden ver sus propios comentarios
+    permission_classes = [IsAuthenticated]
+    serializer_class = VerComentariosPropiosSerializer
+    
+    # Se establece el filtro por id de usuario
+    def get_queryset(self):
+        return Comentario.objects.filter(id_usuario=self.request.user).select_related('id_asignatura__id_grado').order_by('fecha')
+    
 # View para agregar una asignatura a favoritos.
 class AgregarFavoritoCreateAPIView(generics.CreateAPIView):
     # Solo los usuarios autenticados pueden agregar favoritos
