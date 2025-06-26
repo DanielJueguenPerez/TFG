@@ -11,22 +11,21 @@ export default function Header() {
 
   // Opciones para el menú hamburguesa
   const opciones = [
-    { to: "/grados", label: "Ver grados" },
-    { to: "/asignaturas", label: "Buscar asignaturas" },
-    { to: "/favoritos/lista", label: "Lista de favoritos" },
+    { to: "/grados", label: "🎓 Ver grados" },
+    { to: "/asignaturas", label: "📚 Buscar asignaturas" },
+    { to: "/usuario/comentarios", label: "💬 Mis comentarios" },
+    { to: "/favoritos/lista", label: "⭐ Lista de favoritos" },
   ];
-
-
 
   return (
     <header className="w-full h-16 flex justify-between items-center p-4 border-b border-gray-300 shadow-sm">
-    {/* Logo de la Web, que es un link a la Landing Page */}
+      {/* Logo de la Web, que es un link a la Landing Page */}
       <Link to="/" className="flex items-center">
         <img src={logo} alt="Logo" className="h-16 w-auto" />
       </Link>
 
-    {/* Botones de registro e inicio de sesión, solo visibles si el usuario no está logueado. Configurado */}
-    {/* solo para ser visible en pantallas grandes (hidden sm:flex)*/}
+      {/* Botones de registro e inicio de sesión, solo visibles si el usuario no está logueado. Configurado */}
+      {/* solo para ser visible en pantallas grandes (hidden sm:flex)*/}
       <nav className="flex items-center gap-2 relative">
         {!nombreUsuario && (
           <div className="hidden sm:flex gap-2">
@@ -46,19 +45,23 @@ export default function Header() {
           </div>
         )}
 
-    {/* Se muestra el nombre de usuario y un boton para salir, solo visible si el usuario está logueado */}
+        {/* Se muestra el nombre de usuario y un boton para salir, solo visible si el usuario está logueado */}
         {nombreUsuario && (
           <>
-            <span>Hola, {" "}
-              <Link 
+            <span>
+              Hola,{" "}
+              <Link
                 to="/usuario/ver-perfil"
                 className="text-blue-400 hover:underline"
-              > {nombreUsuario}</Link>
+              >
+                {" "}
+                {nombreUsuario}
+              </Link>
             </span>
           </>
         )}
 
-    {/* Menú hamburguesa, que cambia su icono dependiendo de si está pulsado o no */}
+        {/* Menú hamburguesa, que cambia su icono dependiendo de si está pulsado o no */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="p-2 focus:outline-none"
@@ -70,7 +73,7 @@ export default function Header() {
             <Bars3Icon className="w-6 h-6" />
           )}
         </button>
-    {/* Opciones que muestra el menú hamburguesa */}
+        {/* Opciones que muestra el menú hamburguesa */}
         {menuOpen && (
           <div className="absolute top-full right-0 mt-2 w-52 bg-white border rounded shadow-lg z-10 p-2">
             <div className="flex flex-col">
@@ -78,8 +81,12 @@ export default function Header() {
                 <Link
                   key={opt.to}
                   to={
-                    opt.to === "/favoritos/lista" && !nombreUsuario
-                    ? "/usuario/login" : opt.to }
+                    (opt.to === "/favoritos/lista" ||
+                      opt.to === "/usuario/comentarios") &&
+                    !nombreUsuario
+                      ? "/usuario/login"
+                      : opt.to
+                  }
                   className="px-4 py-2 hover:bg-gray-100 transition text-sm"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -87,10 +94,10 @@ export default function Header() {
                 </Link>
               ))}
 
-    {/* Configuración especial para pantallas pequeñas. Como los botones de inicio de sesión y registro están */}
-    {/* ocultos en estas pantallas, se introducen dentro del propio menú hamburguesa. Solo se muestran dentro */}
-    {/* del menú hamburguesa en pantallas pequeñas (sm:hidden) */}
-    {/* Botones de inicio de sesion y registro */}
+              {/* Configuración especial para pantallas pequeñas. Como los botones de inicio de sesión y registro están */}
+              {/* ocultos en estas pantallas, se introducen dentro del propio menú hamburguesa. Solo se muestran dentro */}
+              {/* del menú hamburguesa en pantallas pequeñas (sm:hidden) */}
+              {/* Botones de inicio de sesion y registro */}
               {!nombreUsuario && (
                 <div className="flex flex-row sm:hidden border-t border-gray-200 mt-2 pt-2 justify-center gap-2">
                   <Link
@@ -110,7 +117,7 @@ export default function Header() {
                   </Link>
                 </div>
               )}
-    {/* Nombre de usuario y botón de salir*/}
+              {/* Nombre de usuario y botón de salir*/}
               {nombreUsuario && (
                 <div className="mt-4 pt-2 border-t border-gray-200 flex justify-center">
                   <button
