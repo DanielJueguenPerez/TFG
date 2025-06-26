@@ -9,7 +9,8 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 - Ver los detalles de cada grado.
 - Consultar las estadisticas de cada asignatura.
 - Realizar, editar y borrar comentarios en una asignatura. 
-- Ver los comentarios de una asignatura. 
+- Ver los comentarios de una asignatura.
+- Ver los comentarios propios del usuario.
 - Añadir y eliminar una asignatura de su lista de favoritos.
 - Ver su lista de favoritos.
 
