@@ -208,6 +208,17 @@ class ComentarioSerializer(serializers.ModelSerializer):
         model = Comentario
         fields = ['id_comentario', 'texto', 'fecha']
         
+# Serializer para la funcionalidad de ver comentarios propios
+class VerComentariosPropiosSerializer(serializers.ModelSerializer):
+    id_asignatura = serializers.IntegerField(source='id_asignatura.id_asignatura', read_only=True)
+    nombre_asignatura = serializers.CharField(source='id_asignatura.nombre', read_only=True)
+    id_grado = serializers.IntegerField(source='id_asignatura.id_grado.id_grado', read_only=True)
+    nombre_grado = serializers.CharField(source='id_asignatura.id_grado.nombre', read_only=True)
+    
+    class Meta:
+        model = Comentario
+        fields = ['id_comentario', 'id_asignatura', 'nombre_asignatura', 'id_grado', 'nombre_grado', 'texto', 'fecha']
+        
 # Serializer para la funcionalidad de ver los comentarios de una asignatura
 class VerComentariosAsignaturaSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='id_usuario.username', read_only=True)
