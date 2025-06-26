@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logopeque.png";
 
 export default function Header() {
   // Variables para controlar el estado del usuario y el menú hamburguesa
+  const navigate = useNavigate();
   const { nombreUsuario, logout } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -124,6 +125,7 @@ export default function Header() {
                     onClick={() => {
                       logout();
                       setMenuOpen(false);
+                      navigate('/');
                     }}
                     className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 text-sm rounded-full text-center transition"
                   >
