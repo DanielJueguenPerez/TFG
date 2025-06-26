@@ -62,7 +62,7 @@ export default function BuscarAsignaturasPage() {
         ← Volver atrás
       </button>
       <h2 className="text-2xl font-bold text-center mb-6">
-        Buscar asignaturas
+        📚 Buscar asignaturas 📚
       </h2>
       <input
         type="text"

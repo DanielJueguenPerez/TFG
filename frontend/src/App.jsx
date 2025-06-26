@@ -13,6 +13,7 @@ import VerListaFavoritosPage from "./pages/VerListaFavoritosPage";
 import CrearComentarioPage from "./pages/CrearComentarioPage";
 import VerComentariosPage from "./pages/VerComentariosPage";
 import EditarComentarioPage from "./pages/EditarComentarioPage";
+import VerComentariosPropiosPage from "./pages/VerComentariosPropiosPage";
 
 function App() {
   return (
@@ -119,6 +120,14 @@ function App() {
           element={
             <Layout>
               <EditarComentarioPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/usuario/comentarios"
+          element={
+            <Layout>
+              <VerComentariosPropiosPage />
             </Layout>
           }
         />

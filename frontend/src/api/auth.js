@@ -24,3 +24,8 @@ export const editarPerfilUsuario = async (datos) => {
     const response = await axiosAuthenticate.patch('/usuario/editar-perfil/', datos);
     return response.data;
 }
+
+export const verComentariosPropios = async (pagina = 1) => {
+    const response = await axiosAuthenticate.get(`/usuario/comentarios/?page=${pagina}`);
+    return response.data;
+}
