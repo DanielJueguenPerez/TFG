@@ -7,6 +7,15 @@ services:
       - ./backend:/app
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      USE_SQLITE: "false"
+      POSTGRES_DB: tfgdb
+      POSTGRES_USER: tfguser
+      POSTGRES_PASSWORD: tfgpassword
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
     command: >
       sh -c "
         python manage.py makemigrations &&
@@ -14,8 +23,20 @@ services:
         python manage.py poblar_bd &&
         python manage.py runserver 0.0.0.0:8000
       "
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: tfgdb
+      POSTGRES_USER: tfguser
+      POSTGRES_PASSWORD: tfgpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   frontend:
     build: ./frontend
     ports:
       - "4173:4173"
+
+volumes:
+  postgres_data:
