@@ -4,15 +4,15 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class Grado(models.Model):
     id_grado = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
-    url = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=500)
+    url = models.CharField(max_length=500)
 
     def __str__(self):
         return self.nombre
 
 class Asignatura(models.Model):
     id_asignatura = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=500)
     curso = models.PositiveSmallIntegerField()
     id_grado = models.ForeignKey(Grado, on_delete=models.CASCADE)
 
@@ -39,10 +39,10 @@ class EstadisticasAsignatura(models.Model):
 
 class Usuario(AbstractUser):
     id_usuario = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
-    apellidos = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=500)
+    apellidos = models.CharField(max_length=500)
+    email = models.EmailField(max_length=500, unique=True)
+    password = models.CharField(max_length=500)
     DNI = models.CharField(max_length=9, unique=True)
 
     REQUIRED_FIELDS = ['nombre', 'apellidos', 'email', 'DNI','password']
