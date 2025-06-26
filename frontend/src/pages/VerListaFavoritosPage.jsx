@@ -35,7 +35,7 @@ export default function VerListaFavoritosPage() {
         ← Volver atrás
       </button>
       <h2 className="text-2xl font-bold text-center mb-6">
-        Tu lista de asignaturas favoritas
+        ⭐ Tu lista de asignaturas favoritas ⭐
       </h2>
       <ListaPaginada
         recuperarDatos={recuperarFavoritos}
