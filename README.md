@@ -28,18 +28,17 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         docker compose build --no-cache
         docker compose up
 
-3. Cuando se quiera parar la ejecutición de Docker, se ejecutarán los siguientes comandos:
-
-        ctrl+c
-        docker compose down
-
-4. Desde un navegador, acceder a las direcciones del backend o el frontend.
+3. Desde un navegador, acceder a las direcciones del backend o el frontend.
 
         Backend-  http://localhost:8000/docs 
                   http://localhost:8000/redocs 
          
         Frontend- http://localhost:4173 
 
+4. Cuando se quiera parar la ejecución de Docker, se ejecutarán los siguientes comandos:
+
+        ctrl+c
+        docker compose down -v
 
 # Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
 
