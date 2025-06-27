@@ -18,7 +18,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 
 Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue con Docker y Docker-compose. Las instrucciones necesarias para ejecutar la aplicación web de esta forma, en un sistema operativo Ubuntu/Linux, se detallan a continuación:
 
-1. Ubicarse en la carpeta raiz del proyecto y los ejecutar los siguientes comandos, con el fin de ejecutar el script para instalar Docker y Docker compose:
+1. Ubicarse en la carpeta raiz del proyecto y ejecutar los siguientes comandos, con el fin de ejecutar el script para instalar Docker y Docker compose:
         
         chmod +x docker-instalacion.sh
         ./docker-instalacion.sh
