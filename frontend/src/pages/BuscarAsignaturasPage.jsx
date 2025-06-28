@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ListaPaginada from "../components/ListaPaginada";
 import { buscarAsignaturas } from "../api/asignaturas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
 import { useFavoritos } from "../context/FavoritosContext";
 import { useUser } from "../context/UserContext";
@@ -11,6 +11,8 @@ export default function BuscarAsignaturasPage() {
   const [clave, setClave] = useState("");
   const { esFavorita, toggleFavorito } = useFavoritos();
   const { estaLogueado } = useUser();
+  const navigate = useNavigate();
+
 
   const handleInputChange = (e) => {
     setValorInput(e.target.value);
@@ -54,7 +56,7 @@ export default function BuscarAsignaturasPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 px-4">
+    <div className="max-w-2xl mx-auto mt-10 px-4 pt-16">
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600"

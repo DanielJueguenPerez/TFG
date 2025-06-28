@@ -28,7 +28,7 @@ export default function VerPerfilPage() {
   }
 
   return (
-    <>
+    <div className="pt-16">
       <div className="bg-white overflow-hidden shadow rounded-lg border max-w-md mx-auto mt-10">
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900 text-center">
@@ -53,7 +53,7 @@ export default function VerPerfilPage() {
           Editar datos de perfil
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

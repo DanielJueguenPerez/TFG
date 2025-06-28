@@ -52,7 +52,7 @@ export default function VerComentariosPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 px-2">
+    <div className="max-w-2xl mx-auto mt-10 px-2 pt-16">
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600"

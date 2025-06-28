@@ -52,7 +52,7 @@ export default function EditarComentarioPage() {
     }
 
     return(
-      <div className="max-w-xl mx-auto px-4 mt-10">
+      <div className="max-w-xl mx-auto px-4 mt-10 pt-16">
         <h2 className="text-2xl font-bold text-center mb-6">
             Editar Comentario
 

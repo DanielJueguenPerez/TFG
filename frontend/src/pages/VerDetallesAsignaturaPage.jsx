@@ -29,7 +29,7 @@ export default function VerDetallesAsignaturaPage() {
     return <p className="text-center mt-10">Cargando asignatura...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 px-4">
+    <div className="max-w-4xl mx-auto mt-10 px-4 pt-16">
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600"

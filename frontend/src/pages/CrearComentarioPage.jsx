@@ -16,7 +16,7 @@ export default function CrearComentarioPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 px-4">
+    <div className="max-w-xl mx-auto mt-10 px-4 pt-16">
       <h2 className="text-2xl font-bold text-center mb-6">
         Publicar comentario
       </h2>

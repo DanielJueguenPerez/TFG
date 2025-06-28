@@ -65,7 +65,7 @@ export default function EditarPerfilPage() {
     };
 
     return(
-        <div className="max-w-md mx-auto mt-10 px-4">
+        <div className="max-w-md mx-auto mt-10 px-4 pt-16">
             <h2 className="text-2xl font-bold text-center mb-6">Modifica al menos un campo de tus datos de perfil</h2>
             <FormularioInput
                 campos={camposPerfil}

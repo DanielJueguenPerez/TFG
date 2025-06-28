@@ -41,7 +41,7 @@ export default function LoginPage() {
   };
 
   return (
-    <>
+    <div className="pt-16">
       <div className="max-w-md mx-auto mt-10 px-4">
         <h2 className="text-2xl font-bold text-center mb-6">Iniciar sesión</h2>
         <FormularioInput
@@ -57,6 +57,6 @@ export default function LoginPage() {
           Regístrate
         </Link>
       </p>
-    </>
+    </div>
   );
 }
