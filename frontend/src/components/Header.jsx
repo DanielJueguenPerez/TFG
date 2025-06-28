@@ -19,12 +19,12 @@ export default function Header() {
     { to: "/favoritos/lista", label: "⭐ Lista de favoritos" },
   ];
 
-  useEffect (() => {
+  useEffect(() => {
     setMenuOpen(false);
   }, [location]);
 
   return (
-    <header className="w-full h-16 flex justify-between items-center p-4 border-b border-gray-300 shadow-sm">
+    <header className="w-full h-16 flex justify-between items-center p-4 bg-transparent text-white absolute top-0 left-0 z-50">
       {/* Logo de la Web, que es un link a la Landing Page */}
       <Link to="/" className="flex items-center">
         <img src={logo} alt="Logo" className="h-16 w-auto" />
@@ -130,7 +130,7 @@ export default function Header() {
                     onClick={() => {
                       logout();
                       setMenuOpen(false);
-                      navigate('/');
+                      navigate("/");
                     }}
                     className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 text-sm rounded-full text-center transition"
                   >
