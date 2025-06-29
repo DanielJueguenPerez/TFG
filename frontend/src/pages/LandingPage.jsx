@@ -23,7 +23,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <section className="w-full h-full min-h-[calc(100vh-64px)] bg-gradient-to-b from-black via-indigo-900 to-white flex items-center justify-center">
+    <section className="w-full h-screen pt-16 bg-gradient-to-b from-black via-purple-900 to-pink-200 flex items-center justify-center">
       {/* Contenedor blanco donde se muestran las frases que se van sucediendo una despues de otra */}
       <div
         className="bg-white bg-opacity-70 px-6 py-8 rounded-xl w-full max-w-2xl min-h-40 h-40 
