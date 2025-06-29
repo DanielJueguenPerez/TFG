@@ -69,7 +69,19 @@ export default function VerDetallesAsignaturaPage() {
         <div className="flex justify-center gap-4 mb-8">
           <button
             onClick={() => navigate(`/comentarios/${asignatura.id_asignatura}`)}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                className="
+                  inline-flex items-center justify-center
+                  text-white
+                  bg-gradient-to-r from-purple-500 to-pink-500
+                  hover:from-pink-500 hover:to-purple-500
+                  focus:outline-none focus:ring-4 focus:ring-purple-200
+                  font-medium text-sm
+                  py-2 px-4
+                  rounded-full
+                  transition
+                  min-w-[120px]
+                  text-center
+                "
           >
             Ver comentarios
           </button>

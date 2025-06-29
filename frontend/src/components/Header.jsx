@@ -41,7 +41,13 @@ export default function Header() {
               Hola,{" "}
               <Link
                 to="/usuario/ver-perfil"
-                className="hover:underline text-blue-400"
+                className="
+                  bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500
+                  bg-clip-text text-transparent
+                  hover:underline
+                  font-medium
+                "
               >
                 {nombreUsuario}
               </Link>
@@ -101,21 +107,55 @@ export default function Header() {
             <div className="border-t border-gray-200 mt-2 pt-2 flex gap-2 justify-center">
               <Link
                 to="/usuario/registro"
-                className="bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white font-semibold px-4 py-2 text-sm border border-blue-500 hover:border-transparent rounded-full transition min-w-[120px] text-center"
                 onClick={() => setIsSidebarOpen(false)}
+                className="
+                  inline-flex              
+                  p-[2px]                   
+                  rounded-full              
+                  bg-gradient-to-r from-purple-500 to-pink-500
+                  focus:outline-none focus:ring-4 focus:ring-purple-200
+                  min-w-[120px]
+                  group                     
+                "
               >
-                Registrarse
+                <span
+                  className="
+                    w-full h-full 
+                    flex items-center justify-center
+                    bg-white          
+                    text-sm font-medium
+                    py-2 px-4
+                    rounded-full
+                    text-gray-900
+                    transition-all duration-200 ease-in-out
+                    group-hover:bg-transparent 
+                    group-hover:text-white
+                  "
+                >
+                  Registrarse
+                </span>
               </Link>
               <Link
                 to="/usuario/login"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 py-2 text-sm rounded-full transition min-w-[120px] text-center"
                 onClick={() => setIsSidebarOpen(false)}
+                className="
+                  inline-flex items-center justify-center
+                  text-white
+                  bg-gradient-to-r from-purple-500 to-pink-500
+                  hover:from-pink-500 hover:to-purple-500
+                  focus:outline-none focus:ring-4 focus:ring-purple-200
+                  font-medium text-sm
+                  py-2 px-4
+                  rounded-full
+                  transition
+                  min-w-[120px]
+                  text-center
+                "
               >
                 Iniciar Sesión
               </Link>
             </div>
           )}
-          {/* Nombre de usuario y botón de salir*/}
           {nombreUsuario && (
             <div className="mt-4 pt-2 border-t border-gray-200 flex justify-center">
               <button
@@ -124,7 +164,18 @@ export default function Header() {
                   setIsSidebarOpen(false);
                   navigate("/");
                 }}
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 text-sm rounded-full text-center transition"
+                className="
+                text-white
+                  bg-gradient-to-br from-purple-600 to-blue-500
+                  hover:bg-gradient-to-bl
+                  focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800
+                  font-semibold
+                  py-2 px-4
+                  text-sm
+                  rounded-full
+                  text-center
+                  transition
+                "
               >
                 Cerrar sesión
               </button>

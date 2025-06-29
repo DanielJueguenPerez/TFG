@@ -1,9 +1,9 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const colores = {
-  aprobados: "#4CAF50",
-  suspensos: "#f87171",
-  no_presentados: "#facc15",
+  aprobados:      "#C084FC",
+  suspensos:      "#EC4899",
+  no_presentados: "#A855F7", 
 };
 
 export default function EstadisticasGrafica({ año, datos }) {

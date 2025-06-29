@@ -57,7 +57,17 @@ export default function VerPerfilPage() {
         <div className="max-w-md mx-auto mt-6">
           <Link
             to="/usuario/editar-perfil"
-            className="block w-2/3 mx-auto bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition"
+            className="
+              block w-2/3 mx-auto
+              text-white
+              bg-gradient-to-r from-purple-500 to-pink-500
+              hover:from-pink-500 hover:to-purple-500
+              focus:outline-none focus:ring-4 focus:ring-purple-200
+              font-medium rounded-full text-sm
+              px-5 py-2.5
+              transition
+              text-center
+            "
           >
             Editar datos de perfil
           </Link>

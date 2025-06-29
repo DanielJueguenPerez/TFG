@@ -65,7 +65,12 @@ export default function LoginPage() {
           ¿No estás registrad@?{" "}
           <Link
             to="/usuario/registro"
-            className="text-blue-600 hover:underline"
+            className="
+              bg-gradient-to-br from-purple-600 to-blue-500
+              bg-clip-text text-transparent
+              hover:underline
+              font-medium
+            "
           >
             Regístrate
           </Link>
