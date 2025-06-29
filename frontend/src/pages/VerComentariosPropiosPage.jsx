@@ -1,6 +1,7 @@
 import ListaPaginada from "../components/ListaPaginada";
 import { verComentariosPropios } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
+import fondoComentarios from "../assets/comentarios.png";
 
 export default function VerComentariosPropios() {
   const navigate = useNavigate();
@@ -9,7 +10,13 @@ export default function VerComentariosPropios() {
 
   const renderComentario = (comentario) => {
     return (
-      <li key={comentario.id_comentario} className="p-4">
+      <li key={comentario.id_comentario} className="relative p-4 bg-white/20">
+        <Link
+          to={`/comentarios/editar/${comentario.id_comentario}`}
+          className="absolute top-2 right-2 text-sm text-blue-600 hover:underline"
+        >
+          Editar
+        </Link>
         <div className="flex justify-between items-start">
           <div>
             <p className="text-lg mb-2">{comentario.texto}</p>
@@ -37,18 +44,42 @@ export default function VerComentariosPropios() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 px-2">
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-4 text-sm text-blue-600"
-      >
-        ← Volver atrás
-      </button>
-      <h2 className="text-2xl font-bold text-center mb-6">💬 Tus comentarios 💬</h2>
-      <ListaPaginada
-        recuperarDatos={recuperarComentarios}
-        renderItem={renderComentario}
+    <div className="relative min-h-screen pt-16 overflow-hidden">
+      <img
+        src={fondoComentarios}
+        alt=""
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
       />
+
+      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
+        >
+          ← Volver atrás
+        </button>
+
+        <h2 className="text-2xl font-bold text-center mb-6">
+          <span aria-hidden="true">💬</span>
+          <span
+            className="
+              bg-gradient-to-r 
+              from-purple-500 to-pink-500 
+              bg-clip-text text-transparent 
+              hover:from-pink-500 hover:to-purple-500 
+              transition-colors
+            "
+          >
+            Tus comentarios{" "}
+          </span>
+          <span aria-hidden="true">💬</span>
+        </h2>
+        <ListaPaginada
+          recuperarDatos={recuperarComentarios}
+          renderItem={renderComentario}
+        />
+      </div>
     </div>
   );
 }

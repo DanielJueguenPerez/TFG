@@ -36,14 +36,14 @@ export default function ListaPaginada({
       {cargando ? (
         <p className="text-center">Cargando...</p>
       ) : (
-        <ul className="border rounded divide-y">{items.map(renderItem)}</ul>
+        <ul className="border border-purple-500 rounded divide-y divide-purple-500 bg-transparent">{items.map(renderItem)}</ul>
       )}
 
       <div className="flex justify-center gap-4 mt-6">
         <button
           onClick={() => setPagina((prev) => Math.max(prev - 1, 1))}
           disabled={pagina === 1}
-          className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+          className="text-white px-3 py-1 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 rounded-full disabled:opacity-50"
         >
           Anterior
         </button>
@@ -53,7 +53,7 @@ export default function ListaPaginada({
         <button
           onClick={() => setPagina((prev) => Math.min(prev + 1, totalPaginas))}
           disabled={pagina === totalPaginas}
-          className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+          className="text-white px-3 py-1 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 rounded-full disabled:opacity-50"
         >
           Siguiente
         </button>
