@@ -32,7 +32,7 @@ export default function BuscarAsignaturasPage() {
         <div className="flex items-center justify-between">
           <Link
             to={`/asignaturas/${asignatura.id_asignatura}`}
-            className="text-blue-600 hover:underline"
+            className="text-purple-600 hover:underline"
           >
             {asignatura.nombre}
           </Link>
@@ -71,7 +71,19 @@ export default function BuscarAsignaturasPage() {
           ← Volver atrás
         </button>
         <h2 className="text-2xl font-bold text-center mb-6">
-          📚 Buscar asignaturas 📚
+          <span aria-hidden="true">📚</span>
+          <span
+            className="
+              bg-gradient-to-r 
+              from-purple-500 to-pink-500 
+              bg-clip-text text-transparent 
+              hover:from-pink-500 hover:to-purple-500 
+              transition-colors
+            "
+          >
+            Buscar asignaturas
+          </span>
+          <span aria-hidden="true">📚</span>
         </h2>
         <input
           type="text"

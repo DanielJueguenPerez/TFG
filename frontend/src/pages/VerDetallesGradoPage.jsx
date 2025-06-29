@@ -47,7 +47,11 @@ export default function VerDetallesGradoPage() {
         >
           ← Volver atrás
         </button>
-        <h2 className="text-2xl font-bold text-center mb-2">{grado.nombre}</h2>
+        <h2 className="text-2xl font-bold text-center mb-2 bg-gradient-to-r 
+              from-purple-500 to-pink-500 
+              bg-clip-text text-transparent 
+              hover:from-pink-500 hover:to-purple-500 
+              transition-colors">{grado.nombre}</h2>
         <p className="text-center text-blue-600 mb-6">
           <a
             href={grado.url}
@@ -63,13 +67,13 @@ export default function VerDetallesGradoPage() {
           <div key={bloque.curso} className="mb-4 border rounded">
             <button
               onClick={() => toggleCurso(bloque.curso)}
-              className="w-full text-left px-4 py-2 bg-gray-100 font-semibold hover:bg-gray-200"
+              className="w-full text-left px-4 py-2 bg-white/40 font-semibold hover:bg-white/50"
             >
               Curso {bloque.curso}
             </button>
 
             {cursosDesplegados.includes(bloque.curso) && (
-              <ul className="px-6 py-2 list-disc">
+              <ul className="px-6 py-2 list-disc bg-white/10">
                 {bloque.asignaturas.map((asig) => (
                   <li key={asig.id_asignatura} className="py-1">
                     <Link

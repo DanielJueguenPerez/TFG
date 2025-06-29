@@ -51,7 +51,11 @@ export default function LoginPage() {
 
       <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
         <div className="max-w-md mx-auto mt-10 px-4">
-          <h2 className="text-2xl font-bold text-center mb-6">
+          <h2 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
+              from-purple-500 to-pink-500 
+              bg-clip-text text-transparent 
+              hover:from-pink-500 hover:to-purple-500 
+              transition-colors">
             Iniciar sesión
           </h2>
           <FormularioInput

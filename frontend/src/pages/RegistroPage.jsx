@@ -55,7 +55,11 @@ export default function RegistroPage() {
       />
 
       <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
-        <h2 className="text-2xl font-bold text-center mb-6">Regístrate</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
+              from-purple-500 to-pink-500 
+              bg-clip-text text-transparent 
+              hover:from-pink-500 hover:to-purple-500 
+              transition-colors">Regístrate</h2>
         <FormularioInput
           campos={camposRegistro}
           textoBoton="Registrarse"

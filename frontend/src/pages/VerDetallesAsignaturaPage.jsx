@@ -45,7 +45,13 @@ export default function VerDetallesAsignaturaPage() {
           ← Volver atrás
         </button>
 
-        <h2 className="text-3xl font-bold text-center mb-2">
+        <h2
+          className="text-3xl font-bold text-center mb-2 bg-gradient-to-r 
+              from-purple-500 to-pink-500 
+              bg-clip-text text-transparent 
+              hover:from-pink-500 hover:to-purple-500 
+              transition-colors"
+        >
           {asignatura.nombre}
 
           {estaLogueado && (
@@ -63,7 +69,7 @@ export default function VerDetallesAsignaturaPage() {
           )}
         </h2>
 
-        <p className="text-center text-gray-600 mb-6">
+        <p className="text-center text-gray-700 mb-6">
           {asignatura.nombre_grado}
         </p>
 
