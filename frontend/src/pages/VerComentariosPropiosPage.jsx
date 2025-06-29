@@ -11,7 +11,13 @@ export default function VerComentariosPropios() {
 
   const renderComentario = (comentario) => {
     return (
-      <li key={comentario.id_comentario} className="p-4">
+      <li key={comentario.id_comentario} className="relative p-4">
+              <Link
+        to={`/comentarios/editar/${comentario.id_comentario}`}
+        className="absolute top-2 right-2 text-sm text-blue-600 hover:underline"
+      >
+        Editar
+      </Link>
         <div className="flex justify-between items-start">
           <div>
             <p className="text-lg mb-2">{comentario.texto}</p>
