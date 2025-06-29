@@ -39,7 +39,7 @@ export default function VerComentariosPage() {
               , {new Date(comentario.fecha).toLocaleString()}
             </p>
           </div>
-          {user?.id === comentario.id_usuario && (
+          {user?.username === comentario.username && (
             <Link
               to={`/comentarios/editar/${comentario.id_comentario}`}
               className="text-blue-600 hover:underline text-sm"
