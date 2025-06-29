@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: tfgdb
+      POSTGRES_USER: tfguser
+      POSTGRES_PASSWORD: tfgpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tfguser -d tfgdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   backend:
     build: ./backend
     volumes:
@@ -8,7 +23,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       USE_SQLITE: "false"
       POSTGRES_DB: tfgdb
@@ -23,20 +39,14 @@ services:
         python manage.py poblar_bd &&
         python manage.py runserver 0.0.0.0:8000
       "
-  db:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_DB: tfgdb
-      POSTGRES_USER: tfguser
-      POSTGRES_PASSWORD: tfgpassword
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
   frontend:
     build: ./frontend
     ports:
       - "4173:4173"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
+
