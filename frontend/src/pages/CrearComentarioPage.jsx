@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ComentarioInput from "../components/ComentarioInput";
 import { crearComentario } from "../api/comentarios";
 import fondoComentarios from "../assets/comentarios.png";
+import toast from 'react-hot-toast'
 
 export default function CrearComentarioPage() {
   const { id } = useParams();
@@ -10,9 +11,10 @@ export default function CrearComentarioPage() {
   const handleCrear = async (texto) => {
     try {
       await crearComentario(id, texto);
+      toast.success("Comentario creado con éxito")
       navigate(-1);
     } catch (error) {
-      console.error("Error al crear el comentario:", error);
+      toast.error("Error al crear el comentario:", error);
     }
   };
 

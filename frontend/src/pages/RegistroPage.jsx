@@ -3,6 +3,7 @@ import FormularioInput from "../components/FormularioInput";
 import { registroUsuario } from "../api/auth";
 import { useUser } from "../context/UserContext";
 import fondoUsuario from "../assets/usuario.png";
+import toast from 'react-hot-toast'
 
 export default function RegistroPage() {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ export default function RegistroPage() {
       const data = await registroUsuario(datos);
       localStorage.setItem("token", data.token);
       login(data.token, data.user);
-      alert("Registro exitoso");
       navigate("/");
     } catch (error) {
       console.error("Error al registrar: ", error);
@@ -39,9 +39,9 @@ export default function RegistroPage() {
             return `${campo}: ${mensajes}`;
           })
           .join("\n");
-        alert(`No se pudo completar el registro:\n\n${mensaje}`);
+        toast.error(`No se pudo completar el registro:\n\n${mensaje}`);
       } else {
-        alert("Error desconocido al registrarse");
+        toast.error("Error desconocido al registrarse");
       }
     }
   };

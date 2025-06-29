@@ -7,6 +7,7 @@ import {
   eliminarComentario,
 } from "../api/comentarios";
 import fondoComentarios from "../assets/comentarios.png";
+import toast from 'react-hot-toast'
 
 export default function EditarComentarioPage() {
   const { id } = useParams();
@@ -31,10 +32,10 @@ export default function EditarComentarioPage() {
   const handleEditar = async (nuevoTexto) => {
     try {
       await editarComentario(id, nuevoTexto);
-      alert("Comentario editado correctamente");
+      toast.success("Comentario editado correctamente ✅");
       navigate(-1);
     } catch (error) {
-      console.error("Error al editar el comentario");
+      toast.error("Error al editar el comentario");
       alert("Error al editar el comentario");
     }
   };
@@ -47,10 +48,10 @@ export default function EditarComentarioPage() {
     }
     try {
       await eliminarComentario(id);
-      alert("Comentario borrado correctamente");
+      toast.success("Comentario borrado correctamente 🔴");
       navigate(-1);
     } catch (error) {
-      console.error("Error al borrar el comentario");
+      toast.error("Error al borrar el comentario");
       alert("Error al borrar el comentario");
     }
   };

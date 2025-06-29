@@ -5,6 +5,7 @@ import {
   eliminarFavorito,
 } from "../api/favoritos";
 import { useUser } from "./UserContext";
+import toast from 'react-hot-toast'
 
 const FavoritosContext = createContext();
 
@@ -55,11 +56,13 @@ export const FavoritosProvider = ({ children }) => {
         setFavoritos((prev) =>
           prev.filter((fav) => fav.id_asignatura !== id_asignatura)
         );
+        toast.success("Asignatura eliminada de favoritos 🔴")
       } else {
         const nuevoFavorito = await agregarFavorito(id_asignatura);
         if (nuevoFavorito?.id_asignatura) {
           setFavoritos((prev) => [...prev, nuevoFavorito]);
         }
+        toast.success("Asignatura añadida a favoritos ✅")
       }
     } catch (error) {
       console.error("Error al agregar/eliminar favorito", error);
