@@ -39,7 +39,8 @@ export default function VerDetallesAsignaturaPage() {
       <div className="relative z-10 max-w-4xl mx-auto mt-10 px-4">
         <button
           onClick={() => navigate(-1)}
-          className="mb-4 text-sm text-blue-600"
+          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
         >
           ← Volver atrás
         </button>
@@ -69,7 +70,7 @@ export default function VerDetallesAsignaturaPage() {
         <div className="flex justify-center gap-4 mb-8">
           <button
             onClick={() => navigate(`/comentarios/${asignatura.id_asignatura}`)}
-                className="
+            className="
                   inline-flex items-center justify-center
                   text-white
                   bg-gradient-to-r from-purple-500 to-pink-500

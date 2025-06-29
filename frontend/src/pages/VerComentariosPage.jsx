@@ -28,7 +28,7 @@ export default function VerComentariosPage() {
 
   const renderComentario = (comentario) => {
     return (
-      <li key={comentario.id_comentario} className="p-4">
+      <li key={comentario.id_comentario} className="p-4 bg-white/20">
         <div className="flex justify-between items-start">
           <div>
             <p className="text-lg mb-2">{comentario.texto}</p>
@@ -63,7 +63,8 @@ export default function VerComentariosPage() {
       <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
         <button
           onClick={() => navigate(-1)}
-          className="mb-4 text-sm text-blue-600"
+          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
         >
           ← Volver atrás
         </button>
@@ -77,7 +78,7 @@ export default function VerComentariosPage() {
               onClick={() =>
                 navigate(`/comentarios/nuevo/${asignatura.id_asignatura}`)
               }
-                className="
+              className="
                   inline-flex items-center justify-center
                   text-white
                   bg-gradient-to-r from-purple-500 to-pink-500
@@ -89,7 +90,7 @@ export default function VerComentariosPage() {
                   transition
                   min-w-[120px]
                   text-center
-                "            
+                "
             >
               Publicar comentario
             </button>

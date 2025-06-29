@@ -7,7 +7,7 @@ export default function VerGradosPage() {
   const navigate = useNavigate();
 
   const renderGrado = (grado) => (
-    <li key={grado.id_grado} className="p-4 border-b">
+    <li key={grado.id_grado} className="p-4 border-b bg-white/20">
       <Link
         to={`/grados/${grado.id_grado}`}
         className="text-blue-600 hover:underline"
@@ -29,7 +29,8 @@ export default function VerGradosPage() {
         {" "}
         <button
           onClick={() => navigate(-1)}
-          className="mb-4 text-sm text-blue-600"
+          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
         >
           ← Volver atrás
         </button>

@@ -16,7 +16,7 @@ export default function VerListaFavoritosPage() {
 
   const renderAsignatura = (favorito) => {
     return (
-      <li key={favorito.id_favorito} className="p-4 border-b">
+      <li key={favorito.id_favorito} className="p-4 border-b bg-white/20">
         <Link
           to={`/asignaturas/${favorito.id_asignatura}`}
           className="text-blue-600 hover:underline"
@@ -39,7 +39,8 @@ export default function VerListaFavoritosPage() {
         {" "}
         <button
           onClick={() => navigate(-1)}
-          className="mb-4 text-sm text-blue-600"
+          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
         >
           ← Volver atrás
         </button>

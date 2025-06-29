@@ -65,7 +65,8 @@ export default function BuscarAsignaturasPage() {
       <div className="relative z-10 max-w-2xl mx-auto mt-10 px-4">
         <button
           onClick={() => navigate(-1)}
-          className="mb-4 text-sm text-blue-600"
+          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
         >
           ← Volver atrás
         </button>
