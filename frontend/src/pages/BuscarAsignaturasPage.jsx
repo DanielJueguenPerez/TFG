@@ -28,7 +28,7 @@ export default function BuscarAsignaturasPage() {
 
   const renderAsignatura = (asignatura) => {
     return (
-      <li key={asignatura.id_asignatura} className="p-4 border-b">
+      <li key={asignatura.id_asignatura} className="p-4 border-b bg-white/20">
         <div className="flex items-center justify-between">
           <Link
             to={`/asignaturas/${asignatura.id_asignatura}`}
