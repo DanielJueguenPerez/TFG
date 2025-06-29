@@ -32,7 +32,7 @@ export default function BuscarAsignaturasPage() {
         <div className="flex items-center justify-between">
           <Link
             to={`/asignaturas/${asignatura.id_asignatura}`}
-            className="text-purple-600 hover:underline"
+            className="text-blue-600 hover:underline"
           >
             {asignatura.nombre}
           </Link>

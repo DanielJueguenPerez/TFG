@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import udcLogo from "../assets/udc.png";
+import landingBg from "../assets/landing.jpg";
 
 export default function LandingPage() {
   // Array de frases que se van a monstrar en la Langing Page
@@ -7,8 +9,8 @@ export default function LandingPage() {
     "La plataforma para ayudarte a decidir tu itinerario en la universidad.",
     "Descubre todos los grados de la UDC.",
     "Comprueba las estisticas de cada asignatura.",
-    "Intercambia consejos y opiniones con otros alumnos.",
     "Diseña tu itinerario académico ideal.",
+    "Intercambia consejos y opiniones con otros alumnos.",
   ];
 
   // Variable para llevar cuenta de que frase se debe mostrar
@@ -23,23 +25,35 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <section className="w-full h-screen pt-16 bg-gradient-to-b from-black via-purple-900 to-pink-200 flex items-center justify-center">
-      {/* Contenedor blanco donde se muestran las frases que se van sucediendo una despues de otra */}
-      <div
-        className="bg-white bg-opacity-70 px-6 py-8 rounded-xl w-full max-w-2xl min-h-40 h-40 
-                flex flex-col justify-center items-center overflow-hidden transition-all duration-500"
-      >
-        <h1 className="text-2xl font-extrabold mb-8">Bienvenid@ a MatricUDC</h1>
+    <section
+      style={{ backgroundImage: `url(${landingBg})` }}
+      className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-start pt-40"
+    >
+      {" "}
+      <div className="flex flex-col items-center w-full max-w-4xl px-4">
+        <h1
+          className="font-heading text-white text-5xl md:text-6xl font-extrabold
+          mb-28 text-center italic"
+        >
+          Bienvenid@ a MatricUDC
+        </h1>
+        <div className="w-full mb-28 bg-white bg-opacity-70 p-4 rounded-xl">
+          <img src={udcLogo} alt="Logo UDC" className="w-full h-auto" />
+        </div>
         {/* Animador que da efecto de transicion y muestra las frases */}
-        <div className="relative h-[80px] w-full flex items-center justify-center">
+        <div className="relative w-full flex items-center justify-center py-8">
           <AnimatePresence mode="wait">
             <motion.p
               key={indice}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute w-full px-4 text-center text-lg text-gray-800"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.8 }}
+              className="
+                px-4 text-center
+                text-white text-2xl md:text-4xl
+                font-body font-bold leading-snug
+              "
             >
               {frases[indice]}
             </motion.p>
