@@ -4,6 +4,7 @@ import ListaPaginada from "../components/ListaPaginada";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
+import fondoComentarios from "../assets/comentarios.png";
 
 export default function VerComentariosPage() {
   const navigate = useNavigate();
@@ -52,33 +53,41 @@ export default function VerComentariosPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 px-2 pt-16">
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-4 text-sm text-blue-600"
-      >
-        ← Volver atrás
-      </button>
-      <h2 className=" text-2xl font-bold text-center mb-6">
-        Comentarios de{" "}
-        <span className="text-blue-700">{asignatura.nombre}</span>
-      </h2>
-      <div className="flex justify-center gap-4 mb-8">
-        {estaLogueado && (
-          <button
-            onClick={() =>
-              navigate(`/comentarios/nuevo/${asignatura.id_asignatura}`)
-            }
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
-            Publicar comentario
-          </button>
-        )}
-      </div>
-      <ListaPaginada
-        recuperarDatos={recuperarComentarios}
-        renderItem={renderComentario}
+    <div className="relative min-h-screen pt-16 overflow-hidden">
+      <img
+        src={fondoComentarios}
+        alt=""
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
       />
+
+      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 text-sm text-blue-600"
+        >
+          ← Volver atrás
+        </button>
+        <h2 className=" text-2xl font-bold text-center mb-6">
+          Comentarios de{" "}
+          <span className="text-blue-700">{asignatura.nombre}</span>
+        </h2>
+        <div className="flex justify-center gap-4 mb-8">
+          {estaLogueado && (
+            <button
+              onClick={() =>
+                navigate(`/comentarios/nuevo/${asignatura.id_asignatura}`)
+              }
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Publicar comentario
+            </button>
+          )}
+        </div>
+        <ListaPaginada
+          recuperarDatos={recuperarComentarios}
+          renderItem={renderComentario}
+        />
+      </div>
     </div>
   );
 }

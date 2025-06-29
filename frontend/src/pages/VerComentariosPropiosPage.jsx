@@ -1,6 +1,8 @@
 import ListaPaginada from "../components/ListaPaginada";
 import { verComentariosPropios } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
+import fondoComentarios from "../assets/comentarios.png";
+
 
 export default function VerComentariosPropios() {
   const navigate = useNavigate();
@@ -37,7 +39,14 @@ export default function VerComentariosPropios() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 px-2 pt-16">
+    <div className="relative min-h-screen pt-16 overflow-hidden">
+      <img
+        src={fondoComentarios}
+        alt=""
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
+      />
+
+      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600"
@@ -50,5 +59,6 @@ export default function VerComentariosPropios() {
         renderItem={renderComentario}
       />
     </div>
+        </div>
   );
 }

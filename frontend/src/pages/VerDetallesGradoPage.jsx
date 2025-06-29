@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { verDetallesGrado } from "../api/grados";
+import fondoGrados from "../assets/grados.png";
 
 export default function VerDetallesGradoPage() {
   const { id } = useParams();
@@ -31,50 +32,58 @@ export default function VerDetallesGradoPage() {
   if (!grado) return <p className="text-center mt-10">Cargando grado...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 px-4 pt-16">
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-4 text-sm text-blue-600"
-      >
-        ← Volver atrás
-      </button>
-      <h2 className="text-2xl font-bold text-center mb-2">{grado.nombre}</h2>
-      <p className="text-center text-blue-600 mb-6">
-        <a
-          href={grado.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
+    <div className="relative min-h-screen pt-16 overflow-hidden">
+      <img
+        src={fondoGrados}
+        alt=""
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
+      />
+
+      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 text-sm text-blue-600"
         >
-          Ver en la web oficial
-        </a>
-      </p>
-
-      {grado.asignaturas_cursos.map((bloque) => (
-        <div key={bloque.curso} className="mb-4 border rounded">
-          <button
-            onClick={() => toggleCurso(bloque.curso)}
-            className="w-full text-left px-4 py-2 bg-gray-100 font-semibold hover:bg-gray-200"
+          ← Volver atrás
+        </button>
+        <h2 className="text-2xl font-bold text-center mb-2">{grado.nombre}</h2>
+        <p className="text-center text-blue-600 mb-6">
+          <a
+            href={grado.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
           >
-            Curso {bloque.curso}
-          </button>
+            Ver en la web oficial
+          </a>
+        </p>
 
-          {cursosDesplegados.includes(bloque.curso) && (
-            <ul className="px-6 py-2 list-disc">
-              {bloque.asignaturas.map((asig) => (
-                <li key={asig.id_asignatura} className="py-1">
-                  <Link
-                    to={`/asignaturas/${asig.id_asignatura}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {asig.nombre}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
+        {grado.asignaturas_cursos.map((bloque) => (
+          <div key={bloque.curso} className="mb-4 border rounded">
+            <button
+              onClick={() => toggleCurso(bloque.curso)}
+              className="w-full text-left px-4 py-2 bg-gray-100 font-semibold hover:bg-gray-200"
+            >
+              Curso {bloque.curso}
+            </button>
+
+            {cursosDesplegados.includes(bloque.curso) && (
+              <ul className="px-6 py-2 list-disc">
+                {bloque.asignaturas.map((asig) => (
+                  <li key={asig.id_asignatura} className="py-1">
+                    <Link
+                      to={`/asignaturas/${asig.id_asignatura}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {asig.nombre}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
