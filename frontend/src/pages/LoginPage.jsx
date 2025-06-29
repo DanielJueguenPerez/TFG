@@ -3,6 +3,8 @@ import FormularioInput from "../components/FormularioInput";
 import { loginUsuario } from "../api/auth";
 import { useUser } from "../context/UserContext";
 import fondoUsuario from "../assets/usuario.png";
+import toast from 'react-hot-toast'
+
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export default function LoginPage() {
     try {
       const data = await loginUsuario(datos);
       login(data.token, data.user);
-      alert("Inicio de sesión exitoso");
+      toast.success("Sesión iniciada");
       navigate("/");
     } catch (error) {
       console.error("Error al iniciar sesión: ", error);
@@ -34,9 +36,9 @@ export default function LoginPage() {
             return `${campo}: ${mensajes}`;
           })
           .join("\n");
-        alert(`No se pudo iniciar sesión:\n\n${mensaje}`);
+        toast.error(`No se pudo iniciar sesión:\n\n${mensaje}`);
       } else {
-        alert("Error desconocido al iniciar sesión");
+        toast.error("Error desconocido al iniciar sesión");
       }
     }
   };

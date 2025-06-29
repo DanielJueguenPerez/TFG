@@ -3,6 +3,7 @@ import FormularioInput from "../components/FormularioInput";
 import { verPerfilUsuario, editarPerfilUsuario } from "../api/auth";
 import { useEffect, useState } from "react";
 import fondoUsuario from "../assets/usuario.png";
+import toast from 'react-hot-toast'
 
 export default function EditarPerfilPage() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function EditarPerfilPage() {
   const handleEditar = async (datos) => {
     try {
       const data = await editarPerfilUsuario(datos);
-      alert("Datos editados con éxito");
+      toast.success("Datos editados con éxito");
       navigate("/usuario/ver-perfil");
     } catch (error) {
       console.error("Error al editar: ", error);
@@ -58,9 +59,9 @@ export default function EditarPerfilPage() {
             return `${campo}: ${mensajes}`;
           })
           .join("\n");
-        alert(`No se pudo editar los datos:\n\n${mensaje}`);
+        toast.error(`No se pudo editar los datos:\n\n${mensaje}`);
       } else {
-        alert("Error desconocido al editar los datos");
+        toast.error("Error desconocido al editar los datos");
       }
     }
   };

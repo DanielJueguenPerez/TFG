@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logopeque.png";
+import toast from "react-hot-toast";
 
 export default function Header() {
   // Variables para controlar el estado del usuario y el menú hamburguesa
@@ -161,6 +162,7 @@ export default function Header() {
               <button
                 onClick={() => {
                   logout();
+                  toast.success("¡Hasta pronto! 👋");
                   setIsSidebarOpen(false);
                   navigate("/");
                 }}
