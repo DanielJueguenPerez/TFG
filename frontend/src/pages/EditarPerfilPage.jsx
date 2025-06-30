@@ -1,14 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import FormularioInput from "../components/FormularioInput";
 import { verPerfilUsuario, editarPerfilUsuario } from "../api/auth";
 import { useEffect, useState } from "react";
 import fondoUsuario from "../assets/usuario.png";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
+import TransicionAnimada from "../components/TransicionAnimada";
+
 
 export default function EditarPerfilPage() {
   const navigate = useNavigate();
   const [perfil, setPerfil] = useState(null);
   const [error, setError] = useState(null);
+  const location = useLocation();
 
   const camposPerfil = [
     { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario" },
@@ -67,27 +70,31 @@ export default function EditarPerfilPage() {
   };
 
   return (
-    <div className="relative min-h-screen pt-16 overflow-hidden">
-      <img
-        src={fondoUsuario}
-        alt=""
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
-      />
-
-      <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
-        <h2 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-purple-500 to-pink-500
-                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent">
-          Modifica tus datos de perfil
-        </h2>
-        <FormularioInput
-          campos={camposPerfil}
-          textoBoton="Guardar"
-          valoresIniciales={perfil}
-          onSubmit={handleEditar}
-          validarTodos={false}
-          onCancel={() => navigate("/usuario/ver-perfil")}
+    <TransicionAnimada animationKey={location.pathname}>
+      <div className="relative min-h-screen pt-16 overflow-hidden">
+        <img
+          src={fondoUsuario}
+          alt=""
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
         />
+
+        <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
+          <h2
+            className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-purple-500 to-pink-500
+                hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
+          >
+            Modifica tus datos de perfil
+          </h2>
+          <FormularioInput
+            campos={camposPerfil}
+            textoBoton="Guardar"
+            valoresIniciales={perfil}
+            onSubmit={handleEditar}
+            validarTodos={false}
+            onCancel={() => navigate("/usuario/ver-perfil")}
+          />
+        </div>
       </div>
-    </div>
+    </TransicionAnimada>
   );
 }

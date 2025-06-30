@@ -7,7 +7,8 @@ import {
   eliminarComentario,
 } from "../api/comentarios";
 import fondoComentarios from "../assets/comentarios.png";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
+import TransicionAnimada from "../components/TransicionAnimada";
 
 export default function EditarComentarioPage() {
   const { id } = useParams();
@@ -61,29 +62,33 @@ export default function EditarComentarioPage() {
   }
 
   return (
-    <div className="relative min-h-screen pt-16 overflow-hidden">
-      <img
-        src={fondoComentarios}
-        alt=""
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
-      />
+    <TransicionAnimada animationKey={id}>
+      <div className="relative min-h-screen pt-16 overflow-hidden">
+        <img
+          src={fondoComentarios}
+          alt=""
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
+        />
 
-      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
-        <h2 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
+        <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
+          <h2
+            className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
               hover:from-pink-500 hover:to-purple-500 
-              transition-colors">
-          Editar Comentario
-        </h2>
-        <ComentarioInput
-          textoInicial={textoInicial}
-          onSubmit={handleEditar}
-          onDelete={handleBorrar}
-          textoBoton="Guardar cambios"
-          onCancel={() => navigate(-1)}
-        />
+              transition-colors"
+          >
+            Editar Comentario
+          </h2>
+          <ComentarioInput
+            textoInicial={textoInicial}
+            onSubmit={handleEditar}
+            onDelete={handleBorrar}
+            textoBoton="Guardar cambios"
+            onCancel={() => navigate(-1)}
+          />
+        </div>
       </div>
-    </div>
+    </TransicionAnimada>
   );
 }

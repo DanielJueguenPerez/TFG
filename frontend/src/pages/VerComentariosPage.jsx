@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 import fondoComentarios from "../assets/comentarios.png";
+import TransicionAnimada from "../components/TransicionAnimada";
 
 export default function VerComentariosPage() {
   const navigate = useNavigate();
@@ -53,36 +54,39 @@ export default function VerComentariosPage() {
   };
 
   return (
-    <div className="relative min-h-screen pt-16 overflow-hidden">
-      <img
-        src={fondoComentarios}
-        alt=""
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
-      />
+    <TransicionAnimada animationKey={id}>
+      <div className="relative min-h-screen pt-16 overflow-hidden">
+        <img
+          src={fondoComentarios}
+          alt=""
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
+        />
 
-      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
+        <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="mb-4 text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500
                 hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
-        >
-          ← Volver atrás
-        </button>
-        <h2 className=" text-2xl font-bold text-center mb-6 bg-gradient-to-r 
+          >
+            ← Volver atrás
+          </button>
+          <h2
+            className=" text-2xl font-bold text-center mb-6 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
               hover:from-pink-500 hover:to-purple-500 
-              transition-colors">
-          Comentarios de{" "}
-          <span className="text-purple-600">{asignatura.nombre}</span>
-        </h2>
-        <div className="flex justify-center gap-4 mb-8">
-          {estaLogueado && (
-            <button
-              onClick={() =>
-                navigate(`/comentarios/nuevo/${asignatura.id_asignatura}`)
-              }
-              className="
+              transition-colors"
+          >
+            Comentarios de{" "}
+            <span className="text-purple-600">{asignatura.nombre}</span>
+          </h2>
+          <div className="flex justify-center gap-4 mb-8">
+            {estaLogueado && (
+              <button
+                onClick={() =>
+                  navigate(`/comentarios/nuevo/${asignatura.id_asignatura}`)
+                }
+                className="
                   inline-flex items-center justify-center
                   text-white
                   bg-gradient-to-r from-purple-500 to-pink-500
@@ -95,16 +99,17 @@ export default function VerComentariosPage() {
                   min-w-[120px]
                   text-center
                 "
-            >
-              Publicar comentario
-            </button>
-          )}
+              >
+                Publicar comentario
+              </button>
+            )}
+          </div>
+          <ListaPaginada
+            recuperarDatos={recuperarComentarios}
+            renderItem={renderComentario}
+          />
         </div>
-        <ListaPaginada
-          recuperarDatos={recuperarComentarios}
-          renderItem={renderComentario}
-        />
       </div>
-    </div>
+    </TransicionAnimada>
   );
 }
