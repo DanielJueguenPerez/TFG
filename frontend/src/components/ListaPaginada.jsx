@@ -32,7 +32,7 @@ export default function ListaPaginada({
   }, [pagina, claveBusqueda]);
 
   return (
-    <div>
+    <div className="pb-14">
       {cargando ? (
         <p className="text-center">Cargando...</p>
       ) : (
