@@ -12,7 +12,7 @@ export default function ComentarioInput({
 
   const handleChange = (e) => {
     setTexto(e.target.value);
-    if (error) setError(""); // Limpiar error al cambiar el texto
+    if (error) setError(""); 
   };
 
   const handleSubmit = (e) => {
@@ -25,9 +25,9 @@ export default function ComentarioInput({
   };
 
   const baseBtn = `inline-flex items-center justify-center
-  text-white font-medium text-sm
-    px-4 py-2.5 rounded-full
-  transition text-center`;
+                    text-white font-medium text-sm
+                    px-4 py-2.5 rounded-full
+                    transition text-center`;
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">

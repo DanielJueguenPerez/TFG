@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { verPerfilUsuario } from "../api/auth";
 import { Link } from "react-router-dom";
 import fondoUsuario from "../assets/usuario.png";
+import TransicionAnimada from "../components/TransicionAnimada";
+import { useLocation } from "react-router-dom";
 
 export default function VerPerfilPage() {
   const [perfil, setPerfil] = useState(null);
   const [error, setError] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const recuperarPerfil = async () => {
@@ -29,30 +32,31 @@ export default function VerPerfilPage() {
   }
 
   return (
-    <div className="relative min-h-screen pt-16 overflow-hidden">
-      <img
-        src={fondoUsuario}
-        alt=""
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
-      />
+    <TransicionAnimada animationKey={location.pathname}>
+      <div className="relative min-h-screen pt-16 overflow-hidden">
+        <img
+          src={fondoUsuario}
+          alt=""
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0 pointer-events-none"
+        />
 
-      <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
-        {" "}
-        <div className="bg-white/50 overflow-hidden shadow rounded-lg border max-w-md mx-auto mt-10">
-          <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-            <dl className="sm:divide-y sm:divide-gray-200">
-              <Item label="Nombre de usuario" valor={perfil.username} />
-              <Item label="Email" valor={perfil.email} />
-              <Item label="Nombre" valor={perfil.nombre} />
-              <Item label="Apellidos" valor={perfil.apellidos} />
-              <Item label="DNI" valor={perfil.DNI} />
-            </dl>
+        <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
+          {" "}
+          <div className="bg-white/50 overflow-hidden shadow rounded-lg border max-w-md mx-auto mt-10">
+            <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+              <dl className="sm:divide-y sm:divide-gray-200">
+                <Item label="Nombre de usuario" valor={perfil.username} />
+                <Item label="Email" valor={perfil.email} />
+                <Item label="Nombre" valor={perfil.nombre} />
+                <Item label="Apellidos" valor={perfil.apellidos} />
+                <Item label="DNI" valor={perfil.DNI} />
+              </dl>
+            </div>
           </div>
-        </div>
-        <div className="max-w-md mx-auto mt-6">
-          <Link
-            to="/usuario/editar-perfil"
-            className="
+          <div className="max-w-md mx-auto mt-6">
+            <Link
+              to="/usuario/editar-perfil"
+              className="
               block w-2/3 mx-auto
               text-white
               bg-gradient-to-r from-purple-500 to-pink-500
@@ -63,12 +67,13 @@ export default function VerPerfilPage() {
               transition
               text-center
             "
-          >
-            Editar datos de perfil
-          </Link>
+            >
+              Editar datos de perfil
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </TransicionAnimada>
   );
 }
 
