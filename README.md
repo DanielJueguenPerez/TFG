@@ -20,30 +20,33 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 1. Ubicarse en la carpeta raiz del proyecto y ejecutar los siguientes comandos, con el fin de ejecutar el script para instalar Docker y Docker compose:
         
-           chmod +x docker-instalacion.sh
-           ./docker-instalacion.sh
+        chmod +x docker-instalacion.sh
+        ./docker-instalacion.sh
 
 2. Ejecutar los siguientes comandos por separado para construir las imágenes y levantar los servicios (tarda un poco):
 
-           docker compose build --no-cache
-           docker compose up
+        docker compose build --no-cache
+        docker compose up
 
 3. Desde un navegador, acceder a las direcciones del backend o el frontend.
 
-           http://localhost:8000/docs 
-           http://localhost:8000/redocs - Backend
-         
-           http://localhost:4173 - Frontend
+        -Backend
+
+        http://localhost:8000/docs 
+        http://localhost:8000/redocs
+
+        -Frontend
+        http://localhost:4173 - Frontend
 
 4. Cuando se quiera parar la ejecución de Docker, se ejecutarán los siguientes comandos:
 
-           ctrl+c
-           docker compose down -v
+        ctrl+c
+        docker compose down -v
 
 5. Ejecutar el siguiente comando para borrar los volumenes creados por docker
 
-           docker system prune -af --volumes
-           ctrl+c
+        docker system prune -af --volumes
+        ctrl+c
 
 # Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
 
