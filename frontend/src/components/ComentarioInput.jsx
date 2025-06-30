@@ -12,7 +12,7 @@ export default function ComentarioInput({
 
   const handleChange = (e) => {
     setTexto(e.target.value);
-    if (error) setError(""); 
+    if (error) setError("");
   };
 
   const handleSubmit = (e) => {
@@ -42,7 +42,7 @@ export default function ComentarioInput({
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <div className="flex flex-wrap justify-center sm:justify-between items-center gap-2 mt-2">
+      <div className="flex justify-between items-center mt-2 w-full">
         <div className="flex gap-2">
           <button
             type="submit"
