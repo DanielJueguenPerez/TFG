@@ -36,7 +36,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         http://localhost:8000/redocs
 
         -Frontend
-        http://localhost:4173 - Frontend
+        http://localhost:4173
 
 4. Cuando se quiera parar la ejecución de Docker, se ejecutarán los siguientes comandos:
 
