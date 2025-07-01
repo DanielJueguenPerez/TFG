@@ -14,6 +14,7 @@ import CrearComentarioPage from "./pages/CrearComentarioPage";
 import VerComentariosPage from "./pages/VerComentariosPage";
 import EditarComentarioPage from "./pages/EditarComentarioPage";
 import VerComentariosPropiosPage from "./pages/VerComentariosPropiosPage";
+import CambiarPasswordPage from "./pages/CambiarPasswordPage";
 
 function App() {
   return (
@@ -56,6 +57,14 @@ function App() {
           element={
             <Layout>
               <EditarPerfilPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/usuario/cambiar-password"
+          element={
+            <Layout>
+              <CambiarPasswordPage />
             </Layout>
           }
         />
