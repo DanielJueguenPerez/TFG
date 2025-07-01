@@ -8,19 +8,14 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(
     localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
   )
-  const [nombreUsuario, setNombreUsuario] = useState(
-    localStorage.getItem("nombreUsuario") || null
-  );
 
   const estaLogueado = !!token;
 
   const login = (newToken, userInfo) => {
     localStorage.setItem("token", newToken);
     localStorage.setItem("user", JSON.stringify(userInfo))
-    localStorage.setItem("nombreUsuario", userInfo.username);
     setToken(newToken);
     setUser(userInfo);
-    setNombreUsuario(userInfo.username);
   };
 
   const logout = async () => {
@@ -34,12 +29,11 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem("nombreUsuario");
     setToken(null);
     setUser(null);
-    setNombreUsuario(null);
   };
 
   return (
     <UserContext.Provider
-      value={{ token, user, nombreUsuario, login, logout, estaLogueado }}
+      value={{ token, user, login, logout, estaLogueado }}
     >
       {children}
     </UserContext.Provider>

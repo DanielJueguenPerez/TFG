@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 export default function Header() {
   // Variables para controlar el estado del usuario y el menú hamburguesa
   const navigate = useNavigate();
-  const { nombreUsuario, logout } = useUser();
+  const { user, logout } = useUser();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
   const landingPage = location.pathname === "/";
@@ -36,8 +36,7 @@ export default function Header() {
         {/* Se muestra el nombre de usuario y un boton para salir, solo visible si el usuario está logueado */}
 
         <nav className="flex items-center gap-4 relative">
-          {/* Hola, usuario (si está logueado) */}
-          {nombreUsuario && (
+          {user?.username  && (
             <span className={`${landingPage ? "text-white" : "text-gray-700"}`}>
               Hola,{" "}
               <Link
@@ -50,7 +49,7 @@ export default function Header() {
                   font-medium
                 "
               >
-                {nombreUsuario}
+                {user.username}
               </Link>
             </span>
           )}
@@ -93,7 +92,7 @@ export default function Header() {
               to={
                 (opt.to === "/favoritos/lista" ||
                   opt.to === "/usuario/comentarios") &&
-                !nombreUsuario
+                !user
                   ? "/usuario/login"
                   : opt.to
               }
@@ -104,7 +103,7 @@ export default function Header() {
             </Link>
           ))}
 
-          {!nombreUsuario && (
+          {!user && (
             <div className="border-t border-gray-200 mt-2 pt-2 flex gap-2 justify-center">
               <Link
                 to="/usuario/registro"
@@ -157,7 +156,7 @@ export default function Header() {
               </Link>
             </div>
           )}
-          {nombreUsuario && (
+          {user && (
             <div className="mt-4 pt-2 border-t border-gray-200 flex justify-center">
               <button
                 onClick={() => {
