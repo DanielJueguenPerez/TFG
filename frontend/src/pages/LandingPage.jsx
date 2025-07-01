@@ -32,7 +32,7 @@ export default function LandingPage() {
     <TransicionAnimada animationKey={location.pathname}>
       <section
         style={{ backgroundImage: `url(${landingBg})` }}
-        className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-start pt-40"
+        className="relative w-full min-h-screen overflow-y-auto bg-cover bg-center flex flex-col items-center justify-start pt-40"
       >
         {" "}
         <div className="flex flex-col items-center w-full max-w-4xl px-4">
