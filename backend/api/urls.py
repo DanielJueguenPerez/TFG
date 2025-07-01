@@ -7,6 +7,7 @@ urlpatterns = [
     path('api/usuario/logout/', LogoutAPIView.as_view(), name='api-logout'),
     path('api/usuario/ver-perfil/', VerPerfilAPIView.as_view(), name='api-ver-perfil'),
     path('api/usuario/editar-perfil/', EditarPerfilAPIView.as_view(), name='api-editar-perfil'),
+    path('api/usuario/cambiar-password/', CambiarPasswordAPIView.as_view(), name='api-cambiar-password'),
     path('api/usuario/comentarios/', VerComentariosPropiosListAPIView.as_view(), name='api-ver-comentarios-usuario'),
     path('api/grados/', VerGradosListAPIView.as_view(), name='api-ver-grados'),
     path('api/grados/<int:id_grado>/', DetallesGradoRetrieveAPIView.as_view(), name='api-detalles-grado'),
