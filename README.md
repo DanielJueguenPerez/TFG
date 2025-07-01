@@ -54,7 +54,6 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 6. Ejecutar el siguiente comando para borrar los volumenes creados por docker
 
         docker system prune -af --volumes
-        ctrl+c
 
 # Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
 
