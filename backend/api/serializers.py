@@ -78,12 +78,10 @@ class VerPerfilSerializer(serializers.ModelSerializer):
         fields = ['username','nombre','apellidos','email','DNI']
 
 # Serializer para la funcionalidad de editar el perfil
-class EditarPerfilSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=False, allow_blank=True)
-    
+class EditarPerfilSerializer(serializers.ModelSerializer):    
     class Meta:
         model = User
-        fields = ('username','nombre','apellidos','email','DNI','password')
+        fields = ('username','nombre','apellidos','email','DNI')
         
     # Sobreescribimos el metodo to_internal_value para validar que, por cualquier
     # circunstancia, no lleguen camposdesconocidos al serializer    
@@ -97,7 +95,7 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
             )
         # Se llama al validador original para que valide los campos
         return super().to_internal_value(data)
-    
+        
     # Método para validar el formato del DNI, se deja comentado por comodidad
     #def validate_DNI(self, value):
     #   dni_formato = r'^\d{8}[A-Z]$'
@@ -117,19 +115,10 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
     # Instance - referencia al objeto del model que se va a actualizar
     # validated_data - datos validados que se van a actualizar 
     def update(self, instance, validated_data):
-        # Quitamos el password para actualizarlo con set_password, que
-        # hashea el password automaticamente
-        password = validated_data.pop('password', None)
-        
         # Con un bucle for recorremos los datos validados y los asignamos
         # para actualizarlos
         for variable, valor in validated_data.items():
             setattr(instance, variable, valor)
-        
-        # El password lo actualizamos con set_password, que hashea el password
-        # y lo asignamos su correspondiente campo
-        if password:
-            instance.set_password(password)
             
         instance.save()
         return instance

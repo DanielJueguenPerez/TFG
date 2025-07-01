@@ -12,13 +12,13 @@ export default function RegistroPage() {
   const location = useLocation();
 
   const camposRegistro = [
-    { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario" },
-    { nombre: "password", tipo: "password", etiqueta: "Contraseña" },
-    { nombre: "password2", tipo: "password", etiqueta: "Confirmar contraseña" },
-    { nombre: "email", tipo: "email", etiqueta: "Correo electrónico" },
-    { nombre: "nombre", tipo: "text", etiqueta: "Nombre" },
-    { nombre: "apellidos", tipo: "text", etiqueta: "Apellidos" },
-    { nombre: "DNI", tipo: "text", etiqueta: "DNI" },
+    { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario", requerido: true },
+    { nombre: "password", tipo: "password", etiqueta: "Contraseña", requerido: true  },
+    { nombre: "password2", tipo: "password", etiqueta: "Confirmar contraseña", requerido: true  },
+    { nombre: "email", tipo: "email", etiqueta: "Correo electrónico", requerido: true  },
+    { nombre: "nombre", tipo: "text", etiqueta: "Nombre", requerido: true  },
+    { nombre: "apellidos", tipo: "text", etiqueta: "Apellidos", requerido: true  },
+    { nombre: "DNI", tipo: "text", etiqueta: "DNI", requerido: true  },
   ];
 
   const handleRegistro = async (datos) => {

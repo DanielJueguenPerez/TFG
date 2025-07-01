@@ -14,18 +14,16 @@ class EditarPerfilSerializerTests(TestCase):
             apellidos='Pérez',
             email='pepe@pepe.es',
             DNI='12345678A',
-            password='pepe1234',
         )
         self.usuario_editado = {
             'username': 'periquito',
             'nombre': 'Perico',
             'apellidos': 'De los Palotes',
             'email': 'pericodelospalotes@hotmail.com',
-            'DNI': '11111111Y',
-            'password': ''       
+            'DNI': '11111111Y',  
         }
         
-    def test_editar_perfil_serializer_valido_sin_password(self):
+    def test_editar_perfil_serializer_valido(self):
         
         serializer = EditarPerfilSerializer(instance=self.usuario, data=self.usuario_editado)
         self.assertTrue(serializer.is_valid(), serializer.errors)
@@ -36,17 +34,7 @@ class EditarPerfilSerializerTests(TestCase):
         self.assertEqual(usuario_editado.apellidos, 'De los Palotes')
         self.assertEqual(usuario_editado.email, 'pericodelospalotes@hotmail.com')
         self.assertEqual(usuario_editado.DNI, '11111111Y')
-        self.assertTrue(usuario_editado.check_password('pepe1234'))
         
-    def test_editar_perfil_serializer_valido_con_password(self):
-        
-        datos = self.usuario_editado.copy()
-        datos['password'] = 'nuevapassword'
-        serializer = EditarPerfilSerializer(instance=self.usuario, data=datos)
-        self.assertTrue(serializer.is_valid(), serializer.errors)
-        usuario_editado = serializer.save()
-
-        self.assertTrue(usuario_editado.check_password('nuevapassword'))
         
     def test_editar_perfil_serializer_campo_desconocido(self):
         

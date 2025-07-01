@@ -28,7 +28,6 @@ class EditarPerfilTests(APITestCase):
                 'apellidos': 'De los Palotes',
                 'email': 'pericodelospalotes@hotmail.com',
                 'DNI': '11111111Y',
-                'password': 'perico1234'
             }, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Recuperamos el usuario de la base de datos y comprobamos que se han actualizado los campos
@@ -38,7 +37,6 @@ class EditarPerfilTests(APITestCase):
         self.assertEqual(self.usuario.apellidos, 'De los Palotes')
         self.assertEqual(self.usuario.email, 'pericodelospalotes@hotmail.com')
         self.assertEqual(self.usuario.DNI, '11111111Y')
-        self.assertTrue(self.usuario.check_password('perico1234'))
         
     def test_editarperfil_sin_token(self):
         # Se intenta editar el perfil sin token
@@ -85,36 +83,7 @@ class EditarPerfilTests(APITestCase):
         self.assertEqual(self.usuario.apellidos, 'Pérez')
         self.assertEqual(self.usuario.email, 'pepe@pepe.es')
         self.assertEqual(self.usuario.DNI, '98765432Z')
-        self.assertTrue(self.usuario.check_password('pepe1234'))
-        
-    def test_editarperfil_solo_password(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
-        # Se edita el perfil solo con el campo password
-        resp = self.client.patch(self.url,
-            {
-                'password': 'perico1234'
-            }, format='json')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.usuario.refresh_from_db()
-        # Comprobamos que se ha actualizado el password y los demas campos no han cambiado
-        self.assertEqual(self.usuario.username, 'pepito')
-        self.assertEqual(self.usuario.nombre, 'Pepe')
-        self.assertEqual(self.usuario.apellidos, 'Pérez')
-        self.assertEqual(self.usuario.email, 'pepe@pepe.es')
-        self.assertEqual(self.usuario.DNI, '98765432Z')
-        self.assertTrue(self.usuario.check_password('perico1234'))
-        
-    def test_editarperfil_password_en_blanco_no_cambia(self):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
-        # Se edita el perfil con el campo password en blanco, no deberia cambiar el password
-        resp = self.client.patch(self.url,
-            {
-                'password': ''
-            }, format='json')
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        # Comprobamos que el password no ha cambiado
-        self.usuario.refresh_from_db()
-        self.assertTrue(self.usuario.check_password('pepe1234'))
+
         
     def test_editarperfil_campo_desconocido(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
