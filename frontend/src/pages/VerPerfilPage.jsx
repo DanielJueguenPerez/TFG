@@ -53,11 +53,11 @@ export default function VerPerfilPage() {
               </dl>
             </div>
           </div>
-          <div className="max-w-md mx-auto mt-6">
+          <div className="max-w-md mx-auto mt-6 flex justify-center gap-4">
             <Link
               to="/usuario/editar-perfil"
               className="
-              block w-2/3 mx-auto
+              block w-2/4 mx-auto
               text-white
               bg-gradient-to-r from-purple-500 to-pink-500
               hover:from-pink-500 hover:to-purple-500
@@ -69,6 +69,22 @@ export default function VerPerfilPage() {
             "
             >
               Editar datos de perfil
+            </Link>
+              <Link
+              to="/usuario/cambiar-password"
+              className="
+              block w-2/4 mx-auto
+              text-white
+              bg-gradient-to-r from-purple-500 to-pink-500
+              hover:from-pink-500 hover:to-purple-500
+              focus:outline-none focus:ring-4 focus:ring-purple-200
+              font-medium rounded-full text-sm
+              px-5 py-2.5
+              transition
+              text-center
+            "
+            >
+              Cambiar contraseña
             </Link>
           </div>
         </div>
