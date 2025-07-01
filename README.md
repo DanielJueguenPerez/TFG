@@ -14,7 +14,7 @@ Trabajo de fin de grado desarrollado con Django y React. Aplicación web que per
 - Añadir y eliminar una asignatura de su lista de favoritos.
 - Ver su lista de favoritos.
 
-# Instrucciones necesarias para la configuración y arranque con Docker
+# 🐋 Instrucciones necesarias para la configuración y arranque con Docker
 
 Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue con Docker y Docker-compose. Las instrucciones necesarias para ejecutar la aplicación web de esta forma, en un sistema operativo Ubuntu/Linux, se detallan a continuación:
 
@@ -28,7 +28,15 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         docker compose build --no-cache
         docker compose up
 
-3. Desde un navegador, acceder a las direcciones del backend o el frontend.
+3. Cuando la terminal muestre algo como lo que se ve en la siguiente imagen, la app web está lista para ser utilizada:
+
+
+<div style="margin-left: 80px; margin-top: 30px; margin-bottom: 30px;">
+        <img src="assets/docker-ready.png" alt="App web lista para ser utilizada" />
+</div>
+
+
+4. Desde un navegador, acceder a las direcciones del backend o el frontend.
 
         -Backend
 
@@ -38,12 +46,12 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         -Frontend
         http://localhost:4173
 
-4. Cuando se quiera parar la ejecución de Docker, se ejecutarán los siguientes comandos:
+5. Cuando se quiera parar la ejecución de Docker, se ejecutarán los siguientes comandos:
 
         ctrl+c
         docker compose down -v
 
-5. Ejecutar el siguiente comando para borrar los volumenes creados por docker
+6. Ejecutar el siguiente comando para borrar los volumenes creados por docker
 
         docker system prune -af --volumes
         ctrl+c
@@ -60,7 +68,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 #### Configuración del entorno
 
-1. Instalar paquetes necesarios para python y entorno virtual
+1. Abrir una terminal (y mantenerla abierta durante todo el proceso) e instalar paquetes necesarios para python y entorno virtual
 
         sudo apt install python3 python3-pip python3-venv -y
    
@@ -74,7 +82,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 4. Instalar las dependencias del proyecto
 
-        pip install -r /backend/requirements.txt
+        pip install -r backend/requirements.txt
 
 ### 🎨 Frontend (React + TailwindCSS)
 
@@ -92,11 +100,13 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 2. Acceder a la carpeta /frontend
 
+        cd frontend
+
 3. Instalar las dependencias del proyecto
 
         npm install
 
-## Instrucciones para la ejecución del scripts, test e inicialización de la base de datos (todos los comandos de esta sección deben ejecutarse con el entorno virtual activo)
+## Instrucciones para la ejecución del scripts, test e inicialización de la base de datos (en la terminal con el entorno virtual activado)
 
 ### 🕷️ Script de scraping
 
@@ -134,7 +144,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 ## Instrucciones para arrancar la aplicación
 
-### 📦Backend
+### 📦Backend (en la terminal con el entorno virtual activado)
 
 1. Acceder a la carpeta /backend
 
@@ -155,7 +165,9 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
         npm run dev
 
-3. En un navegador, acceder a la dirección localhost:5173
+3. En un navegador, acceder a la dirección:
+        
+        http://localhost:5173
 
 
 ## Autor
