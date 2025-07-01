@@ -14,12 +14,11 @@ export default function EditarPerfilPage() {
   const location = useLocation();
 
   const camposPerfil = [
-    { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario" },
-    { nombre: "password", tipo: "password", etiqueta: "Contraseña" },
-    { nombre: "email", tipo: "email", etiqueta: "Correo electrónico" },
-    { nombre: "nombre", tipo: "text", etiqueta: "Nombre" },
-    { nombre: "apellidos", tipo: "text", etiqueta: "Apellidos" },
-    { nombre: "DNI", tipo: "text", etiqueta: "DNI" },
+    { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario", requerido: true  },
+    { nombre: "email", tipo: "email", etiqueta: "Correo electrónico", requerido: true  },
+    { nombre: "nombre", tipo: "text", etiqueta: "Nombre", requerido: true  },
+    { nombre: "apellidos", tipo: "text", etiqueta: "Apellidos", requerido: true  },
+    { nombre: "DNI", tipo: "text", etiqueta: "DNI", requerido: true  },
   ];
 
   useEffect(() => {
