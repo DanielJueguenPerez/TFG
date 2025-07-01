@@ -46,7 +46,7 @@ export default function LoginPage() {
 
   return (
     <TransicionAnimada animationKey={location.pathname}>
-      <div className="relative min-h-screen pt-16 overflow-hidden">
+      <div className="relative min-h-screen pt-16 overflow-hidden pb-14">
         <img
           src={fondoUsuario}
           alt=""

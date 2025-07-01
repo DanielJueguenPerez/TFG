@@ -31,7 +31,7 @@ export default function VerDetallesAsignaturaPage() {
 
   return (
     <TransicionAnimada animationKey={id}>
-      <div className="relative min-h-screen pt-16 overflow-hidden">
+      <div className="relative min-h-screen pt-16 overflow-hidden pb-14">
         <img
           src={fondoAsignaturas}
           alt=""
