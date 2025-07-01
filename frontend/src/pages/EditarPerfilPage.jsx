@@ -89,7 +89,6 @@ export default function EditarPerfilPage() {
             textoBoton="Guardar"
             valoresIniciales={perfil}
             onSubmit={handleEditar}
-            validarTodos={false}
             onCancel={() => navigate("/usuario/ver-perfil")}
           />
         </div>

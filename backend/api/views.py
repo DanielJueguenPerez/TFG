@@ -5,9 +5,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import get_object_or_404
 from django.db import IntegrityError
-from rest_framework.exceptions import ValidationError, PermissionDenied
+from rest_framework.exceptions import ValidationError
 from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
 from .serializers import *
 
 # View para el registro de usuario
@@ -98,7 +97,20 @@ class EditarPerfilAPIView(APIView):
             serializer.save()
             return Response({"Perfil editado con exito"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
+class CambiarPasswordAPIView(APIView):
+    # Solo los usuarios autenticados pueden ver su perfil
+    permission_classes = [IsAuthenticated]
+    
+    # Sobreescribimos el metodo patch para cambiar la contraseña
+    @swagger_auto_schema(request_body=CambiarPasswordSerializer)
+    def patch (self,request):
+        serializer = CambiarPasswordSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"Contraseña actualizada con éxito"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 # View para ver los grados.
 class VerGradosListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
