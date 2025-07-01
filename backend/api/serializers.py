@@ -2,7 +2,7 @@ import re
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
-from .models import *
+from .models import Grado, Asignatura, EstadisticasAsignatura, Comentario, Favorito
 
 # Usamos el modelo de usuario especificado en settings.py
 User = get_user_model()
@@ -122,6 +122,33 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
             
         instance.save()
         return instance
+    
+class CambiarPasswordSerializer(serializers.Serializer):
+    # Variables para realizar la confirmación de la contraseña
+    password_actual = serializers.CharField(required=True)
+    password_nuevo = serializers.CharField(write_only=True, min_length=8)
+    password_nuevo_2 = serializers.CharField(write_only=True, label="Confirma tu contraseña")    
+    
+    # Sobreescribimos el metodo validate para comprobar que las contraseñas coinciden , y que
+    # la contraseña antigua es la correcta
+    def validate(self,data):
+        user = self.context['request'].user
+        # Comprobamos que los passwords nuevos coinciden
+        if data['password_nuevo'] != data['password_nuevo_2']:
+            raise serializers.ValidationError("Las contraseñas no coinciden")
+        
+        if not user.check_password(data['password_actual']):
+            raise serializers.ValidationError("Contraseña actual incorrecta")
+        
+        return data
+    
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['password_nuevo'])
+        user.save()
+        
+        return user
+        
 
 # Serializer para la funcionalidad de ver grados
 class VerGradosSerializer(serializers.ModelSerializer):
