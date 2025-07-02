@@ -26,7 +26,6 @@ export const UserProvider = ({ children }) => {
     }
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("nombreUsuario");
     setToken(null);
     setUser(null);
   };
