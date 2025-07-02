@@ -22,7 +22,7 @@ export default function VerComentariosPropios() {
         </Link>
         <div className="flex justify-between items-start">
           <div>
-            <p className="text-lg mb-2">{comentario.texto}</p>
+            <p className="text-lg font-semibold mb-2">{comentario.texto}</p>
             <p className="text-sm text-gray-600">
               En{" "}
               <Link
