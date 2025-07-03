@@ -96,7 +96,12 @@ export default function VerDetallesAsignaturaPage() {
               Ver comentarios
             </button>
           </div>
-          <div className="flex flex-col md:flex-row md:flex-wrap justify-center gap-6">
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-center gap-20">
+            <EstadisticasGrafica
+              key="media-total"
+              titulo="Media de todos los años"
+              datos={asignatura.media_estadisticas}
+            />
             {asignatura.estadisticas_anios.map((anio) => (
               <EstadisticasGrafica
                 key={anio["Año Academico"]}
