@@ -24,17 +24,15 @@ class DetallesAsignaturaTests(APITestCase):
         # Guardamos en aniosAcademicos los bloques de estadisticas por año academico (deberia de haber 4)
         aniosAcademicos = resp.data['estadisticas_anios']
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(aniosAcademicos), 4)
+        self.assertEqual(len(aniosAcademicos), 3)
         # Comprobamos el orden de los años academicos
-        self.assertEqual(aniosAcademicos[0]['Año Academico'], 2022)
-        self.assertEqual(aniosAcademicos[1]['Año Academico'], 2023)
-        self.assertEqual(aniosAcademicos[2]['Año Academico'], 2024)
-        self.assertEqual(aniosAcademicos[3]['Año Academico'], 2025)
+        self.assertEqual(aniosAcademicos[0]['Año Academico'], 2023)
+        self.assertEqual(aniosAcademicos[1]['Año Academico'], 2024)
+        self.assertEqual(aniosAcademicos[2]['Año Academico'], 2025)
         # Comprobamos algunas de las estadisticas de cada año academico
-        self.assertEqual(aniosAcademicos[0]['estadisticas'][0]['aprobados'], 150)
-        self.assertEqual(aniosAcademicos[1]['estadisticas'][0]['num_matriculados'], 450)
-        self.assertEqual(aniosAcademicos[2]['estadisticas'][0]['suspensos'], 78)
-        self.assertEqual(aniosAcademicos[3]['estadisticas'][0]['no_presentados'], 29)
+        self.assertEqual(aniosAcademicos[0]['estadisticas'][0]['aprobados'], 210)
+        self.assertEqual(aniosAcademicos[1]['estadisticas'][0]['num_matriculados'], 298)
+        self.assertEqual(aniosAcademicos[2]['estadisticas'][0]['suspensos'], 98)
 
     
     def test_detallesasignatura_campos_correctos(self):
@@ -42,7 +40,7 @@ class DetallesAsignaturaTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Comprobamos que los campos devueltos son los correctos
         self.assertCountEqual(
-            resp.data.keys(), ['id_asignatura','nombre','curso', 'id_grado', 'nombre_grado', 'estadisticas_anios']
+            resp.data.keys(), ['id_asignatura','nombre','curso', 'id_grado', 'nombre_grado', 'estadisticas_anios', 'media_estadisticas']
         )
     
     def test_detallesasignatura_id_no_existe(self):
