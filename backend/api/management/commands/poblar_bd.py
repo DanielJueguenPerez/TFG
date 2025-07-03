@@ -3,13 +3,11 @@ import json
 from pathlib import Path
 from api.models import Grado, EstadisticasAsignatura, Asignatura
 
-class Command(BaseCommand):
-    help = 'Puebla la base de datos con los datos de resultados_grados.json'
-    
+class Command(BaseCommand):    
     def handle(self, *args, **kwargs):
         
         # Ruta del JSON con los datos scrapeados
-        json_file_path = Path(__file__).parent.parent.parent / "resultados_grados.json"
+        json_file_path = Path(__file__).resolve().parents[3] / "scraping" / "resultados_grados.json"
         self.stdout.write(f"Usando archivo: {json_file_path}")
 
         with open(json_file_path, 'r', encoding='utf-8') as json_file:

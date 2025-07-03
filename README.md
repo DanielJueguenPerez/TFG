@@ -97,7 +97,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt install -y nodejs
 
-2. Acceder a la carpeta /frontend
+2. Desde la raiz del proyecto, acceder a la carpeta /frontend
 
         cd frontend
 
@@ -109,7 +109,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 ### 🕷️ Script de scraping
 
-1. Acceder a la carpeta /scraping
+1. Desde la raiz del proyecto, acceder a la carpeta /backend/scraping
 
 2. Ejecutar el siguiente comando
 
@@ -117,7 +117,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 ### 🛢️ Inicializar de cero la base de datos
 
-1. Acceder a la carpeta /backend (donde está el archivo manage.py) y eliminar el archivo db.sqlite3 (si existiese)
+1. Desde la raiz del proyecto, acceder a la carpeta /backend (donde está el archivo manage.py) y eliminar el archivo db.sqlite3 (si existiese)
 
 2. Ejecutar los siguientes comandos (en la carpeta /backend, con el entorno virtual activado):
 
@@ -158,7 +158,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 ### 🎨Frontend
 
-1. Acceder a la carpeta /frontend
+1. Desde la raiz del proyecto, acceder a la carpeta /frontend
 
 2. Ejecutar el siguiente comando:
 
