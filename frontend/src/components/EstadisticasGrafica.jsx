@@ -3,21 +3,23 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 const colores = {
   aprobados:      "#C084FC",
   suspensos:      "#EC4899",
-  no_presentados: "#A855F7", 
+  no_presentados: "#7C3AED", 
 };
 
-export default function EstadisticasGrafica({ año, datos }) {
+export default function EstadisticasGrafica({ año, datos, titulo }) {
   const graficaDatos = [
     { name: "Aprobados", value: datos.aprobados },
     { name: "Suspensos", value: datos.suspensos },
     { name: "No Presentados", value: datos.no_presentados },
   ];
 
+  const cabecera = titulo ? titulo : (año!=null ? `Año ${año}` : "-" ); 
+
   const total = datos.num_matriculados;
 
   return (
     <div className="border rounded p-4 mb-6 shadow flex flex-col items-center w-full max-w-sm">
-      <h3 className=" text-lg font-semibold mb-2">Año {año}</h3>
+      <h3 className=" text-lg font-semibold mb-2">{cabecera}</h3>
 
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>

@@ -1,4 +1,5 @@
-import re
+import math
+from django.db.models import Avg
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
@@ -218,17 +219,20 @@ class DetallesAsignaturaSerializer(serializers.ModelSerializer):
     # cada asignatura. Al invocar a get_estadisticas_anios, se asigna automaticamente el valor
     # de la funcion a la variable, debido a que es un SerializerMethodField
     estadisticas_anios = serializers.SerializerMethodField()
+    media_estadisticas = serializers.SerializerMethodField()
     nombre_grado = serializers.CharField(source='id_grado.nombre', read_only=True)
     
     class Meta:
         model = Asignatura
-        fields = ['id_asignatura','nombre','curso','id_grado','nombre_grado','estadisticas_anios']
+        fields = ['id_asignatura','nombre','curso','id_grado','nombre_grado','estadisticas_anios', 'media_estadisticas']
         
     def get_estadisticas_anios(self, asignatura):
         # Se filtran las estadisticas por la asignatura que se ha pasado como
-        # parametro y se ordenan por año academico
-        estadisticas = EstadisticasAsignatura.objects.filter(id_asignatura=asignatura).order_by('anioAcademico')
-        
+        # parametro y se ordenan por año academico, excluyendo aquellas que no
+        # tengan matriculados
+        filtrado = EstadisticasAsignatura.objects.filter(id_asignatura=asignatura,
+                    num_matriculados__gt=0).order_by('anioAcademico')
+
         # Se crea un diccionario para almacenar las estadisticas por año academico
         estadisticas_por_anio = {}
         
@@ -236,17 +240,36 @@ class DetallesAsignaturaSerializer(serializers.ModelSerializer):
         # estadisticas_por_anio y se devuelve una lista vacia a la cual se hace append de las estadisticas
         # de ese año. De esta forma se van añadiendo las estadisticas a la lista de su 
         # año academico correspondiente
-        for estadistica in estadisticas:
+        for estadistica in filtrado:
             estadisticas_por_anio.setdefault(estadistica.anioAcademico, []).append(
                 EstadisticasAsignaturaSerializer(estadistica).data)
         
         # Se recorre estadisticas_por_anio y se crea un diccionario que contiene el 
         # año academico y la lista de estadisticas asociada a ese año academico
-        return[
+        lista_completa = [           
             {'Año Academico': anioAcademico, 'estadisticas': estadisticas}
             for anioAcademico, estadisticas in estadisticas_por_anio.items()
         ]
+        
+        return lista_completa[-3:]
+    
+    # Calculamos las medias de las estadisticas y las devolvemos en el JSON para ser tratadas
+    # en el frontend
+    def get_media_estadisticas(self, asignatura):
+        medias = EstadisticasAsignatura.objects.filter(id_asignatura=asignatura).aggregate(
+            num_matriculados=Avg('num_matriculados'),
+            aprobados=Avg('aprobados'),
+            suspensos=Avg('suspensos'),
+            no_presentados=Avg('no_presentados'),
+        )
 
+        return{
+            'num_matriculados': math.ceil(medias['num_matriculados']) if medias['num_matriculados'] is not None else None,
+            'aprobados': math.ceil(medias['aprobados']) if medias['aprobados'] is not None else None,
+            'suspensos': math.ceil(medias['suspensos']) if medias['suspensos'] is not None else None,
+            'no_presentados': math.ceil(medias['no_presentados']) if medias['no_presentados'] is not None else None,
+        }
+        
 # Serializer para la funcionalidad de crear, editar y eliminar
 class ComentarioSerializer(serializers.ModelSerializer):
     # Campos necesarios

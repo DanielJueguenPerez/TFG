@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'django_extensions',
+    'django_celery_beat',
     'api', 
 ]
 
@@ -176,4 +178,22 @@ SWAGGER_SETTINGS = {
             'description': 'Formato: Token <tu_token>',
         }
     },
+}
+
+# Configuración de celery
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+# Tareas periodicas
+CELERY_BEAT_SCHEDULE = {
+    'ejecutar_scraping' : {
+        'task' : 'scraping.tasks.ejecutar_scraping',
+        'schedule' : crontab(hour=8, minute=0, day_of_month=1, month_of_year='3,9')
+    },
+    'ejecutar_poblar_bd' : {
+        'task' : 'scraping.tasks.ejecutar_poblar_bd',
+        'schedule' : crontab(hour=8, minute=2, day_of_month=1, month_of_year='3,9')
+    }
 }

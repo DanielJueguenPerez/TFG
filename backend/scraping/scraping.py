@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
+import os
+from pathlib import Path
+import time 
 
 # Establecemos la url de la página web
 url = "https://estudos.udc.es/es/StudyAtUdc"
@@ -39,9 +42,18 @@ for card in soup.find_all('div', class_='card card-study'):
                 # Campo para controlar si el grado se imparte en Ferrol
                 'ferrol': ferrol 
             })
+        
+BASE_DIR = Path(__file__).resolve().parent
+output_path = BASE_DIR / "resultados_grados.json"
+            
+if output_path.exists():
+    with open(output_path, 'r', encoding='utf-8') as prev:
+        datos_previos = json.load(prev)
+else:
+    datos_previos = []
 
-# Lista donde se almacenarán los datos extraídos
-final_results = []
+# Diccionario donde se guardan los grados existentes para acceder rapidamente a su nombre
+grados_existentes = {grado["nombre_grado"]: grado for grado in datos_previos}
 
 # Iterar sobre cada enlace de los grados
 for grado in grados_list:
@@ -100,18 +112,18 @@ for grado in grados_list:
             # Buscar todos los cursos dentro del año
             for course in div_year.find_all('div', class_='span5'):
                 # Extraer el nombre del curso desde <h3>
-                degree_name = course.find('h3')
+                course_name = course.find('h3')
                 # Si no se encuentra el nombre del curso, asignar un valor por defecto
-                degree_name = degree_name.text.strip() if degree_name else "Curso Desconocido"
+                course_name = course_name.text.strip() if course_name else "Curso Desconocido"
 
                 # Filtrar solo los cursos que realmente son niveles académicos (ejemplo: "1º Curso", "2º Curso")
                 # para evitar incluir otros elementos que no sean cursos
-                if not re.match(r'^\d+º Curso$', degree_name):
+                if not re.match(r'^\d+º Curso$', course_name):
                     continue
 
                 # Diccionario para almacenar los datos del curso
                 course_data = {
-                    "curso": degree_name,
+                    "curso": course_name,
                     "asignaturas": []
                 }
 
@@ -156,15 +168,27 @@ for grado in grados_list:
             if year_data["cursos"]:
                 degree_info["resultados"].append(year_data)
 
-        # Se hace append del diccionario de resultados del grado a la lista final
-        # Solo guardar grados que tengan resultados válidos
         if degree_info["resultados"]:
-            final_results.append(degree_info)
+            nombre = degree_info["nombre_grado"]
+            # Se verifica si el grado ya estaba en los grados existentes
+            if nombre in grados_existentes:
+                # Se guarda el grado existente para modificarlo con cursos nuevos
+                grado_existente = grados_existentes[nombre]
+                #Se guardan los años existentes en el grado
+                años_existentes = {a["año"] for a in grado_existente["resultados"]}
+                # Se recorren los años screapeados y se comprueba si hay alguno nuevo
+                for año_nuevo in degree_info["resultados"]:
+                    if año_nuevo["año"] not in años_existentes:
+                        # Si el año que se esta comprobando no estaba, se añade
+                        grado_existente["resultados"].append(año_nuevo)
+            else:
+                # Si el grado no existia en la base de datos, se añade entero
+                grados_existentes[nombre] = degree_info
 
     # Si ocurre un error al acceder a la página, se captura la excepción
     except requests.exceptions.RequestException as e:
         print(f"Error al acceder a {link}: {e}")
 
 # Se guardan los resultados en un Json
-with open('resultados_grados.json', 'w', encoding='utf-8') as json_file:
-    json.dump(final_results, json_file, ensure_ascii=False, indent=4)
+with open(output_path, 'w', encoding='utf-8') as json_file:
+    json.dump(list(grados_existentes.values()), json_file, ensure_ascii=False, indent=4)
