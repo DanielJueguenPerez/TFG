@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import json
 import re
 import os
+from pathlib import Path
+import time 
 
 # Establecemos la url de la página web
 url = "https://estudos.udc.es/es/StudyAtUdc"
@@ -40,11 +42,12 @@ for card in soup.find_all('div', class_='card card-study'):
                 # Campo para controlar si el grado se imparte en Ferrol
                 'ferrol': ferrol 
             })
+        
+BASE_DIR = Path(__file__).resolve().parent
+output_path = BASE_DIR / "resultados_grados.json"
             
-# Cargamos los datos del archivo JSON si ya existe
-archivo_previo = 'resultados_grados.json'
-if os.path.exists(archivo_previo):
-    with open(archivo_previo, 'r', encoding='utf-8') as prev:
+if output_path.exists():
+    with open(output_path, 'r', encoding='utf-8') as prev:
         datos_previos = json.load(prev)
 else:
     datos_previos = []
@@ -187,5 +190,5 @@ for grado in grados_list:
         print(f"Error al acceder a {link}: {e}")
 
 # Se guardan los resultados en un Json
-with open('resultados_grados.json', 'w', encoding='utf-8') as json_file:
+with open(output_path, 'w', encoding='utf-8') as json_file:
     json.dump(list(grados_existentes.values()), json_file, ensure_ascii=False, indent=4)
