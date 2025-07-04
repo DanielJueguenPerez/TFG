@@ -133,6 +133,33 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
         python manage.py createsuperuser
 
+### 🥦 Automatización con Celery
+
+Si se prefiere ejecutar las tareas de scraping y poblacion de base de datos emulando el funcionamiento de las tareas periodicas configuradas en el proyecto con Celery, los pasos a seguir son los siguientes:
+
+1. Asegurarse de que tenemos instalado Redis
+
+        redis-server --version
+
+2. Si no lo tenemos instalado, instalarlo:
+
+        sudo apt update
+        udo apt install redis-server
+
+3. Una vez instalado, en un terminal escribimos el siguiente comando y lo ejecutamos (y lo dejamos corriendo):
+
+        celery -A backend worker --loglevel=info
+
+4. En otro terminal, ubicados en el directorio raiz del proyecto:
+
+        source env/bin/activate
+
+5. Accedemos al directorio backend (donde está el archivo manage.py) y ejecutamos:
+
+        python manage.py ejecutar_tareas_celery
+
+6. Volvemos al otro terminal, donde podremos observar como se ejecutan los scripts de scraping y poblacion de base de datos.
+
 ### 🛢️ Ejecución de los test
 
 1. Acceder a la carpeta /backend
