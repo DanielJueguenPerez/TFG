@@ -69,7 +69,7 @@ export default function LoginPage() {
               textoBoton="Iniciar sesión"
               onSubmit={handleLogin}
             />
-            <hr className="my-6 border-t border-gray-300" />
+            <hr className="my-6 border-t border-purple-400" />
           </div>
           <p className="text-center text-sm text-gray-600">
             ¿No estás registrad@?{" "}

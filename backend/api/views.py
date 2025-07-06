@@ -116,22 +116,22 @@ class VerGradosListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
+    # Se utiliza el serializer para mostrar los datos
+    serializer_class = VerGradosSerializer
     
     # Se recuperan todos los grados por orden alfabético
     queryset = Grado.objects.all().order_by('nombre')
-    # Se utiliza el serializer para mostrar los datos
-    serializer_class = VerGradosSerializer
 
 # View para buscar asignaturas por nombre.
 class BuscarAsignaturasListAPIView(generics.ListAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
+    # Se utiliza el serializer para mostrar los datos
+    serializer_class = BuscarAsignaturasSerializer
     
     # Se prepara el queryset para buscar asignaturas por nombre
     queryset = Asignatura.objects.all().order_by('nombre')
-    # Se utiliza el serializer para mostrar los datos
-    serializer_class = BuscarAsignaturasSerializer
     # Se crea el filtro para buscar por el criterio que ha introducido el usuario
     filter_backends = [filters.SearchFilter]
     search_fields = ['nombre']
@@ -141,26 +141,28 @@ class DetallesGradoRetrieveAPIView(generics.RetrieveAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
-    
-    # Se prepara el queryset para obtener un grado por su id
-    queryset = Grado.objects.all().order_by('nombre')
     # Se utiliza el serializer para mostrar los datos
     serializer_class = DetallesGradoSerializer
     # Se establece el campo por el que se va a buscar el grado en la base de datos
     lookup_field = 'id_grado'
+    
+    # Se prepara el queryset para obtener un grado por su id
+    queryset = Grado.objects.all().order_by('nombre')
+
 
 # View para ver los detalles de una asignatura.
 class DetallesAsignaturaRetrieveAPIView(generics.RetrieveAPIView):
     # Se permite el acceso a cualquier usuario, sin necesidad de token
     permission_classes = []
     authentication_classes = []
-    
-    # Se prepara el queryset para obtener una asignatura por su id
-    queryset = Asignatura.objects.all().order_by('nombre')
     # Se utiliza el serializer para mostrar los datos
     serializer_class = DetallesAsignaturaSerializer
     # Se establece el campo por el que se va a buscar la asignatura en la base de datos
     lookup_field = 'id_asignatura'
+    
+    # Se prepara el queryset para obtener una asignatura por su id
+    queryset = Asignatura.objects.all().order_by('nombre')
+
 
 # View para crear un comentario en una asignatura.
 class CrearComentarioCreateAPIView(generics.CreateAPIView):
