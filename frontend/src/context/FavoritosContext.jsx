@@ -21,14 +21,14 @@ export const FavoritosProvider = ({ children }) => {
 
     const cargarFavoritos = async () => {
       try {
-        let pagina = 1;
+        let url = null;
         let todos = [];
 
         while (true) {
-          const data = await verFavoritos(pagina);
+          const data = await verFavoritos(url);
           todos = todos.concat(data.results);
           if(!data.next) break;
-          pagina++;
+          url = data.next;
         }
         setFavoritos(todos);
       } catch (error) {
