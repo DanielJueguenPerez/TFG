@@ -8,14 +8,6 @@ export default function VerListaFavoritosPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const recuperarFavoritos = async (pagina) => {
-    const data = await verFavoritos(pagina);
-    return {
-      results: data.results,
-      count: data.count,
-    };
-  };
-
   const renderAsignatura = (favorito) => {
     return (
       <li key={favorito.id_favorito} className="p-4 border-b bg-white/20">
@@ -63,8 +55,9 @@ export default function VerListaFavoritosPage() {
             <span aria-hidden="true">⭐</span>
           </h2>
           <ListaPaginada
-            recuperarDatos={recuperarFavoritos}
+            recuperarDatos={verFavoritos}
             renderItem={renderAsignatura}
+            urlInicial={null}
           />
         </div>
       </div>

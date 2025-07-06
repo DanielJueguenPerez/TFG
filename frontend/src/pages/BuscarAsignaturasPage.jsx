@@ -8,7 +8,6 @@ import { useUser } from "../context/UserContext";
 import fondoAsignaturas from "../assets/asignaturas.png";
 import TransicionAnimada from "../components/TransicionAnimada";
 
-
 export default function BuscarAsignaturasPage() {
   const [valorInput, setValorInput] = useState("");
   const [clave, setClave] = useState("");
@@ -27,7 +26,7 @@ export default function BuscarAsignaturasPage() {
       setClave(valorInput.trim());
     }
   };
-  const recuperarAsignaturas = (pagina) => buscarAsignaturas(pagina, clave);
+  const recuperarAsignaturas = (url) => buscarAsignaturas(url, clave);
 
   const renderAsignatura = (asignatura) => {
     return (
@@ -103,6 +102,7 @@ export default function BuscarAsignaturasPage() {
               recuperarDatos={recuperarAsignaturas}
               renderItem={renderAsignatura}
               claveBusqueda={clave}
+              urlInicial={null}
             />
           )}
         </div>

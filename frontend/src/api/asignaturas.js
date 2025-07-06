@@ -1,13 +1,20 @@
-import axiosPublic from '../utils/axiosPublic'
+import axiosPublic from "../utils/axiosPublic";
 
-export const buscarAsignaturas = async (pagina = 1, clave = '') => {
-    const response = await axiosPublic.get('/asignaturas', {
-        params: {page: pagina, search: clave},
-    });
-    return response.data
-}
+export const buscarAsignaturas = async (url = null, clave = '') => {
+  const baseUrl = '/asignaturas/';
+
+  const response = await axiosPublic.get(url || baseUrl, {
+    params: url ? {} : { search: clave },
+  });
+  return {
+    results: response.data.results,
+    next: response.data.next,
+    previous: response.data.previous,
+    count: response.data.count,
+  };
+};
 
 export const verDetallesAsignatura = async (id) => {
-    const response = await axiosPublic.get(`/asignaturas/${id}`);
-    return response.data;
-}
+  const response = await axiosPublic.get(`/asignaturas/${id}`);
+  return response.data;
+};

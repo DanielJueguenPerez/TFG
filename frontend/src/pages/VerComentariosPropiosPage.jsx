@@ -9,7 +9,7 @@ export default function VerComentariosPropios() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const recuperarComentarios = (pagina) => verComentariosPropios(pagina);
+  const recuperarComentarios = (url) => verComentariosPropios(url);
 
   const renderComentario = (comentario) => {
     return (
@@ -82,6 +82,7 @@ export default function VerComentariosPropios() {
           <ListaPaginada
             recuperarDatos={recuperarComentarios}
             renderItem={renderComentario}
+            urlInicial={null}
           />
         </div>
       </div>

@@ -25,7 +25,7 @@ export default function VerComentariosPage() {
     cargarNombre();
   }, [id]);
 
-  const recuperarComentarios = (pagina) => verComentarios(id, pagina);
+  const recuperarComentarios = (url) => verComentarios(id, url);
 
   const renderComentario = (comentario) => {
     return (
@@ -107,6 +107,7 @@ export default function VerComentariosPage() {
           <ListaPaginada
             recuperarDatos={recuperarComentarios}
             renderItem={renderComentario}
+            urlInicial={null}
           />
         </div>
       </div>
