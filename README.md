@@ -1,24 +1,67 @@
 # Aplicación web para la ayuda en la toma de decisión de matriculación de los alumnos de grado de la UDC
 
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![Commits](https://img.shields.io/github/commit-activity/t/DanielJueguenPerez/TFG)](https://github.com/DanielJueguenPerez/TFG/commits)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
+
+---
+
+## 📑 Tabla de contenidos
+
+- [🛠️ Tecnologías](#tecnologias)
+- [📝 Descripción](#descripción)
+- [🐋 Instrucciones necesarias para la configuración y arranque con Docker](#docker)
+- [🔴Puesta en marcha sin Docker](#sindocker)
+  - [📦 Backend (Django + DRF)](#backend)
+    - [Requisitos](#backend_requisitos)
+    - [Configuración del entorno](#backend_config)
+    - [Script de scraping](#scraping)
+    - [Inicializar la base de datos](#bd)
+    - [Automatización con Celery](#celery)
+    - [Ejecución de los test](#test)
+    - [Instrucciones para arrancar el backend](#arrancarbackend)
+  - [🎨 Frontend (React + TailwindCSS)](#frontend)
+    - [Requisitos](#frontend_requisitos)
+    - [Configuración del entorno](#frontend_config)
+    - [Instrucciones para arrancar el frontend](#arrancarfrontend)
+- [👤 Autor](#autor)
+- [⚖️ Licencia](#licencia)
+
+<h2 id="tecnologias">🛠️ Tecnologías</h2>
+
+[![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)](https://docs.djangoproject.com/es/5.2/)
+[![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)](https://www.django-rest-framework.org/)
+<br>
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://es.react.dev/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Celery](https://img.shields.io/badge/celery-%23a9cc54.svg?style=for-the-badge&logo=celery&logoColor=ddf4a4)](https://docs.celeryq.dev/en/stable/)
+
+---
+
+<h2 id="descripción">📝 Descripción</h2>
+
 Trabajo de fin de grado desarrollado con Django y React. Aplicación web que permite a un usuario:
 - Registrarse. 
 - Login y logout.
 - Ver y editar su perfil.
 - Ver los grados de la UDC.
-- Realizar una busqueda de asignaturas.
+- Realizar una búsqueda de asignaturas.
 - Ver los detalles de cada grado.
-- Consultar las estadisticas de cada asignatura.
+- Consultar las estadísticas de cada asignatura.
 - Realizar, editar y borrar comentarios en una asignatura. 
 - Ver los comentarios de una asignatura.
 - Ver los comentarios propios del usuario.
 - Añadir y eliminar una asignatura de su lista de favoritos.
 - Ver su lista de favoritos.
 
-# 🐋 Instrucciones necesarias para la configuración y arranque con Docker
+<h2 id="docker">🐋 Instrucciones necesarias para la configuración y arranque con Docker</h2>
 
-Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue con Docker y Docker-compose. Las instrucciones necesarias para ejecutar la aplicación web de esta forma, en un sistema operativo Ubuntu/Linux, se detallan a continuación:
+Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue con Docker Compose. Las instrucciones necesarias para ejecutar la aplicación web de esta forma, en un sistema operativo Ubuntu/Linux, se detallan a continuación.
 
-1. Ubicarse en la carpeta raiz del proyecto y ejecutar los siguientes comandos, con el fin de ejecutar el script para instalar Docker y Docker compose:
+1. Ubicarse en la carpeta raíz del proyecto y ejecutar los siguientes comandos, con el fin de ejecutar el script para instalar Docker y Docker Compose:
         
         chmod +x docker-instalacion.sh
         ./docker-instalacion.sh
@@ -36,14 +79,14 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 </div>
 
 
-4. Desde un navegador, acceder a las direcciones del backend o el frontend.
+4. Desde un navegador, acceder a las direcciones del backend o el frontend:
 
-        -Backend
+        - Backend
 
         http://localhost:8000/docs 
         http://localhost:8000/redocs
 
-        -Frontend
+        - Frontend
         http://localhost:4173
 
 5. Cuando se quiera parar la ejecución de Docker, se ejecutarán los siguientes comandos:
@@ -51,151 +94,165 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
         ctrl+c
         docker compose down -v
 
-6. Ejecutar el siguiente comando para borrar los volumenes creados por docker
+6. Ejecutar el siguiente comando para borrar los volúmenes creados por docker:
 
         docker system prune -af --volumes
 
-# Alternativamente, se proporcionan instrucciones de instalación del entorno completo sin usar Docker (no recomendado si solo se quiere probar la aplicación web).
 
-## Instrucciones necesarias para la configuración e instalación de las dependencias (Ubuntu)
+<h2 id="sindocker">🔴 Puesta en marcha sin Docker (no recomendado si solo se quiere probar la aplicación web)</h2>
 
-### 📦 Backend (Django + DRF)
+<h3 id="backend">📦 Backend (Django + DRF)</h3>
 
-#### Requisitos
+<h4 id="backend_requisitos">- Requisitos</h4>
 - Python 3.10 o superior
 - pip
 
-#### Configuración del entorno
 
-1. Abrir una terminal (y mantenerla abierta durante todo el proceso) e instalar paquetes necesarios para python y entorno virtual
+<h4 id="backend_config">- Configuración del entorno</h4>
+
+1. Abrir una terminal (y mantenerla abierta durante todo el proceso) e instalar paquetes necesarios para Python y entorno virtual:
 
         sudo apt install python3 python3-pip python3-venv -y
    
-2. En la raiz del proyecto, crear el entorno virtual
+2. En la raíz del proyecto, crear el entorno virtual:
 
         python3 -m venv env
 
-3. Ejecutar el siguiente comando para activar el entorno virtual
+3. Ejecutar el siguiente comando para activar el entorno virtual:
 
         source env/bin/activate
 
-4. Instalar las dependencias del proyecto
+4. Debería de verse (env) al inicio de cada linea de terminal, lo cual indica que el entorno virtual está activado:
+
+
+<div style="margin-left: 80px; margin-top: 30px; margin-bottom: 30px;">
+        <img src="assets/env.png" alt="App web lista para ser utilizada" />
+</div>
+
+
+5. Instalar las dependencias del proyecto:
 
         pip install -r backend/requirements.txt
 
-### 🎨 Frontend (React + TailwindCSS)
+<h3>Instrucciones para la ejecución de los scripts, test e inicialización de la base de datos (en la terminal con el entorno virtual activado)</h3>
 
-#### Requisitos
-- Node.js (recomendado: 18.x o superior)
-- npm
+<h4 id="scraping">🕷️ Script de scraping</h4>
 
-#### Configuración del entorno
+1. Desde la raíz del proyecto, acceder a la carpeta /backend:
 
-1. En otra terminal distinta sin el entorno virtual activado, ejecutar los siguientes comandos 
+2. Ejecutar el siguiente comando:
 
-        sudo apt install curl -y
-        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-        sudo apt install -y nodejs
+        python scraping/scraping.py 
 
-2. Desde la raiz del proyecto, acceder a la carpeta /frontend
+<h4 id="bd">🛢️ Inicializar de cero la base de datos</h4>
 
-        cd frontend
+1. Estando en la carpeta /backend (donde está el archivo manage.py), eliminar el archivo db.sqlite3 (si existiese).
 
-3. Instalar las dependencias del proyecto
-
-        npm install
-
-## Instrucciones para la ejecución del scripts, test e inicialización de la base de datos (en la terminal con el entorno virtual activado)
-
-### 🕷️ Script de scraping
-
-1. Desde la raiz del proyecto, acceder a la carpeta /backend/scraping
-
-2. Ejecutar el siguiente comando
-
-        python scraping.py
-
-### 🛢️ Inicializar de cero la base de datos
-
-1. Desde la raiz del proyecto, acceder a la carpeta /backend (donde está el archivo manage.py) y eliminar el archivo db.sqlite3 (si existiese)
-
-2. Ejecutar los siguientes comandos (en la carpeta /backend, con el entorno virtual activado):
+2. Ejecutar los siguientes comandos:
 
         python manage.py makemigrations
         python manage.py migrate
 
-3. Ejecutar el siguiente comando (en la carpeta /backend, entorno virtual activado) para poblar la base de datos con los datos iniciales (tarda un poco):
+3. Ejecutar el siguiente comando para poblar la base de datos con los datos iniciales (tarda un poco):
 
         python manage.py poblar_bd
 
-4. (Opcional) Crear un superusuario (en la carpeta /backend, entorno virtual activado), al que se accede mediante la dirección http://127.0.0.1:8000/admin
-
+4. (Opcional) Crear un superusuario de Django, al que se accede mediante la dirección http://127.0.0.1:8000/admin una vez se haya levantado el servidor:
 
         python manage.py createsuperuser
 
-### 🥦 Automatización con Celery
 
-Si se prefiere ejecutar las tareas de scraping y poblacion de base de datos emulando el funcionamiento de las tareas periodicas configuradas en el proyecto con Celery, los pasos a seguir son los siguientes:
+<h4 id="celery">🥦 Automatización con Celery</h4>
 
-1. Asegurarse de que tenemos instalado Redis
+Si se prefiere ejecutar las tareas de scraping y población de base de datos emulando el funcionamiento de las tareas periódicas configuradas en el proyecto con Celery, los pasos a seguir son los siguientes:
+
+1. Asegurarse de que tenemos instalado Redis:
 
         redis-server --version
 
 2. Si no lo tenemos instalado, instalarlo:
 
         sudo apt update
-        udo apt install redis-server
+        sudo apt install redis-server
 
-3. Una vez instalado, en un terminal escribimos el siguiente comando y lo ejecutamos (y lo dejamos corriendo):
-
-        celery -A backend worker --loglevel=info
-
-4. En otro terminal, ubicados en el directorio raiz del proyecto:
+3. Una vez instalado, abrimos dos terminales y, en ambos, estando en la raíz del proyecto, activamos el entorno virtual:
 
         source env/bin/activate
 
-5. Accedemos al directorio backend (donde está el archivo manage.py) y ejecutamos:
+4. En ambos terminales accedemos a la carpeta backend (cd backend) y, en uno de ellos ejecutamos el siguiente comando para poner al worker de Celery a trabajar (y lo dejamos corriendo):
+   
+        celery -A backend worker --loglevel=info
+
+5. En el otro terminal ejecutamos:
 
         python manage.py ejecutar_tareas_celery
 
-6. Volvemos al otro terminal, donde podremos observar como se ejecutan los scripts de scraping y poblacion de base de datos.
+6. Volvemos al primer terminal, donde podremos observar como el worker ejecuta los scripts de scraping y población de base de datos.
 
-### 🛢️ Ejecución de los test
+7. Para finalizar, pulsamos ctrl+c para parar la ejecución del worker.
 
-1. Acceder a la carpeta /backend
 
-2. Ejecutar el siguiente comando (entorno virtual activado):
+<h3 id="test">🛢️ Ejecución de los test</h3>
+
+1. Con el entorno virtual activado, acceder a la carpeta /backend.
+
+2. Ejecutar el siguiente comando:
 
         python manage.py test
 
-## Instrucciones para arrancar la aplicación
+<h3 id="arrancarbackend">Instrucciones para arrancar el backend de la aplicación</h3>
 
-### 📦Backend (en la terminal con el entorno virtual activado)
+1. Con el entorno virtual activado, acceder a la carpeta /backend.
 
-1. Acceder a la carpeta /backend
-
-2. Ejecutar el siguiente comando (entorno virtual activado):
+2. Ejecutar el siguiente comando:
 
         python manage.py runserver
 
-3. Para acceder a la documentación una vez se ha arrancado el backend, acceder a las siguientes direcciones en un navegador
+3. Para acceder a la documentación una vez se ha arrancado el backend, acceder a las siguientes direcciones en un navegador:
 
         http://localhost:8000/docs/
         http://localhost:8000/redocs/
 
-### 🎨Frontend
 
-1. Desde la raiz del proyecto, acceder a la carpeta /frontend
+<h3 id="frontend">🎨 Frontend (React + TailwindCSS)/h3>
+<h4 id="frontend_requisitos">- Requisitos</h4>
 
-2. Ejecutar el siguiente comando:
+- Node.js (recomendado: 18.x o superior)
+- npm
+
+<h4 id="frontend_config">- Configuración del entorno</h4>
+
+1. En otra terminal distinta a la del backend, sin el entorno virtual activado, ejecutar los siguientes comandos:
+
+        sudo apt install curl -y
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt install -y nodejs
+
+2. Desde la raíz del proyecto, acceder a la carpeta /frontend:
+
+        cd frontend
+
+3. Instalar las dependencias del proyecto:
+
+        npm install
+
+<h3 id="arrancarfrontend">Instrucciones para arrancar el frontend de la aplicación</h3>
+
+1. Estando en la carpeta /frontend, ejecutar el siguiente comando:
 
         npm run dev
 
-3. En un navegador, acceder a la dirección:
+2. En un navegador, acceder a la dirección:
         
         http://localhost:5173
 
 
-## Autor
+<h2 id="autor">👤 Autor</h2>
 
-* **Daniel Jueguen Pérez**
+**Daniel Jueguen Pérez**  
+- GitHub: [DanielJueguenPerez](https://github.com/DanielJueguenPerez/)  
+- Email: d.jueguen@udc.es
+
+<h2 id="licencia">⚖️ Licencia</h2>
+
+Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE).
