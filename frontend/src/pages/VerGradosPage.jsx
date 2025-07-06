@@ -52,7 +52,11 @@ export default function VerGradosPage() {
             </span>
             <span aria-hidden="true">🎓</span>
           </h2>
-          <ListaPaginada recuperarDatos={verGrados} renderItem={renderGrado} />
+          <ListaPaginada
+            recuperarDatos={verGrados}
+            renderItem={renderGrado}
+            urlInicial={null}
+          />
         </div>
       </div>
     </TransicionAnimada>
