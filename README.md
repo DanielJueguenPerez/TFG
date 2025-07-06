@@ -164,7 +164,7 @@ Para mayor facilidad de quien pruebe la app, se ha implementado el despliegue co
 
 <h4 id="celery">🥦 Automatización con Celery</h4>
 
-Si se prefiere ejecutar las tareas de scraping y población de base de datos emulando el funcionamiento de las tareas periódicas configuradas en el proyecto con Celery, los pasos a seguir son los siguientes:
+Si se prefiere ejecutar las tareas de scraping y población de base de datos emulando el funcionamiento de las tareas periódicas configuradas en el proyecto con Celery, los pasos a seguir son los siguientes (señalar que para que esto funcione tendremos que haber creado la base de datos, es decir, haber ejecutado los pasos 1 y 2 de la sección "Inicializar de cero la base de datos"):
 
 1. Asegurarse de que tenemos instalado Redis:
 
@@ -210,8 +210,15 @@ Si se prefiere ejecutar las tareas de scraping y población de base de datos emu
 
 3. Para acceder a la documentación una vez se ha arrancado el backend, acceder a las siguientes direcciones en un navegador:
 
-        http://localhost:8000/docs/
-        http://localhost:8000/redocs/
+        - Consola de administración de Django (si hemos creado un superusuario):
+
+                http://localhost:8000/admin/
+
+        - Documentación:
+
+                http://localhost:8000/docs/
+                http://localhost:8000/redocs/
+
 
 
 <h3 id="frontend">🎨 Frontend (React + TailwindCSS)/h3>
