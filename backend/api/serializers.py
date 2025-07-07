@@ -1,6 +1,7 @@
 import math
 from django.db.models import Avg
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from .models import Grado, Asignatura, EstadisticasAsignatura, Comentario, Favorito
@@ -14,6 +15,31 @@ class RegistroSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
     password2 = serializers.CharField(write_only=True, label="Confirma tu contraseña")
     
+    username = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="Este nombre de usuario ya está en uso."
+            )
+        ]
+    )
+    DNI = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="Este DNI ya está registrado."
+            )
+        ]
+    )
+    email = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="Este email ya está en uso."
+            )
+        ]
+    )
+    
     # Campos que se van a recibir del frontend
     class Meta:
         model = User
@@ -24,7 +50,9 @@ class RegistroSerializer(serializers.ModelSerializer):
         # Comprobamos que los passwords coinciden y quitamos el campo password2
         # de los datos validados. Si no coinciden, se lanza una excepción
         if data['password'] != data.pop('password2'):
-            raise serializers.ValidationError("Las contraseñas no coinciden")
+            raise serializers.ValidationError({
+                'error': 'Las contraseñas no coinciden.'
+            })
         return data
         
     # Método para validar el formato del DNI, se deja comentado por comodidad
@@ -66,7 +94,9 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(username=data['username'], password=data['password'])
         # Si no lo son, se lanza una excepción
         if user is None:
-            raise serializers.ValidationError("Usuario o contraseña incorrectos")
+            raise serializers.ValidationError({
+                'error': 'Usuario o contraseña incorrectos.'
+            })
         # Si son correctos se devuelve el usuario
         data['user'] = user
         return data
@@ -80,6 +110,30 @@ class VerPerfilSerializer(serializers.ModelSerializer):
 
 # Serializer para la funcionalidad de editar el perfil
 class EditarPerfilSerializer(serializers.ModelSerializer):    
+    username = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="Este nombre de usuario ya está en uso."
+            )
+        ]
+    )
+    DNI = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="Este DNI ya está registrado."
+            )
+        ]
+    )
+    email = serializers.CharField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="Este email ya está en uso."
+            )
+        ]
+    )
     class Meta:
         model = User
         fields = ('username','nombre','apellidos','email','DNI')
@@ -136,10 +190,14 @@ class CambiarPasswordSerializer(serializers.Serializer):
         user = self.context['request'].user
         # Comprobamos que los passwords nuevos coinciden
         if data['password_nuevo'] != data['password_nuevo_2']:
-            raise serializers.ValidationError("Las contraseñas no coinciden")
+            raise serializers.ValidationError({
+                'error': 'Las contraseñas no coinciden.'
+            })
         
         if not user.check_password(data['password_actual']):
-            raise serializers.ValidationError("Contraseña actual incorrecta")
+            raise serializers.ValidationError({
+                'error': 'Contraseña actual incorrecta.'
+            })
         
         return data
     
