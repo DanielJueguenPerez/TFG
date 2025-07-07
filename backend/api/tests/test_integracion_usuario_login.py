@@ -57,7 +57,7 @@ class LoginTests(APITestCase):
         }, format='json')
         # Se comprueba que la respuesta es un error 400 (bad request)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('non_field_errors', resp.data)
+        self.assertIn('error', resp.data)
 
     def test_login_password_incorrecto(self):
         # Se intenta hacer login con un password incorrecto
@@ -67,7 +67,7 @@ class LoginTests(APITestCase):
         }, format='json')
         # Se comprueba que la respuesta es un error 400 (bad request)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('non_field_errors', resp.data)
+        self.assertIn('error', resp.data)
         
     def test_login_token_no_duplicado(self):
         # Se hace login dos veces con el mismo usuario
