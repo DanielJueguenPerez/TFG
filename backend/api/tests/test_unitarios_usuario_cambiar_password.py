@@ -41,7 +41,7 @@ class CambiarPasswordSerializerTests(TestCase):
         # Inicializamos el serializer
         serializer = CambiarPasswordSerializer(data=datos, context=self.context)
         self.assertFalse(serializer.is_valid())
-        self.assertIn("Contraseña actual incorrecta", serializer.errors["non_field_errors"][0])
+        self.assertIn("Contraseña actual incorrecta", serializer.errors["error"][0])
         
     def test_cambiar_password_serializer_nuevas_no_iguales(self):
         datos = {
@@ -53,7 +53,7 @@ class CambiarPasswordSerializerTests(TestCase):
         # Inicializamos el serializer
         serializer = CambiarPasswordSerializer(data=datos, context=self.context)
         self.assertFalse(serializer.is_valid())
-        self.assertIn("Las contraseñas no coinciden", serializer.errors["non_field_errors"][0])
+        self.assertIn("Las contraseñas no coinciden", serializer.errors["error"][0])
         
     def test_cambiar_password_serializer_demasiado_corta(self):
         datos = {

@@ -32,7 +32,7 @@ class LoginSerializerTests(TestCase):
         datos['username'] = 'usuarioIncorrecto'
         serializer = LoginSerializer(data=datos)
         self.assertFalse(serializer.is_valid())
-        self.assertIn('Usuario o contraseña incorrectos', str(serializer.errors['non_field_errors'][0]))
+        self.assertIn('Usuario o contraseña incorrectos', str(serializer.errors['error'][0]))
         
     def test_login_serializer_password_incorrecta(self):
         
@@ -40,7 +40,7 @@ class LoginSerializerTests(TestCase):
         datos['password'] = 'passwordIncorrecto'
         serializer = LoginSerializer(data=datos)
         self.assertFalse(serializer.is_valid())
-        self.assertIn('Usuario o contraseña incorrectos', str(serializer.errors['non_field_errors'][0]))
+        self.assertIn('Usuario o contraseña incorrectos', str(serializer.errors['error'][0]))
         
     def test_login_serializer_campos_faltantes(self):
         
