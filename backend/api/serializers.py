@@ -16,6 +16,7 @@ class RegistroSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, label="Confirma tu contraseña")
     
     username = serializers.CharField(
+        max_length=150,
         validators=[
             UniqueValidator(
                 queryset=User.objects.all(),
@@ -31,7 +32,7 @@ class RegistroSerializer(serializers.ModelSerializer):
             )
         ]
     )
-    email = serializers.CharField(
+    email = serializers.EmailField(
         validators=[
             UniqueValidator(
                 queryset=User.objects.all(),
@@ -111,6 +112,7 @@ class VerPerfilSerializer(serializers.ModelSerializer):
 # Serializer para la funcionalidad de editar el perfil
 class EditarPerfilSerializer(serializers.ModelSerializer):    
     username = serializers.CharField(
+        max_length=150,
         validators=[
             UniqueValidator(
                 queryset=User.objects.all(),
@@ -126,7 +128,7 @@ class EditarPerfilSerializer(serializers.ModelSerializer):
             )
         ]
     )
-    email = serializers.CharField(
+    email = serializers.EmailField(
         validators=[
             UniqueValidator(
                 queryset=User.objects.all(),
