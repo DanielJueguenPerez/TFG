@@ -49,7 +49,7 @@ class RegistroSerializerTests(TestCase):
         datos['password2'] = 'manolo1234'
         serializer = RegistroSerializer(data=datos)
         self.assertFalse(serializer.is_valid())
-        self.assertIn('Las contraseñas no coinciden', serializer.errors['non_field_errors'][0])
+        self.assertIn('Las contraseñas no coinciden', serializer.errors['error'][0])
         
     def test_registro_serializer_password_corta(self):
         
