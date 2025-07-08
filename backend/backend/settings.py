@@ -127,7 +127,8 @@ AUTH_USER_MODEL = 'api.Usuario'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
+USE_TZ = True
 
 USE_I18N = True
 
@@ -185,15 +186,17 @@ SWAGGER_SETTINGS = {
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_ENABLE_UTC = True
+CELERY_TIMEZONE = 'Europe/Madrid'
 
 # Tareas periodicas
 CELERY_BEAT_SCHEDULE = {
     'ejecutar_scraping' : {
         'task' : 'scraping.tasks.ejecutar_scraping',
-        'schedule' : crontab(hour=8, minute=0, day_of_month=1, month_of_year='3,9')
+        'schedule' : crontab(hour=8, minute=00, day_of_month=1, month_of_year='3,9')
     },
     'ejecutar_poblar_bd' : {
         'task' : 'scraping.tasks.ejecutar_poblar_bd',
-        'schedule' : crontab(hour=8, minute=2, day_of_month=1, month_of_year='3,9')
+        'schedule' : crontab(hour=8, minute=02, day_of_month=1, month_of_year='3,9')
     }
 }
