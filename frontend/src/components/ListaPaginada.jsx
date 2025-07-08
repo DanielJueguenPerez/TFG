@@ -26,15 +26,17 @@ export default function ListaPaginada({
         setCargando(false);
       }
     };
-    cargarDatos();
-  }, [urlActual]);
 
-  useEffect(() => {
-    setItems([]);
-    setUrlActual(null);
-    setUrlNext(null);
-    setUrlPrev(null);
-  }, [claveBusqueda]);
+    // Sólo resetea la paginación cuando haya un término de búsqueda y
+    // urlActual sea null (es decir, una nueva búsqueda)
+    if (claveBusqueda && urlActual === null) {
+      setItems([]);
+      setUrlNext(null);
+      setUrlPrev(null);
+    }
+    cargarDatos();
+  }, [urlActual, claveBusqueda]);
+
 
   return (
     <div className="pb-14">
