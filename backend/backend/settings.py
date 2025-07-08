@@ -193,10 +193,10 @@ CELERY_TIMEZONE = 'Europe/Madrid'
 CELERY_BEAT_SCHEDULE = {
     'ejecutar_scraping' : {
         'task' : 'scraping.tasks.ejecutar_scraping',
-        'schedule' : crontab(hour=8, minute=00, day_of_month=1, month_of_year='3,9')
+        'schedule' : crontab(hour=8, minute=0, day_of_month=1, month_of_year='3,9')
     },
     'ejecutar_poblar_bd' : {
         'task' : 'scraping.tasks.ejecutar_poblar_bd',
-        'schedule' : crontab(hour=8, minute=02, day_of_month=1, month_of_year='3,9')
+        'schedule' : crontab(hour=8, minute=2, day_of_month=1, month_of_year='3,9')
     }
 }
