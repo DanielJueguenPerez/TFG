@@ -39,7 +39,7 @@ export default function VerListaFavoritosPage() {
           >
             ← Volver atrás
           </button>
-          <h2 className="text-2xl font-bold text-center mb-6">
+          <h1 className="text-2xl font-bold text-center mb-6">
             <span aria-hidden="true">⭐</span>
             <span
               className="
@@ -53,7 +53,7 @@ export default function VerListaFavoritosPage() {
               Tu lista de asignaturas favoritas
             </span>
             <span aria-hidden="true">⭐</span>
-          </h2>
+          </h1>
           <ListaPaginada
             recuperarDatos={verFavoritos}
             renderItem={renderAsignatura}
