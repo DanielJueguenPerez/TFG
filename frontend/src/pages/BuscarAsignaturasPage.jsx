@@ -73,7 +73,7 @@ export default function BuscarAsignaturasPage() {
           >
             ← Volver atrás
           </button>
-          <h2 className="text-2xl font-bold text-center mb-6">
+          <h1 className="text-2xl font-bold text-center mb-6">
             <span aria-hidden="true">📚</span>
             <span
               className="
@@ -87,7 +87,7 @@ export default function BuscarAsignaturasPage() {
               Buscar asignaturas
             </span>
             <span aria-hidden="true">📚</span>
-          </h2>
+          </h1>
           <input
             type="text"
             value={valorInput}
