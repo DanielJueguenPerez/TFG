@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import FormularioInput from "../components/FormularioInput";
 import { registroUsuario } from "../api/auth";
 import { useUser } from "../context/UserContext";
