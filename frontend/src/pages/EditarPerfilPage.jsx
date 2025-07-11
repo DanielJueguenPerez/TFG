@@ -6,19 +6,34 @@ import fondoUsuario from "../assets/usuario.png";
 import toast from "react-hot-toast";
 import TransicionAnimada from "../components/TransicionAnimada";
 
-
 export default function EditarPerfilPage() {
   const navigate = useNavigate();
   const [perfil, setPerfil] = useState(null);
   const [error, setError] = useState(null);
   const location = useLocation();
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
 
   const camposPerfil = [
-    { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario", requerido: true  },
-    { nombre: "email", tipo: "email", etiqueta: "Correo electrónico", requerido: true  },
-    { nombre: "nombre", tipo: "text", etiqueta: "Nombre", requerido: true  },
-    { nombre: "apellidos", tipo: "text", etiqueta: "Apellidos", requerido: true  },
-    { nombre: "DNI", tipo: "text", etiqueta: "DNI", requerido: true  },
+    {
+      nombre: "username",
+      tipo: "text",
+      etiqueta: "Nombre de usuario",
+      requerido: true,
+    },
+    {
+      nombre: "email",
+      tipo: "email",
+      etiqueta: "Correo electrónico",
+      requerido: true,
+    },
+    { nombre: "nombre", tipo: "text", etiqueta: "Nombre", requerido: true },
+    {
+      nombre: "apellidos",
+      tipo: "text",
+      etiqueta: "Apellidos",
+      requerido: true,
+    },
+    { nombre: "DNI", tipo: "text", etiqueta: "DNI", requerido: true },
   ];
 
   useEffect(() => {
@@ -46,6 +61,7 @@ export default function EditarPerfilPage() {
     try {
       const data = await editarPerfilUsuario(datos);
       toast.success("Datos editados con éxito");
+      setMensajeNarrador("Datos editados con éxito");
       navigate("/usuario/ver-perfil");
     } catch (error) {
       console.error("Error al editar: ", error);
@@ -62,7 +78,9 @@ export default function EditarPerfilPage() {
           })
           .join("\n");
         toast.error(`No se pudo editar los datos:\n\n${mensaje}`);
+        setMensajeNarrador(`Error: ${mensaje}`);
       } else {
+        toast.error("Error desconocido al editar los datos");
         toast.error("Error desconocido al editar los datos");
       }
     }
@@ -78,12 +96,12 @@ export default function EditarPerfilPage() {
         />
 
         <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
-          <h2
+          <h1
             className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-purple-500 to-pink-500
                 hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
           >
             Modifica tus datos de perfil
-          </h2>
+          </h1>
           <FormularioInput
             campos={camposPerfil}
             textoBoton="Guardar"
@@ -92,6 +110,9 @@ export default function EditarPerfilPage() {
             onCancel={() => navigate("/usuario/ver-perfil")}
           />
         </div>
+      </div>
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
       </div>
     </TransicionAnimada>
   );

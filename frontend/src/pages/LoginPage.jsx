@@ -10,6 +10,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useUser();
   const location = useLocation();
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
 
   const camposLogin = [
     { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario" },
@@ -22,6 +23,7 @@ export default function LoginPage() {
       const data = await loginUsuario(datos);
       login(data.token, data.user);
       toast.success("Sesión iniciada");
+      setMensajeNarrador("Sesión iniciada correctamente");
       navigate("/");
     } catch (error) {
       console.error("Error al iniciar sesión: ", error);
@@ -38,8 +40,10 @@ export default function LoginPage() {
           })
           .join("\n");
         toast.error(`No se pudo iniciar sesión:\n\n${mensaje}`);
+        setMensajeNarrador(`Error: ${mensaje}`);
       } else {
         toast.error("Error desconocido al iniciar sesión");
+        setMensajeNarrador("Error desconocido al iniciar sesión");
       }
     }
   };
@@ -55,7 +59,7 @@ export default function LoginPage() {
 
         <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
           <div className="max-w-md mx-auto mt-10 px-4">
-            <h2
+            <h1
               className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
@@ -63,7 +67,7 @@ export default function LoginPage() {
               transition-colors"
             >
               Iniciar sesión
-            </h2>
+            </h1>
             <FormularioInput
               campos={camposLogin}
               textoBoton="Iniciar sesión"
@@ -86,6 +90,9 @@ export default function LoginPage() {
             </Link>
           </p>
         </div>
+      </div>
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
       </div>
     </TransicionAnimada>
   );

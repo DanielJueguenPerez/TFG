@@ -37,7 +37,7 @@ export default function VerGradosPage() {
           >
             ← Volver atrás
           </button>
-          <h2 className="text-2xl font-bold text-center mb-6">
+          <h1 className="text-2xl font-bold text-center mb-6">
             <span aria-hidden="true">🎓</span>
             <span
               className="
@@ -51,7 +51,7 @@ export default function VerGradosPage() {
               Grados disponibles
             </span>
             <span aria-hidden="true">🎓</span>
-          </h2>
+          </h1>
           <ListaPaginada
             recuperarDatos={verGrados}
             renderItem={renderGrado}

@@ -5,13 +5,14 @@ import {
   eliminarFavorito,
 } from "../api/favoritos";
 import { useUser } from "./UserContext";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 
 const FavoritosContext = createContext();
 
 export const FavoritosProvider = ({ children }) => {
   const [favoritos, setFavoritos] = useState([]);
   const { estaLogueado } = useUser();
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
 
   useEffect(() => {
     if (!estaLogueado) {
@@ -27,7 +28,7 @@ export const FavoritosProvider = ({ children }) => {
         while (true) {
           const data = await verFavoritos(url);
           todos = todos.concat(data.results);
-          if(!data.next) break;
+          if (!data.next) break;
           url = data.next;
         }
         setFavoritos(todos);
@@ -41,9 +42,7 @@ export const FavoritosProvider = ({ children }) => {
 
   const esFavorita = (id_asignatura) =>
     Array.isArray(favoritos) &&
-    favoritos.some(
-      (favorito) => favorito.id_asignatura === id_asignatura
-    );
+    favoritos.some((favorito) => favorito.id_asignatura === id_asignatura);
 
   const toggleFavorito = async (id_asignatura) => {
     const favorito = favoritos.find(
@@ -56,13 +55,15 @@ export const FavoritosProvider = ({ children }) => {
         setFavoritos((prev) =>
           prev.filter((fav) => fav.id_asignatura !== id_asignatura)
         );
-        toast.success("Asignatura eliminada de favoritos 🔴")
+        toast.success("Asignatura eliminada de favoritos 🔴");
+        setMensajeNarrador("Asignatura eliminada de favoritos");
       } else {
         const nuevoFavorito = await agregarFavorito(id_asignatura);
         if (nuevoFavorito?.id_asignatura) {
           setFavoritos((prev) => [...prev, nuevoFavorito]);
         }
-        toast.success("Asignatura añadida a favoritos ✅")
+        toast.success("Asignatura añadida a favoritos ✅");
+        setMensajeNarrador("Asignatura añadida a favoritos");
       }
     } catch (error) {
       console.error("Error al agregar/eliminar favorito", error);
@@ -74,6 +75,9 @@ export const FavoritosProvider = ({ children }) => {
       value={{ favoritos, esFavorita, toggleFavorito }}
     >
       {children}
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
+      </div>
     </FavoritosContext.Provider>
   );
 };

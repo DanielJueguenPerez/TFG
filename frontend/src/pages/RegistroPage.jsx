@@ -10,15 +10,41 @@ export default function RegistroPage() {
   const navigate = useNavigate();
   const { login } = useUser();
   const location = useLocation();
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
 
   const camposRegistro = [
-    { nombre: "username", tipo: "text", etiqueta: "Nombre de usuario", requerido: true },
-    { nombre: "password", tipo: "password", etiqueta: "Contraseña", requerido: true  },
-    { nombre: "password2", tipo: "password", etiqueta: "Confirmar contraseña", requerido: true  },
-    { nombre: "email", tipo: "email", etiqueta: "Correo electrónico", requerido: true  },
-    { nombre: "nombre", tipo: "text", etiqueta: "Nombre", requerido: true  },
-    { nombre: "apellidos", tipo: "text", etiqueta: "Apellidos", requerido: true  },
-    { nombre: "DNI", tipo: "text", etiqueta: "DNI", requerido: true  },
+    {
+      nombre: "username",
+      tipo: "text",
+      etiqueta: "Nombre de usuario",
+      requerido: true,
+    },
+    {
+      nombre: "password",
+      tipo: "password",
+      etiqueta: "Contraseña",
+      requerido: true,
+    },
+    {
+      nombre: "password2",
+      tipo: "password",
+      etiqueta: "Confirmar contraseña",
+      requerido: true,
+    },
+    {
+      nombre: "email",
+      tipo: "email",
+      etiqueta: "Correo electrónico",
+      requerido: true,
+    },
+    { nombre: "nombre", tipo: "text", etiqueta: "Nombre", requerido: true },
+    {
+      nombre: "apellidos",
+      tipo: "text",
+      etiqueta: "Apellidos",
+      requerido: true,
+    },
+    { nombre: "DNI", tipo: "text", etiqueta: "DNI", requerido: true },
   ];
 
   const handleRegistro = async (datos) => {
@@ -27,6 +53,7 @@ export default function RegistroPage() {
       localStorage.setItem("token", data.token);
       login(data.token, data.user);
       toast.success("Usuario registrado con éxito");
+      setMensajeNarrador("Usuario registrado con éxito");
       navigate("/");
     } catch (error) {
       console.error("Error al registrar: ", error);
@@ -43,8 +70,10 @@ export default function RegistroPage() {
           })
           .join("\n");
         toast.error(`No se pudo completar el registro:\n\n${mensaje}`);
+        setMensajeNarrador(`Error: ${mensaje}`);
       } else {
         toast.error("Error desconocido al registrarse");
+        setMensajeNarrador(`Error: ${mensaje}`);
       }
     }
   };
@@ -59,7 +88,7 @@ export default function RegistroPage() {
         />
 
         <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
-          <h2
+          <h1
             className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
@@ -67,13 +96,16 @@ export default function RegistroPage() {
               transition-colors"
           >
             Regístrate
-          </h2>
+          </h1>
           <FormularioInput
             campos={camposRegistro}
             textoBoton="Registrarse"
             onSubmit={handleRegistro}
           />
         </div>
+      </div>
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
       </div>
     </TransicionAnimada>
   );

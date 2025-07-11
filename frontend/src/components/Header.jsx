@@ -11,6 +11,7 @@ export default function Header() {
   const { user, logout } = useUser();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
   const landingPage = location.pathname === "/";
 
   // Opciones para el menú hamburguesa
@@ -30,13 +31,17 @@ export default function Header() {
       <header className="w-full h-16 flex justify-between items-center p-4 bg-transparent text-white absolute top-0 left-0 z-50">
         {/* Logo de la Web, que es un link a la Landing Page */}
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Logo" className="h-16 w-auto" />
+          <img
+            src={logo}
+            alt="Logo de la Web. Clickando en el, te lleva a la pagina de bienvenida."
+            className="h-16 w-auto"
+          />
         </Link>
 
         {/* Se muestra el nombre de usuario y un boton para salir, solo visible si el usuario está logueado */}
 
         <nav className="flex items-center gap-4 relative">
-          {user?.username  && (
+          {user?.username && (
             <span className={`${landingPage ? "text-white" : "text-gray-700"}`}>
               Hola,{" "}
               <Link
@@ -56,8 +61,10 @@ export default function Header() {
 
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className={`p-2 focus:outline-none ${
-              landingPage ? "text-white" : "text-gray-600"
+            className={`p-2 rounded focus:ring-2 focus:outline-none ${
+              landingPage
+                ? "text-white focus:ring-white"
+                : "text-gray-600 focus:ring-black"
             }`}
             aria-label="Toggle menu"
           >
@@ -143,7 +150,7 @@ export default function Header() {
                   text-white
                   bg-gradient-to-r from-purple-500 to-pink-500
                   hover:from-pink-500 hover:to-purple-500
-                  focus:outline-none focus:ring-4 focus:ring-purple-200
+                  focus:outline-none focus:ring-4 focus:ring-purple-800
                   font-medium text-sm
                   py-2 px-4
                   rounded-full
@@ -162,6 +169,8 @@ export default function Header() {
                 onClick={() => {
                   logout();
                   toast.success("¡Hasta pronto! 👋");
+                  setMensajeNarrador("Sesión cerrada. ¡Hasta pronto!");
+
                   setIsSidebarOpen(false);
                   navigate("/");
                 }}
@@ -169,7 +178,7 @@ export default function Header() {
                 text-white
                   bg-gradient-to-br from-purple-600 to-blue-500
                   hover:bg-gradient-to-bl
-                  focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800
+                  focus:outline-none focus:ring-4 focus:ring-pink-400
                   font-semibold
                   py-2 px-4
                   text-sm
@@ -183,6 +192,9 @@ export default function Header() {
             </div>
           )}
         </div>
+      </div>
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
       </div>
     </>
   );

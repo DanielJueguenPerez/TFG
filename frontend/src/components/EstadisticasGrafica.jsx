@@ -19,7 +19,7 @@ export default function EstadisticasGrafica({ año, datos, titulo }) {
 
   return (
     <div className="border rounded p-4 mb-6 shadow flex flex-col items-center w-full max-w-sm">
-      <h3 className=" text-lg font-semibold mb-2">{cabecera}</h3>
+      <h1 className=" text-lg font-semibold mb-2">{cabecera}</h1>
 
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
