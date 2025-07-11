@@ -6,22 +6,37 @@ import fondoUsuario from "../assets/usuario.png";
 import toast from "react-hot-toast";
 import TransicionAnimada from "../components/TransicionAnimada";
 
-
 export default function CambiarPasswordPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
 
   const camposPassword = [
-    { nombre: "password_actual", tipo: "password", etiqueta: "Contraseña actual", requerido: true  },
-    { nombre: "password_nuevo", tipo: "password", etiqueta: "Contraseña nueva", requerido: true  },
-    { nombre: "password_nuevo_2", tipo: "password", etiqueta: "Confirmar contraseña nueva", requerido: true  },
+    {
+      nombre: "password_actual",
+      tipo: "password",
+      etiqueta: "Contraseña actual",
+      requerido: true,
+    },
+    {
+      nombre: "password_nuevo",
+      tipo: "password",
+      etiqueta: "Contraseña nueva",
+      requerido: true,
+    },
+    {
+      nombre: "password_nuevo_2",
+      tipo: "password",
+      etiqueta: "Confirmar contraseña nueva",
+      requerido: true,
+    },
   ];
-
 
   const handleCambiarPassword = async (datos) => {
     try {
       await cambiarPassword(datos);
       toast.success("Contraseña cambiada con éxito");
+      setMensajeNarrador("Contraseña cambiada con éxito");
       navigate("/usuario/ver-perfil");
     } catch (error) {
       console.error("Error al cambiar contraseña: ", error);
@@ -38,8 +53,10 @@ export default function CambiarPasswordPage() {
           })
           .join("\n");
         toast.error(`No se pudo cambiar la contraseña:\n\n${mensaje}`);
+        setMensajeNarrador(`Error: ${mensaje}`);
       } else {
         toast.error("Error desconocido al cambiar la contraseña");
+        setMensajeNarrador("Error desconocido al cambiar la contraseña");
       }
     }
   };
@@ -54,12 +71,12 @@ export default function CambiarPasswordPage() {
         />
 
         <div className="relative z-10 max-w-md mx-auto mt-10 px-4">
-          <h2
+          <h1
             className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-purple-500 to-pink-500
                 hover:from-pink-500 hover:to-purple-500 bg-clip-text text-transparent"
           >
             Cambia tu contraseña
-          </h2>
+          </h1>
           <FormularioInput
             campos={camposPassword}
             textoBoton="Guardar"
@@ -67,6 +84,9 @@ export default function CambiarPasswordPage() {
             onCancel={() => navigate("/usuario/ver-perfil")}
           />
         </div>
+      </div>
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
       </div>
     </TransicionAnimada>
   );
