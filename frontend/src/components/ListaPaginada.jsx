@@ -52,14 +52,16 @@ export default function ListaPaginada({
         <button
           onClick={() => setUrlActual(urlPrev)}
           disabled={!urlPrev}
-          className="text-white px-3 py-1 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 rounded-full disabled:opacity-50"
+          className="text-white px-3 py-1 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br 
+          focus:outline-none focus:ring-4 focus:ring-pink-800 rounded-full disabled:opacity-50"
         >
           Anterior
         </button>
         <button
           onClick={() => setUrlActual(urlNext)}
           disabled={!urlNext}
-          className="text-white px-3 py-1 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 rounded-full disabled:opacity-50"
+          className="text-white px-3 py-1 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br 
+          focus:outline-none focus:ring-4 focus:ring-pink-800 rounded-full disabled:opacity-50"
         >
           Siguiente
         </button>
