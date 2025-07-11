@@ -70,7 +70,7 @@ export default function VerComentariosPage() {
           >
             ← Volver atrás
           </button>
-          <h2
+          <h1
             className=" text-2xl font-bold text-center mb-6 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
@@ -79,7 +79,7 @@ export default function VerComentariosPage() {
           >
             Comentarios de{" "}
             <span className="text-purple-600">{asignatura.nombre}</span>
-          </h2>
+          </h1>
           <div className="flex justify-center gap-4 mb-8">
             {estaLogueado && (
               <button
@@ -91,7 +91,7 @@ export default function VerComentariosPage() {
                   text-white
                   bg-gradient-to-r from-purple-500 to-pink-500
                   hover:from-pink-500 hover:to-purple-500
-                  focus:outline-none focus:ring-4 focus:ring-purple-200
+                  focus:outline-none focus:ring-4 focus:ring-purple-800
                   font-medium text-sm
                   py-2 px-4
                   rounded-full
