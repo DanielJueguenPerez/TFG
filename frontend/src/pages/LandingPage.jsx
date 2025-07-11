@@ -43,7 +43,7 @@ export default function LandingPage() {
             Bienvenid@ a MatricUDC
           </h1>
           <div className="w-full mb-28 bg-white bg-opacity-70 p-4 rounded-xl">
-            <img src={udcLogo} alt="Logo UDC" className="w-full h-auto" />
+            <img src={udcLogo} alt="Logo de la UDC" className="w-full h-auto" />
           </div>
           {/* Animador que da efecto de transicion y muestra las frases */}
           <div className="relative w-full flex items-center justify-center py-8">
