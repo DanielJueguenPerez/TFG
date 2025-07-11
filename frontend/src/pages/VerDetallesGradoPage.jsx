@@ -49,7 +49,7 @@ export default function VerDetallesGradoPage() {
           >
             ← Volver atrás
           </button>
-          <h2
+          <h1
             className="text-2xl font-bold text-center mb-2 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
@@ -57,7 +57,7 @@ export default function VerDetallesGradoPage() {
               transition-colors"
           >
             {grado.nombre}
-          </h2>
+          </h1>
           <p className="text-center text-blue-600 mb-6">
             <a
               href={grado.url}
