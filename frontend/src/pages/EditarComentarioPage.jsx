@@ -15,6 +15,7 @@ export default function EditarComentarioPage() {
   const navigate = useNavigate();
   const [textoInicial, setTextoInicial] = useState("");
   const [cargando, setCargando] = useState(true);
+  const [mensajeNarrador, setMensajeNarrador] = useState("");
 
   useEffect(() => {
     const recuperarComentario = async () => {
@@ -34,10 +35,11 @@ export default function EditarComentarioPage() {
     try {
       await editarComentario(id, nuevoTexto);
       toast.success("Comentario editado correctamente ✅");
+      setMensajeNarrador("Comentario editado correctamente");
       navigate(-1);
     } catch (error) {
       toast.error("Error al editar el comentario");
-      alert("Error al editar el comentario");
+      setMensajeNarrador("Error al editar el comentario");
     }
   };
 
@@ -50,10 +52,11 @@ export default function EditarComentarioPage() {
     try {
       await eliminarComentario(id);
       toast.success("Comentario borrado correctamente 🔴");
+      setMensajeNarrador("Comentario borrado correctamente");
       navigate(-1);
     } catch (error) {
       toast.error("Error al borrar el comentario");
-      alert("Error al borrar el comentario");
+      setMensajeNarrador("Error al borrar el comentario");
     }
   };
 
@@ -71,7 +74,7 @@ export default function EditarComentarioPage() {
         />
 
         <div className="relative z-10 max-w-xl mx-auto mt-10 px-4">
-          <h2
+          <h1
             className="text-2xl font-bold text-center mb-6 bg-gradient-to-r 
               from-purple-500 to-pink-500 
               bg-clip-text text-transparent 
@@ -79,7 +82,7 @@ export default function EditarComentarioPage() {
               transition-colors"
           >
             Editar Comentario
-          </h2>
+          </h1>
           <ComentarioInput
             textoInicial={textoInicial}
             onSubmit={handleEditar}
@@ -88,6 +91,9 @@ export default function EditarComentarioPage() {
             onCancel={() => navigate(-1)}
           />
         </div>
+      </div>
+      <div className="sr-only" role="alert" aria-live="assertive">
+        {mensajeNarrador}
       </div>
     </TransicionAnimada>
   );
