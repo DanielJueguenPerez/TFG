@@ -53,7 +53,21 @@ jobs:
         run: |
           python manage.py migrate
 
-      - name: Run tests
+      - name: Run tests with coverage
         working-directory: ./backend
         run: |
-          python manage.py test
+          coverage run manage.py test
+
+      - name: Show coverage summary
+        working-directory: ./backend
+        run: coverage report
+
+      - name: Generate HTML coverage report
+        working-directory: ./backend
+        run: coverage html
+
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-html
+          path: backend/htmlcov
