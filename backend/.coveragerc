@@ -1,0 +1,9 @@
+[run]
+include =
+    */api/views.py
+    */api/serializers.py
+    */api/models.py
+    */api/urls.py
+
+[report]
+show_missing = True
