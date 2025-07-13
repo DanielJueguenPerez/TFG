@@ -17,8 +17,13 @@ class BuscarAsignaturasTests(APITestCase):
         Asignatura.objects.create(nombre='Geología', curso=1, id_grado=self.grado3)
         Asignatura.objects.create(nombre='Bioquímica', curso=1, id_grado=self.grado3)
         # Se generan asignaturas adicionales
+        grados = [self.grado1, self.grado2, self.grado3]
         for i in range(7, 25):
-            Asignatura.objects.create(nombre=f'Asignatura {i}', curso=(i%4)+1, id_grado_id=(i%3)+1)
+            Asignatura.objects.create(
+                nombre=f'Asignatura {i}',
+                curso=(i % 4) + 1,
+                id_grado=grados[i % 3]
+            )
         
     def test_buscarasignaturas_get_sin_autenticación_correcto(self):
         resp = self.client.get(self.url)
@@ -29,7 +34,8 @@ class BuscarAsignaturasTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Comparamos los nombres de las asignaturas que devuelve la API con los nombres 
         # de las 10 primeras asignaturas ordenadas que tenemos en la base de datos
-        self.assertEqual(nombres, sorted(nombres1)[:10])
+        nombres1 = [a.nombre for a in Asignatura.objects.order_by('nombre')[:10]]
+        self.assertEqual(nombres, nombres1)
         
     def test_buscarasignaturas_campos_correctos(self):
         resp = self.client.get(self.url)
