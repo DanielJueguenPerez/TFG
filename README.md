@@ -2,6 +2,7 @@
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![Commits](https://img.shields.io/github/commit-activity/t/DanielJueguenPerez/TFG)](https://github.com/DanielJueguenPerez/TFG/commits)
+![CoverageBackend](https://img.shields.io/badge/CoverageBackend-98%25-red)
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
 ---
