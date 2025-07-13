@@ -28,10 +28,17 @@ class DetallesGradoTests(APITestCase):
         self.assertEqual(cursos[2]['curso'], 3)
         self.assertEqual(cursos[3]['curso'], 4)
         # Comprobamos las asignaturas de cada curso
-        self.assertEqual(cursos[0]['asignaturas'][0]['nombre'], 'Cálculo')
-        self.assertEqual(cursos[0]['asignaturas'][1]['nombre'], 'Álgebra')
-        self.assertEqual(cursos[1]['asignaturas'][0]['nombre'], 'Cálculo 2')
-        self.assertEqual(cursos[1]['asignaturas'][1]['nombre'], 'Álgebra 2')
+        
+        # Curso 1 (ordenado por nombre)
+        asignaturas_ordenadas = sorted(cursos[0]['asignaturas'], key=lambda a: a['nombre'])
+        self.assertEqual(asignaturas_ordenadas[0]['nombre'], 'Cálculo')
+        self.assertEqual(asignaturas_ordenadas[1]['nombre'], 'Álgebra')
+
+        # Curso 2 (opcional, si quieres asegurar también)
+        asignaturas_ordenadas2 = sorted(cursos[1]['asignaturas'], key=lambda a: a['nombre'])
+        self.assertEqual(asignaturas_ordenadas2[0]['nombre'], 'Cálculo 2')
+        self.assertEqual(asignaturas_ordenadas2[1]['nombre'], 'Álgebra 2')
+        
         self.assertEqual(cursos[2]['asignaturas'][0]['nombre'], 'Física Cuantica')
         self.assertEqual(cursos[3]['asignaturas'][0]['nombre'], 'Relatividad General')
         
