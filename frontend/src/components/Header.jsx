@@ -43,7 +43,7 @@ export default function Header() {
         <nav className="flex items-center gap-4 relative">
           {user?.username && (
             <span className={`${landingPage ? "text-white" : "text-gray-700"}`}>
-              Hola,{" "}
+              Hola {" "}
               <Link
                 to="/usuario/ver-perfil"
                 className="
@@ -75,10 +75,12 @@ export default function Header() {
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
+          data-testid="fondoMenu"
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
       <div
+        data-testid="sidebar"  
         className={`fixed top-0 right-0 h-full w-64 bg-white text-gray-800 shadow-lg z-50 p-4 transform transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -88,6 +90,7 @@ export default function Header() {
           <button
             onClick={() => setIsSidebarOpen(false)}
             className="text-gray-600 hover:text-gray-900"
+            aria-label="Cerrar menú"
           >
             <XMarkIcon className="w-6 h-6" />
           </button>
