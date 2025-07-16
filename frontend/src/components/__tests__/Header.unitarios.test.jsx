@@ -4,7 +4,6 @@ import Header from "../Header";
 import { useUser } from "../../context/UserContext";
 import { useNavigate, useLocation, MemoryRouter } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
 vi.mock("react-router-dom", async () => {
     const actual = await vi.importActual("react-router-dom");
@@ -122,5 +121,22 @@ describe("Header (unitario)", () => {
         );
         const sidebar = screen.getByTestId("sidebar");
         expect(sidebar).toHaveClass("translate-x-full"); //menú cerrado
+    });
+
+    it("Cerrar el menú al hacer click en los enlaces de login y registro", () => {
+        useUser.mockReturnValue({ user: null });
+        render(
+            <MemoryRouter>
+                <Header />
+            </MemoryRouter>
+        );
+        const menuBoton = screen.getByLabelText("Toggle menu");
+        fireEvent.click(menuBoton);
+        const login = screen.getAllByRole("link").find(link => link.getAttribute("href") === "/usuario/login");
+        fireEvent.click(login);
+        const registro = screen.getAllByRole("link").find(link => link.getAttribute("href") === "/usuario/registro");
+        fireEvent.click(registro);
+        const verGrados = screen.getByRole("link", { name: "🎓 Ver grados" });
+        fireEvent.click(verGrados);
     });
 });
