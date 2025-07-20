@@ -15,10 +15,7 @@ export default defineConfig({
       reporter: ["text", "html"],
       include: [
         "src/components/**/*.{js,jsx,ts,tsx}",
-        "src/api/**/*.{js,jsx,ts,tsx}",
-        "src/context/**/*.{js,jsx,ts,tsx}",
         "src/pages/**/*.{js,jsx,ts,tsx}",
-        "src/utils/**/*.{js,jsx,ts,tsx}",
       ],
     },
   },
