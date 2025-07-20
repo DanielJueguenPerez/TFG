@@ -86,7 +86,7 @@ describe("LoginPage", () => {
   it("Login con exito llama a login, muestra el toast y navega", async () => {
     loginUsuarioMock.mockResolvedValue({
       token: 'tokenValido123',
-      user: { id: 1, name: 'Pepe' },
+      user: { id: 1, nombre: 'Pepe' },
     })
 
     render(
@@ -95,27 +95,27 @@ describe("LoginPage", () => {
       </MemoryRouter>
     )
 
-    fireEvent.click(screen.getByTestId('submit-btn'))
+    fireEvent.click(screen.getByTestId('submit-btn'));
 
     await waitFor(() => {
-        expect(loginUsuarioMock).toHaveBeenCalled()
+        expect(loginUsuarioMock).toHaveBeenCalled();
 
-        expect(loginMock).toHaveBeenCalledWith('tokenValido123', { id: 1, name: 'Pepe' })
+        expect(loginMock).toHaveBeenCalledWith('tokenValido123', { id: 1, nombre: 'Pepe' });
     })
 
-    expect(toast.success).toHaveBeenCalledWith('Sesión iniciada')
+    expect(toast.success).toHaveBeenCalledWith('Sesión iniciada');
 
-    expect(navigateMock).toHaveBeenCalledWith('/')
+    expect(navigateMock).toHaveBeenCalledWith('/');
 
-    expect(screen.getByRole('alert')).toHaveTextContent('Sesión iniciada correctamente')
-  })
+    expect(screen.getByRole('alert')).toHaveTextContent('Sesión iniciada correctamente');
+  });
 
     it("Error de login, muestra el toast de error y no navega", async () => {
     loginUsuarioMock.mockRejectedValue({
       response:{
         data: { username: ['no existe'], password: 'incorrecto'},
       },
-    })
+    });
 
     render(
       <MemoryRouter>
@@ -123,16 +123,16 @@ describe("LoginPage", () => {
       </MemoryRouter>
     );
 
-    fireEvent.click(screen.getByTestId('submit-btn'))
+    fireEvent.click(screen.getByTestId('submit-btn'));
 
     const expectedMsg = 'username: no existe\npassword: incorrecto';
 
     await waitFor(() => {
-        expect(toast.error).toHaveBeenCalledWith(`No se pudo iniciar sesión:\n\n${expectedMsg}`)
-    })
+        expect(toast.error).toHaveBeenCalledWith(`No se pudo iniciar sesión:\n\n${expectedMsg}`);
+    });
 
-    expect(screen.getByRole('alert')).toHaveTextContent(/Error: username: no existe\s+password: incorrecto/)
+    expect(screen.getByRole('alert')).toHaveTextContent(/Error: username: no existe\s+password: incorrecto/);
     
-    expect(navigateMock).not.toHaveBeenCalled()
+    expect(navigateMock).not.toHaveBeenCalled();
   })
 })

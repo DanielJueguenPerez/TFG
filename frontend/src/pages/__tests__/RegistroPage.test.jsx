@@ -91,38 +91,8 @@ describe("RegistroPage", () => {
   it("Registro con exito, se guarda el token, llama a login, muestra el toast y navega", async () => {
     registroUsuarioMock.mockResolvedValue({
       token: 'tokenValido123',
-      user: { id: 1, name: 'Pepe' },
-    })
-
-    render(
-      <MemoryRouter>
-        <RegistroPage />
-      </MemoryRouter>
-    )
-
-    fireEvent.click(screen.getByTestId('submit-btn'))
-
-    await waitFor(() => {
-        expect(registroUsuarioMock).toHaveBeenCalled()
-
-        expect(localStorage.getItem('token')).toBe('tokenValido123')
-
-        expect(loginMock).toHaveBeenCalledWith('tokenValido123', { id: 1, name: 'Pepe' })
-    })
-
-    expect(toast.success).toHaveBeenCalledWith('Usuario registrado con éxito')
-
-    expect(navigateMock).toHaveBeenCalledWith('/')
-
-    expect(screen.getByRole('alert')).toHaveTextContent('Usuario registrado con éxito')
-  })
-
-    it("Error en registro, muestra el toast de error y no navega", async () => {
-    registroUsuarioMock.mockRejectedValue({
-      response:{
-        data: { username: ['existente'], email: 'repetido'},
-      },
-    })
+      user: { id: 1, nombre: 'Pepe' },
+    });
 
     render(
       <MemoryRouter>
@@ -130,16 +100,46 @@ describe("RegistroPage", () => {
       </MemoryRouter>
     );
 
-    fireEvent.click(screen.getByTestId('submit-btn'))
+    fireEvent.click(screen.getByTestId('submit-btn'));
+
+    await waitFor(() => {
+        expect(registroUsuarioMock).toHaveBeenCalled();
+
+        expect(localStorage.getItem('token')).toBe('tokenValido123');
+
+        expect(loginMock).toHaveBeenCalledWith('tokenValido123', { id: 1, nombre: 'Pepe' });
+    });
+
+    expect(toast.success).toHaveBeenCalledWith('Usuario registrado con éxito');
+
+    expect(navigateMock).toHaveBeenCalledWith('/');
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Usuario registrado con éxito');
+  })
+
+    it("Error en registro, muestra el toast de error y no navega", async () => {
+    registroUsuarioMock.mockRejectedValue({
+      response:{
+        data: { username: ['existente'], email: 'repetido'},
+      },
+    });
+
+    render(
+      <MemoryRouter>
+        <RegistroPage />
+      </MemoryRouter>
+    );
+
+    fireEvent.click(screen.getByTestId('submit-btn'));
 
     const expectedMsg = 'username: existente\nemail: repetido';
 
     await waitFor(() => {
-        expect(toast.error).toHaveBeenCalledWith(`No se pudo completar el registro:\n\n${expectedMsg}`)
-    })
+        expect(toast.error).toHaveBeenCalledWith(`No se pudo completar el registro:\n\n${expectedMsg}`);
+    });
 
-    expect(screen.getByRole('alert')).toHaveTextContent(/Error: username: existente\s+email: repetido/)
+    expect(screen.getByRole('alert')).toHaveTextContent(/Error: username: existente\s+email: repetido/);
     
-    expect(navigateMock).not.toHaveBeenCalled()
+    expect(navigateMock).not.toHaveBeenCalled();
   })
 })
