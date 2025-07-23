@@ -39,7 +39,7 @@ export default function FormularioInput({
         errors[campo.nombre] = "La contraseña debe tener al menos 8 caracteres";
       }
 
-      if (campo.nombre === "password2" && valor !== valores.password2) {
+      if (campo.nombre === "password2" && valor !== valores.password) {
         errors[campo.nombre] = "Las contraseñas no coinciden";
       }
     });

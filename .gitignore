@@ -169,3 +169,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# --- FRONTEND (React, Vite, Vitest) ---
+node_modules/
+dist/
+coverage/
+*.log
+.vite/
+.env.local
+.env.*.local
+.vitest/
+*.tsbuildinfo
+*.test.jsx.html
+*.test.js.html
