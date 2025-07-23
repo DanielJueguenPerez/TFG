@@ -37,6 +37,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # --Fronted
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run frontend tests with coverage
+        working-directory: ./frontend
+        run: npx vitest run --coverage --passWithNoTests
+
+      - name: Upload frontend coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage-html
+          path: frontend/coverage
+
+      # --Backend
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
