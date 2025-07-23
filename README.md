@@ -3,6 +3,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![Commits](https://img.shields.io/github/commit-activity/t/DanielJueguenPerez/TFG)](https://github.com/DanielJueguenPerez/TFG/commits)
 ![CoverageBackend](https://img.shields.io/badge/CoverageBackend-98%25-red)
+![CoverageFrontend](https://img.shields.io/badge/CoverageFrontend-97%25-purple)
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
 ---
@@ -243,6 +244,14 @@ Si se prefiere ejecutar las tareas de scraping y población de base de datos emu
 3. Instalar las dependencias del proyecto:
 
         npm install
+
+<h3 id="test">🛢️ Ejecución de los test</h3>
+
+1. Acceder a la carpeta /frontend.
+
+2. Ejecutar el siguiente comando:
+
+        npm run test
 
 <h3 id="arrancarfrontend">Instrucciones para arrancar el frontend de la aplicación</h3>
 
