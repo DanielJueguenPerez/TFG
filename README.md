@@ -268,7 +268,7 @@ Si se prefiere ejecutar las tareas de scraping y población de base de datos emu
 
 **Daniel Jueguen Pérez**  
 - GitHub: [DanielJueguenPerez](https://github.com/DanielJueguenPerez/)  
-- Email: d.jueguen@udc.es
+- Email: djueguen14@outlook.es
 
 <h2 id="licencia">⚖️ Licencia</h2>
 
